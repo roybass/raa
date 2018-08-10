@@ -1,15 +1,48 @@
 import { EField, EType } from './meta/consts';
 
-const Entities = [
-  {
-    name: 'person',
-    title: 'Person',
-    fields: [
+const Examples = {
+  Person: {
+    id: 1,
+    name: 'Roy',
+    birthday: new Date()
+  }
+};
+
+
+function exampleToEntity(name, example) {
+  return   {
+    name: name.toLowerCase(),
+    title: name,
+    fields: Object.keys(example).map((key) => {
+      const value = example[key];
+      const field = {name: key};
+      if (key.toLowerCase() === "id") {
+        field.disabled = true;
+      }
+      field.type = getType(value);
+      return field;
+    }),
+    fields2: [
       {name: 'id', label: 'Id', type: EType.Number, disabled: true},
       {name: 'name', label: 'Name', type: EType.String},
       {name: 'dob', label: 'Birthday', type: EType.Date}
     ]
-  },
+  }
+}
+
+function getType(value) {
+  if (value instanceof Date) {
+    return EType.Date;
+  }
+  if (typeof value === "string") {
+    return EType.String;
+  }
+  if (typeof value === "number") {
+    return EType.Number;
+  }
+}
+
+const Entities = [
   {
     name: "users",
     title: "Users",
@@ -30,6 +63,11 @@ const Entities = [
     ]
   }
 ];
+
+for (let key in Examples) {
+  Entities.push(exampleToEntity(key, Examples[key]));
+}
+
 
 function entityToModel(entity) {
   return {
