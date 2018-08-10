@@ -1,6 +1,7 @@
 import React from 'react';
-import {EInput} from '../meta/consts';
+import { EInput } from '../meta/consts';
 import {
+  ArrayInput,
   AutocompleteInput,
   BooleanInput,
   DateInput,
@@ -11,6 +12,7 @@ import {
   NumberInput,
   ReferenceInput,
   SelectInput,
+  SimpleFormIterator,
   TextInput
 } from 'react-admin';
 
@@ -51,6 +53,14 @@ function generateInput(input) {
           <ReferenceInput {...params}>
             {generateInput(params.display)}
           </ReferenceInput>);
+    case EInput.ArrayInput:
+      return (
+          <ArrayInput {...params}>
+            <SimpleFormIterator>
+              {input.fields.map(generateInput)}
+            </SimpleFormIterator>
+          </ArrayInput>
+      );
     default:
       throw new Error("Unknown input type " + input.type);
   }

@@ -4,7 +4,8 @@ const Examples = {
   Person: {
     id: 1,
     name: 'Roy',
-    birthday: new Date()
+    birthday: new Date(),
+    veggie: false
   }
 };
 
@@ -21,12 +22,7 @@ function exampleToEntity(name, example) {
       }
       field.type = getType(value);
       return field;
-    }),
-    fields2: [
-      {name: 'id', label: 'Id', type: EType.Number, disabled: true},
-      {name: 'name', label: 'Name', type: EType.String},
-      {name: 'dob', label: 'Birthday', type: EType.Date}
-    ]
+    })
   }
 }
 
@@ -40,6 +36,13 @@ function getType(value) {
   if (typeof value === "number") {
     return EType.Number;
   }
+  if (typeof value === "boolean") {
+    return EType.Boolean;
+  }
+  if (Array.isArray(value)) {
+    return EType.List;
+  }
+  throw new Error("Unknown value type for " + value);
 }
 
 const Entities = [
@@ -59,7 +62,10 @@ const Entities = [
     fields: [
       {name: "id", label: "Id", type: EType.String, disabled: true},
       {name: "title", label: "Title", type: EType.String},
-      {name: "body", label: "Body", type: EType.String}
+      {name: "body", label: "Body", type: EType.String},
+      {name: "likes", type: EType.List, fields: [
+        {name: "from", label: "From", type: EType.String}
+      ]}
     ]
   }
 ];
@@ -94,6 +100,9 @@ function convertToField(fieldData) {
   if (rest.display) {
     rest.display = convertToField(rest.display);
   }
+  if (rest.fields) {
+    rest.fields = rest.fields.map(convertToField)
+  }
   return {source: fieldData.name, type: fieldData.type.f, ...rest};
 }
 
@@ -103,6 +112,9 @@ function convertToInput(fieldData) {
   delete rest.type;
   if (rest.display) {
     rest.display = convertToInput(rest.display);
+  }
+  if (rest.fields) {
+    rest.fields = rest.fields.map(convertToInput);
   }
   return {source: fieldData.name, type: fieldData.type.i, ...rest};
 }
@@ -126,6 +138,6 @@ function assignKeys(obj) {
 const dynamicResources = Entities.map(entityToModel);
 assignKeys(dynamicResources);
 
-// console.log(dynamicResources);
+console.log(dynamicResources);
 
 export default dynamicResources;

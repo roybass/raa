@@ -1,7 +1,9 @@
-import {EField} from '../meta/consts';
+import { EField } from '../meta/consts';
 import React from 'react';
 import {
+  ArrayField,
   BooleanField,
+  Datagrid,
   DateField,
   EditButton,
   EmailField,
@@ -42,6 +44,13 @@ function generateField(field) {
       return (<UrlField {...field}/>);
     case EField.FunctionField:
       return (<FunctionField {...field}/>);
+    case EField.ArrayField:
+      return (
+          <ArrayField {...field}>
+            <Datagrid>
+              {field.fields.map(generateField)}
+            </Datagrid>
+          </ArrayField>);
     default:
       throw new Error("Unknown field type " + field.type);
   }

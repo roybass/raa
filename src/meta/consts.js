@@ -22,7 +22,8 @@ export const EField = {
   NumberField: "NumberField",
   SelectField: "SelectField",
   FunctionField: "FunctionField",
-  UrlField: "UrlField"
+  UrlField: "UrlField",
+  ArrayField: "ArrayField"
 };
 
 export const EInput = {
@@ -35,7 +36,8 @@ export const EInput = {
   DateInput: "DateInput",
   AutocompleteInput: "AutocompleteInput",
   ImageInput: "ImageInput",
-  ReferenceInput: "ReferenceInput"
+  ReferenceInput: "ReferenceInput",
+  ArrayInput: "ArrayInput"
 };
 
 export const EType = {
@@ -45,5 +47,6 @@ export const EType = {
   Text : { f: EField.TextField, i: EInput.LongTextInput},
   Date : { f: EField.DateField, i: EInput.DateInput},
   Select : { f: EField.SelectField, i: EInput.SelectInput},
-  Reference : { f: EField.ReferenceField, i: EInput.ReferenceInput}
+  Reference : { f: EField.ReferenceField, i: EInput.ReferenceInput},
+  List : { f: EField.ArrayField, i: EInput.ArrayInput}
 };
