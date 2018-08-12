@@ -11,7 +11,7 @@ const Examples = {
 
 
 function exampleToEntity(name, example) {
-  return   {
+  return {
     name: name.toLowerCase(),
     title: name,
     fields: Object.keys(example).map((key) => {
@@ -63,9 +63,11 @@ const Entities = [
       {name: "id", label: "Id", type: EType.String, disabled: true},
       {name: "title", label: "Title", type: EType.String},
       {name: "body", label: "Body", type: EType.String},
-      {name: "likes", type: EType.List, fields: [
+      {
+        name: "likes", type: EType.List, fields: [
         {name: "from", label: "From", type: EType.String}
-      ]}
+      ]
+      }
     ]
   }
 ];
@@ -119,25 +121,43 @@ function convertToInput(fieldData) {
   return {source: fieldData.name, type: fieldData.type.i, ...rest};
 }
 
+class DynamicResources {
 
-let key = 0;
-function assignKeys(obj) {
-  if (!obj) {
-    return;
+  constructor() {
+    this.resources = Entities.map(entityToModel);
+    this.updateListeners = [];
+    this.key = 0;
+
+    this.assignKeys(this.resources);
+    console.log(this.resources);
   }
-  if (typeof obj !== 'object') {
-    return;
+
+  onUpdate(f) {
+    if (typeof f === "function") {
+      this.updateListeners.push(f);
+    }
   }
-  obj.key = key++;
-  const keys = Object.keys(obj);
-  for (let key of keys) {
-    assignKeys(obj[key]);
+
+  update() {
+    for (let func of this.updateListeners) {
+      func();
+    }
   }
+
+  assignKeys(obj) {
+    if (!obj) {
+      return;
+    }
+    if (typeof obj !== 'object') {
+      return;
+    }
+    obj.key = this.key++;
+    const keys = Object.keys(obj);
+    for (let key of keys) {
+      this.assignKeys(obj[key]);
+    }
+  }
+
 }
 
-const dynamicResources = Entities.map(entityToModel);
-assignKeys(dynamicResources);
-
-console.log(dynamicResources);
-
-export default dynamicResources;
+export default new DynamicResources();
