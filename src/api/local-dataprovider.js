@@ -17,33 +17,55 @@ import {
 } from 'react-admin';
 import localDB from './localdb';
 
-function processRequest(type, resource, params) {
+class LocalDataProvider {
 
-  // console.log(type, ' ', resource, ' ', params);
+  constructor() {
+    this.updateListeners = [];
+  }
 
-  switch (type) {
-    case GET_LIST:
-      return localDB.getList(resource);
-    case GET_ONE:
-      return localDB.getOne(resource, params.id);
-    case CREATE:
-      return localDB.save(resource, params.data);
-    case UPDATE:
-      return localDB.save(resource, params.data);
-    case UPDATE_MANY:
-      throw new Error('Unsupported Operation ' + type);
-    case DELETE:
-      return localDB.deleteOne(resource, params.id);
-    case DELETE_MANY:
-      throw new Error('Unsupported Operation ' + type);
-    case GET_MANY:
-      const filteredList = localDB.getList(resource).data.filter((item) => params.ids.indexOf(item.id) >= 0);
-      return {data: filteredList};
-    case GET_MANY_REFERENCE:
-      throw new Error('Unsupported Operation ' + type);
-    default:
-      throw new Error(`Unsupported Data Provider request type ${type}`);
+  onUpdate(f) {
+    if (typeof f === "function") {
+      this.updateListeners.push(f);
+    }
+  }
+
+  update(resource, value) {
+    for (let func of this.updateListeners) {
+      func(resource, value);
+    }
+  }
+
+  withUpdate(resource, value) {
+    this.update(resource, value);
+    return value;
+  }
+
+  processRequest(type, resource, params) {
+    // console.log(type, ' ', resource, ' ', params);
+    switch (type) {
+      case GET_LIST:
+        return localDB.getList(resource);
+      case GET_ONE:
+        return localDB.getOne(resource, params.id);
+      case CREATE:
+        return this.withUpdate(resource, localDB.save(resource, params.data));
+      case UPDATE:
+        return this.withUpdate(resource, localDB.save(resource, params.data));
+      case UPDATE_MANY:
+        throw new Error('Unsupported Operation ' + type);
+      case DELETE:
+        return this.withUpdate(resource, localDB.deleteOne(resource, params.id));
+      case DELETE_MANY:
+        throw new Error('Unsupported Operation ' + type);
+      case GET_MANY:
+        const filteredList = localDB.getList(resource).data.filter((item) => params.ids.indexOf(item.id) >= 0);
+        return {data: filteredList};
+      case GET_MANY_REFERENCE:
+        throw new Error('Unsupported Operation ' + type);
+      default:
+        throw new Error(`Unsupported Data Provider request type ${type}`);
+    }
   }
 }
 
-export default processRequest;
+export default new LocalDataProvider();

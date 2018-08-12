@@ -12,18 +12,21 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {data: dynamicResources};
-    dynamicResources.onUpdate(() => {
-      this.setState({data: dynamicResources});
+    this.state = {dynamicResources};
+    mydataprovider.onUpdate((resource) => {
+      if (resource === 'entity') {
+        this.setState({dynamicResources});
+      }
     });
   }
 
   render() {
+    console.log('Rendering app');
     return (
-      <Admin dataProvider={mydataprovider} title="React Admin Admin">
-        {dynamicResources.resources.map((item) => generateResource(item)) }
-        <Resource name='Endpoint' {...endpointOperations}/>
-        <Resource name='Entity' {...entityOperations}/>
+      <Admin dataProvider={mydataprovider.processRequest.bind(mydataprovider)} title="React Admin Admin">
+        {this.state.dynamicResources.getResources().map((item) => generateResource(item)) }
+        <Resource name='endpoint' label='Endpoint' {...endpointOperations}/>
+        <Resource name='entity' label='Entity' {...entityOperations}/>
       </Admin>
     )
   };

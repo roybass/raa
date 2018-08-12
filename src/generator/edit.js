@@ -8,11 +8,11 @@ function generateEdit(editDef) {
   }
 
   return (props) => (
-      <Edit title={editDef.title} {...props}>
-        <SimpleForm>
-          {editDef.inputs.map((input) => generateInput(input))}
-        </SimpleForm>
-      </Edit>
+    <Edit title={editDef.title} {...props}>
+      <SimpleForm>
+        {editDef.inputs.map((input) => generateInput(input))}
+      </SimpleForm>
+    </Edit>
   )
 }
 

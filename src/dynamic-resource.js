@@ -1,4 +1,6 @@
 import { EField, EType } from './meta/consts';
+import localDB from './api/localdb';
+
 
 const Examples = {
   Person: {
@@ -45,54 +47,30 @@ function getType(value) {
   throw new Error("Unknown value type for " + value);
 }
 
-const Entities = [
-  {
-    name: "users",
-    title: "Users",
-    fields: [
-      {name: "id", label: "Id", type: EType.String, disabled: true},
-      {name: "name", label: "Name", type: EType.String},
-      {name: "username", label: "Username", type: EType.String},
-      {name: "email", label: "Email", type: EType.String}
-    ]
-  },
-  {
-    name: 'posts',
-    title: 'Posts',
-    fields: [
-      {name: "id", label: "Id", type: EType.String, disabled: true},
-      {name: "title", label: "Title", type: EType.String},
-      {name: "body", label: "Body", type: EType.String},
-      {
-        name: "likes", type: EType.List, fields: [
-        {name: "from", label: "From", type: EType.String}
-      ]
-      }
-    ]
-  }
-];
-
-for (let key in Examples) {
-  Entities.push(exampleToEntity(key, Examples[key]));
-}
-
-
 function entityToModel(entity) {
+  console.log('', entity);
   return {
-    name: entity.name,
+    name: entity.resourceName,
     list: {
       title: entity.title,
-      fields: entity.fields.map(convertToField).concat([{type: EField.EditButton}])
+      fields: convertToFields(entity.fields)
     },
     edit: {
       title: "Edit " + entity.title,
-      inputs: entity.fields.map(convertToInput)
+      inputs: convertToInputs(entity.fields)
     },
     create: {
       title: "Create New " + entity.title,
-      inputs: entity.fields.map(convertToInput)
+      inputs: convertToInputs(entity.fields)
     }
   }
+}
+
+function convertToFields(fieldDataArr) {
+  if (!fieldDataArr) {
+    return [];
+  }
+  return fieldDataArr.map(convertToField).concat([{type: EField.EditButton}]);
 }
 
 function convertToField(fieldData) {
@@ -105,7 +83,14 @@ function convertToField(fieldData) {
   if (rest.fields) {
     rest.fields = rest.fields.map(convertToField)
   }
-  return {source: fieldData.name, type: fieldData.type.f, ...rest};
+  return {source: fieldData.name, type: EType[fieldData.type].f, ...rest};
+}
+
+function convertToInputs(fieldDataArr) {
+  if (!fieldDataArr) {
+    return [];
+  }
+  return fieldDataArr.map(convertToInput);
 }
 
 function convertToInput(fieldData) {
@@ -118,30 +103,24 @@ function convertToInput(fieldData) {
   if (rest.fields) {
     rest.fields = rest.fields.map(convertToInput);
   }
-  return {source: fieldData.name, type: fieldData.type.i, ...rest};
+  return {source: fieldData.name, type: EType[fieldData.type].i, ...rest};
 }
 
 class DynamicResources {
 
   constructor() {
-    this.resources = Entities.map(entityToModel);
     this.updateListeners = [];
     this.key = 0;
 
     this.assignKeys(this.resources);
-    console.log(this.resources);
+    // console.log(this.resources);
   }
 
-  onUpdate(f) {
-    if (typeof f === "function") {
-      this.updateListeners.push(f);
-    }
-  }
-
-  update() {
-    for (let func of this.updateListeners) {
-      func();
-    }
+  getResources() {
+    const model = localDB.getList('entity').data.map(entityToModel);
+    this.assignKeys(model);
+    console.log('model = ', model);
+    return model;
   }
 
   assignKeys(obj) {

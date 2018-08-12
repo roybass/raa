@@ -8,11 +8,11 @@ function generateList(listDef) {
   }
 
   return (props) => (
-      <List key='list' title={listDef.title} {...props}>
-        <Datagrid>
-          {listDef.fields.map((field) => generateField(field))}
-        </Datagrid>
-      </List>
+    <List key='list' title={listDef.title} {...props}>
+      <Datagrid>
+        {listDef.fields.map((field) => generateField(field))}
+      </Datagrid>
+    </List>
   )
 }
 

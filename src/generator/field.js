@@ -25,9 +25,9 @@ function generateField(field) {
       return (<EmailField {...field}/>);
     case EField.ReferenceField:
       return (
-          <ReferenceField {...field}>
-            {generateField(field.display)}
-          </ReferenceField>);
+        <ReferenceField {...field}>
+          {generateField(field.display)}
+        </ReferenceField>);
     case EField.EditButton:
       return (<EditButton {...field}/>);
     case EField.BooleanField:
@@ -46,11 +46,11 @@ function generateField(field) {
       return (<FunctionField {...field}/>);
     case EField.ArrayField:
       return (
-          <ArrayField {...field}>
-            <Datagrid>
-              {field.fields.map(generateField)}
-            </Datagrid>
-          </ArrayField>);
+        <ArrayField {...field}>
+          <Datagrid>
+            {field.fields.map(generateField)}
+          </Datagrid>
+        </ArrayField>);
     default:
       throw new Error("Unknown field type " + field.type);
   }

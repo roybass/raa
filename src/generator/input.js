@@ -44,22 +44,22 @@ function generateInput(input) {
       return (<AutocompleteInput {...params}/>);
     case EInput.ImageInput:
       return (
-          <ImageInput {...params}>
-            <ImageField {...params.preview} />
-          </ImageInput>
+        <ImageInput {...params}>
+          <ImageField {...params.preview} />
+        </ImageInput>
       );
     case EInput.ReferenceInput:
       return (
-          <ReferenceInput {...params}>
-            {generateInput(params.display)}
-          </ReferenceInput>);
+        <ReferenceInput {...params}>
+          {generateInput(params.display)}
+        </ReferenceInput>);
     case EInput.ArrayInput:
       return (
-          <ArrayInput {...params}>
-            <SimpleFormIterator>
-              {input.fields.map(generateInput)}
-            </SimpleFormIterator>
-          </ArrayInput>
+        <ArrayInput {...params}>
+          <SimpleFormIterator>
+            {input.fields.map(generateInput)}
+          </SimpleFormIterator>
+        </ArrayInput>
       );
     default:
       throw new Error("Unknown input type " + input.type);

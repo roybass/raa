@@ -8,11 +8,11 @@ function generateCreate(createDef) {
   }
 
   return (props) => (
-      <Create title={createDef.title} {...props}>
-        <SimpleForm>
-          {createDef.inputs.map((input) => generateInput(input))}
-        </SimpleForm>
-      </Create>
+    <Create title={createDef.title} {...props}>
+      <SimpleForm>
+        {createDef.inputs.map((input) => generateInput(input))}
+      </SimpleForm>
+    </Create>
   )
 }
 
