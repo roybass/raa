@@ -35,6 +35,7 @@ const create = (props) => (
           <TextInput source='name' label='Name' placeholder='Field name'/>
           <TextInput source='label' label='Label' placeholder='For Display'/>
           <SelectInput source="type" label='Type' choices={typeChoices}/>
+          <BooleanInput source='required' label='Required'/>
           <BooleanInput source='disabled' label='Read Only'/>
         </SimpleFormIterator>
       </ArrayInput>
@@ -53,6 +54,7 @@ const edit = (props) => (
           <TextInput source='name' label='Name' placeholder='Field name'/>
           <TextInput source='label' label='Label' placeholder='For Display'/>
           <SelectInput source="type" label='Type' choices={typeChoices}/>
+          <BooleanInput source='required' label='Required'/>
           <BooleanInput source='disabled' label='Read Only'/>
         </SimpleFormIterator>
       </ArrayInput>

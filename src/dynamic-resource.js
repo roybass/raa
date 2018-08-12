@@ -1,6 +1,6 @@
 import { EField, EType } from './meta/consts';
 import localDB from './api/localdb';
-
+import { required } from 'react-admin';
 
 const Examples = {
   Person: {
@@ -83,6 +83,9 @@ function convertToField(fieldData) {
   if (rest.fields) {
     rest.fields = rest.fields.map(convertToField)
   }
+  if (rest.required === true) {
+    rest.validate = [required()];
+  }
   return {source: fieldData.name, type: EType[fieldData.type].f, ...rest};
 }
 
@@ -102,6 +105,9 @@ function convertToInput(fieldData) {
   }
   if (rest.fields) {
     rest.fields = rest.fields.map(convertToInput);
+  }
+  if (rest.required === true) {
+    rest.validate = [required()];
   }
   return {source: fieldData.name, type: EType[fieldData.type].i, ...rest};
 }
