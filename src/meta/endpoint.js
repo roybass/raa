@@ -80,7 +80,7 @@ function generateOperation(formData, rest) {
   }
 }
 
-export const ResourceCreate = (props) => (
+const create = (props) => (
     <Create {...props}>
       <SimpleForm>
         <TextInput source='title' label='Title'/>
@@ -93,7 +93,7 @@ export const ResourceCreate = (props) => (
     </Create>
 );
 
-export const ResourceEdit = (props) => (
+const edit = (props) => (
     <Edit {...props}>
       <SimpleForm>
         <DisabledInput source='id'/>
@@ -108,7 +108,7 @@ export const ResourceEdit = (props) => (
 );
 
 
-export const ResourceList = (props) => (
+const list = (props) => (
     <List {...props}>
       <Datagrid>
         <TextField source="title" label="Title"/>
@@ -120,3 +120,5 @@ export const ResourceList = (props) => (
       </Datagrid>
     </List>
 );
+
+export default {list, edit, create}

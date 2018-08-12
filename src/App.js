@@ -3,7 +3,7 @@ import dynamicResources from './dynamic-resource';
 import { Admin, Resource } from 'react-admin';
 import generateResource from './generator/resource';
 import mydataprovider from './api/local-dataprovider';
-import { ResourceCreate, ResourceEdit, ResourceList } from './meta/endpoint';
+import endpointOperations from './meta/endpoint';
 import entityOperations from './meta/entity';
 
 
@@ -22,7 +22,7 @@ class App extends React.Component {
     return (
       <Admin dataProvider={mydataprovider} title="React Admin Admin">
         {dynamicResources.resources.map((item) => generateResource(item)) }
-        <Resource name='Endpoint' create={ResourceCreate} edit={ResourceEdit} list={ResourceList}/>
+        <Resource name='Endpoint' {...endpointOperations}/>
         <Resource name='Entity' {...entityOperations}/>
       </Admin>
     )
