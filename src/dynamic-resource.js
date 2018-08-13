@@ -1,32 +1,32 @@
 import { EField, EType } from './meta/consts';
 import localDB from './api/localdb';
 import { required } from 'react-admin';
+/*
+ const Examples = {
+ Person: {
+ id: 1,
+ name: 'Roy',
+ birthday: new Date(),
+ veggie: false
+ }
+ };
 
-const Examples = {
-  Person: {
-    id: 1,
-    name: 'Roy',
-    birthday: new Date(),
-    veggie: false
-  }
-};
 
-
-function exampleToEntity(name, example) {
-  return {
-    name: name.toLowerCase(),
-    title: name,
-    fields: Object.keys(example).map((key) => {
-      const value = example[key];
-      const field = {name: key};
-      if (key.toLowerCase() === "id") {
-        field.disabled = true;
-      }
-      field.type = getType(value);
-      return field;
-    })
-  }
-}
+ function exampleToEntity(name, example) {
+ return {
+ name: name.toLowerCase(),
+ title: name,
+ fields: Object.keys(example).map((key) => {
+ const value = example[key];
+ const field = {name: key};
+ if (key.toLowerCase() === "id") {
+ field.disabled = true;
+ }
+ field.type = getType(value);
+ return field;
+ })
+ }
+ }
 
 function getType(value) {
   if (value instanceof Date) {
@@ -46,9 +46,9 @@ function getType(value) {
   }
   throw new Error("Unknown value type for " + value);
 }
+ */
 
 function entityToModel(entity) {
-  console.log('', entity);
   return {
     name: entity.resourceName,
     list: {
@@ -122,10 +122,12 @@ class DynamicResources {
     // console.log(this.resources);
   }
 
-  getResources() {
-    const model = localDB.getList('entity').data.map(entityToModel);
+  getResources(externalModel) {
+    externalModel = externalModel || {};
+    const mergedModel = Object.assign(localDB.getList('entity').data, externalModel.data);
+    const model = mergedModel.map(entityToModel);
     this.assignKeys(model);
-    console.log('model = ', model);
+    // console.log('model = ', model);
     return model;
   }
 

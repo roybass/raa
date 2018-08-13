@@ -8,15 +8,17 @@ import {
   DisabledInput,
   Edit,
   EditButton,
+  FormTab,
   List,
   NumberField,
   SelectInput,
-  SimpleForm,
   SimpleFormIterator,
+  TabbedForm,
   TextField,
   TextInput
 } from 'react-admin';
 
+import { EntityActions } from '../dashboard/entity-actions';
 
 function toIdAndName(someEnum) {
   return Object.keys(someEnum).map((item) => {
@@ -27,46 +29,57 @@ const typeChoices = toIdAndName(EType);
 
 const create = (props) => (
   <Create {...props}>
-    <SimpleForm>
-      <TextInput source='title' label='Title'/>
-      <TextInput source='resourceName' label='Resource Name'/>
-      <ArrayInput source='fields' label="Fields">
-        <SimpleFormIterator>
-          <TextInput source='name' label='Name' placeholder='Field name'/>
-          <TextInput source='label' label='Label' placeholder='For Display'/>
-          <SelectInput source="type" label='Type' choices={typeChoices}/>
-          <BooleanInput source='required' label='Required'/>
-          <BooleanInput source='disabled' label='Read Only'/>
-        </SimpleFormIterator>
-      </ArrayInput>
-    </SimpleForm>
+    <TabbedForm>
+      <FormTab label="Summary">
+        <TextInput source='title' label='Title'/>
+        <TextInput source='resourceName' label='Entity Name'/>
+        <TextInput source='endpoint' label='Base HTTP Endpoint'/>
+      </FormTab>
+      <FormTab label="Fields">
+        <ArrayInput source='fields' label="Fields">
+          <SimpleFormIterator>
+            <TextInput source='name' label='Name' placeholder='Field name'/>
+            <TextInput source='label' label='Label' placeholder='For Display'/>
+            <SelectInput source="type" label='Type' choices={typeChoices}/>
+            <BooleanInput source='required' label='Required'/>
+            <BooleanInput source='disabled' label='Read Only'/>
+          </SimpleFormIterator>
+        </ArrayInput>
+      </FormTab>
+    </TabbedForm>
   </Create>
 );
 
 const edit = (props) => (
   <Edit {...props}>
-    <SimpleForm>
-      <DisabledInput source='id' label='Id'/>
-      <TextInput source='title' label='Title'/>
-      <TextInput source='resourceName' label='Resource Name'/>
-      <ArrayInput source='fields' label="Fields">
-        <SimpleFormIterator>
-          <TextInput source='name' label='Name' placeholder='Field name'/>
-          <TextInput source='label' label='Label' placeholder='For Display'/>
-          <SelectInput source="type" label='Type' choices={typeChoices}/>
-          <BooleanInput source='required' label='Required'/>
-          <BooleanInput source='disabled' label='Read Only'/>
-        </SimpleFormIterator>
-      </ArrayInput>
-    </SimpleForm>
+    <TabbedForm>
+      <FormTab label="Summary">
+        <DisabledInput source='id' label='Id'/>
+        <TextInput source='title' label='Title'/>
+        <TextInput source='resourceName' label='Resource Name'/>
+        <TextInput source='endpoint' label='Base HTTP Endpoint'/>
+      </FormTab>
+      <FormTab label="Fields">
+        <ArrayInput source='fields' label="Fields">
+          <SimpleFormIterator>
+            <TextInput source='name' label='Name' placeholder='Field name'/>
+            <TextInput source='label' label='Label' placeholder='For Display'/>
+            <SelectInput source="type" label='Type' choices={typeChoices}/>
+            <BooleanInput source='required' label='Required'/>
+            <BooleanInput source='disabled' label='Read Only'/>
+          </SimpleFormIterator>
+        </ArrayInput>
+      </FormTab>
+    </TabbedForm>
   </Edit>
 );
 
 const list = (props) => (
-  <List {...props}>
+  <List {...props} actions={<EntityActions/>}>
     <Datagrid>
-      <TextField source="name" label="Name"/>
+      <TextField source="resourceName" label="Name"/>
       <TextField source="title" label="Title"/>
+      <TextField source='endpoint' label='Base HTTP Endpoint'/>
       <NumberField source="fields.length" label="Fields"/>
       <EditButton/>
     </Datagrid>
