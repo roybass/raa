@@ -56,7 +56,7 @@ class LocalDataProvider {
       case DELETE:
         return this.withUpdate(resource, localDB.deleteOne(resource, params.id));
       case DELETE_MANY:
-        throw new Error('Unsupported Operation ' + type);
+        return this.withUpdate(resource, localDB.deleteMany(resource, params.ids));
       case GET_MANY:
         const filteredList = localDB.getList(resource).data.filter((item) => params.ids.indexOf(item.id) >= 0);
         return {data: filteredList};

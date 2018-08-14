@@ -47,8 +47,18 @@ class LocalDB {
   }
 
   deleteOne(resource, id) {
+    const data = this.db[resource][id];
     delete this.db[resource][id];
     this.writeToStorage();
+    return {data};
+  }
+
+  deleteMany(resource, ids) {
+    for (let id of ids) {
+      delete this.db[resource][id];
+    }
+    this.writeToStorage();
+    return {data: ids};
   }
 }
 
