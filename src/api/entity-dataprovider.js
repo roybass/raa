@@ -8,7 +8,8 @@
 import simpleRestProvider from 'ra-data-simple-rest';
 import localDataProvider from './local-dataprovider';
 import localDB from './localdb';
-import { fetchUtils, CREATE, DELETE, DELETE_MANY, UPDATE, UPDATE_MANY } from 'react-admin';
+import { CREATE, DELETE, DELETE_MANY, UPDATE, UPDATE_MANY } from 'react-admin';
+
 
 class EntityDataProvider {
 
@@ -35,17 +36,9 @@ class EntityDataProvider {
     return value;
   }
 
-  _httpClient(url, options = {}) {
-    return fetchUtils.fetchJson(url, options).then((response) => {
-      console.log('response = ', response);
-      return response;
-    });
-  }
-
   getProvider(entity) {
-    console.log('entity=',entity);
     if (!this.entityToDataprovider[entity.name]) {
-      this.entityToDataprovider[entity.name] = simpleRestProvider(entity.endpoint, this._httpClient);
+      this.entityToDataprovider[entity.name] = simpleRestProvider(entity.endpoint);
     }
     return this.entityToDataprovider[entity.name];
   }
@@ -57,7 +50,7 @@ class EntityDataProvider {
     const entity = this._getEntity(resource);
     const dataProvider = this.getProvider(entity);
     if (this.operationsWithUpdate.indexOf(type) >= 0) {
-      return this.withUpdate(dataProvider(type, resource, params));
+      return this.withUpdate(resource, dataProvider(type, resource, params));
     }
     return dataProvider(type, resource, params);
   }

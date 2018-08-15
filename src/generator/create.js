@@ -9,7 +9,7 @@ function generateCreate(createDef) {
 
   return (props) => (
     <Create title={createDef.title} {...props}>
-      <SimpleForm>
+      <SimpleForm redirect="list">
         {createDef.inputs.map((input) => generateInput(input))}
       </SimpleForm>
     </Create>
