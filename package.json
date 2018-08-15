@@ -18,6 +18,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build-no-hash": "react-scripts build && ./removehash.sh",
+    "build-deploy" : "npm run build-no-hash && node deploy $URL",
     "test": "react-scripts test --env=jsdom"
+  },
+  "devDependencies": {
+    "ftp-deploy": "^2.1.2"
   }
 }
