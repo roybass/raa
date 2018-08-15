@@ -1,5 +1,5 @@
 import React from 'react';
-import { Datagrid, Filter, List } from 'react-admin';
+import { Filter } from 'react-admin';
 import generateInput from './input';
 
 function generateFilter(filtesrDef) {
