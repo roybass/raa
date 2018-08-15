@@ -4,7 +4,7 @@ import dynamicResources from './dynamic-resource';
 import { Admin, Resource } from 'react-admin';
 import generateResource from './generator/resource';
 import localdataprovider from './api/local-dataprovider';
-import entitydataprovider from './api/local-dataprovider';
+import entitydataprovider from './api/entity-dataprovider';
 import entityOperations from './meta/entity';
 
 
@@ -15,8 +15,8 @@ class App extends React.Component {
     super(props);
     this.raHide = window.raHide;
     this.raModel= window.raModel;
-    this.dataprovider = window.raHide ? entitydataprovider : localdataprovider;
-    this.title = 'this.raHide' ? 'Management App' : 'React Admin Admin';
+    this.dataprovider = this.raHide ? entitydataprovider : localdataprovider;
+    this.title = this.raHide ? 'Management App' : 'React Admin Admin';
   }
 
   render() {
