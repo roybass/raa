@@ -13,30 +13,18 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {dynamicResources};
+    this.raHide = window.raHide;
+    this.raModel= window.raModel;
     this.dataprovider = window.raHide ? entitydataprovider : localdataprovider;
-
-    this.dataprovider.onUpdate((resource) => {
-      if (resource === 'entity') {
-        this.setState({dynamicResources});
-      }
-    });
-  }
-
-  componentDidMount() {
-    this.setState({
-      raHide: window.raHide,
-      raModel: window.raModel
-    });
+    this.title = 'this.raHide' ? 'Management App' : 'React Admin Admin';
   }
 
   render() {
-    // console.log('Rendering app');
     return (
       <Admin dashboard={dashboard} dataProvider={this.dataprovider.processRequest.bind(this.dataprovider)}
-             title="React Admin Admin">
-        {this.state.dynamicResources.getResources(this.state.raModel).map((item) => generateResource(item)) }
-        {this.state.raHide ? (<span/>) : <Resource name='entity' label='Entity' {...entityOperations}/>}
+             title={this.title}>
+        {dynamicResources.getResources(this.raModel).map((item) => generateResource(item)) }
+        {this.raHide ? (<span/>) : <Resource name='entity' label='Entity' {...entityOperations}/>}
       </Admin>
     )
   };
