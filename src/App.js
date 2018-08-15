@@ -3,7 +3,7 @@ import dashboard from './dashboard/dashboard';
 import dynamicResources from './dynamic-resource';
 import { Admin, Resource } from 'react-admin';
 import generateResource from './generator/resource';
-import mydataprovider from './api/local-dataprovider';
+import mydataprovider from './api/entity-dataprovider';
 import entityOperations from './meta/entity';
 
 
