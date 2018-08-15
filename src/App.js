@@ -3,7 +3,8 @@ import dashboard from './dashboard/dashboard';
 import dynamicResources from './dynamic-resource';
 import { Admin, Resource } from 'react-admin';
 import generateResource from './generator/resource';
-import mydataprovider from './api/entity-dataprovider';
+import localdataprovider from './api/local-dataprovider';
+import entitydataprovider from './api/local-dataprovider';
 import entityOperations from './meta/entity';
 
 
@@ -13,7 +14,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {dynamicResources};
-    mydataprovider.onUpdate((resource) => {
+    this.dataprovider = window.raHide ? entitydataprovider : localdataprovider;
+
+    this.dataprovider.onUpdate((resource) => {
       if (resource === 'entity') {
         this.setState({dynamicResources});
       }
@@ -30,7 +33,7 @@ class App extends React.Component {
   render() {
     // console.log('Rendering app');
     return (
-      <Admin dashboard={dashboard} dataProvider={mydataprovider.processRequest.bind(mydataprovider)}
+      <Admin dashboard={dashboard} dataProvider={this.dataprovider.processRequest.bind(this.dataprovider)}
              title="React Admin Admin">
         {this.state.dynamicResources.getResources(this.state.raModel).map((item) => generateResource(item)) }
         {this.state.raHide ? (<span/>) : <Resource name='entity' label='Entity' {...entityOperations}/>}

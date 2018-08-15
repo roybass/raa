@@ -15,6 +15,8 @@ import {
   SimpleFormIterator,
   TabbedForm,
   TextField,
+  Filter,
+  NumberInput,
   TextInput
 } from 'react-admin';
 
@@ -74,8 +76,17 @@ const edit = (props) => (
   </Edit>
 );
 
+const ListFilters = (props) => (
+  <Filter {...props}>
+    <NumberInput source='id' label='Id'/>
+    <TextInput source='title' label='Title'/>
+    <TextInput source='resourceName' label='Resource Name' alwaysOn/>
+    <TextInput source='endpoint' label='Base HTTP Endpoint'/>
+  </Filter>
+);
+
 const list = (props) => (
-  <List {...props} actions={<EntityActions/>}>
+  <List {...props} actions={<EntityActions/>} filters={<ListFilters />}>
     <Datagrid>
       <TextField source="resourceName" label="Name"/>
       <TextField source="title" label="Title"/>

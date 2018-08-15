@@ -8,7 +8,7 @@
 import simpleRestProvider from 'ra-data-simple-rest';
 import localDataProvider from './local-dataprovider';
 import localDB from './localdb';
-import { CREATE, DELETE, DELETE_MANY, UPDATE, UPDATE_MANY } from 'react-admin';
+import { fetchUtils, CREATE, DELETE, DELETE_MANY, UPDATE, UPDATE_MANY } from 'react-admin';
 
 class EntityDataProvider {
 
@@ -35,10 +35,17 @@ class EntityDataProvider {
     return value;
   }
 
+  _httpClient(url, options = {}) {
+    return fetchUtils.fetchJson(url, options).then((response) => {
+      console.log('response = ', response);
+      return response;
+    });
+  }
+
   getProvider(entity) {
     console.log('entity=',entity);
     if (!this.entityToDataprovider[entity.name]) {
-      this.entityToDataprovider[entity.name] = simpleRestProvider(entity.endpoint);
+      this.entityToDataprovider[entity.name] = simpleRestProvider(entity.endpoint, this._httpClient);
     }
     return this.entityToDataprovider[entity.name];
   }
@@ -59,7 +66,6 @@ class EntityDataProvider {
     if (window.raHide) {
       return window.raModel.data.find((entity) => entity.resourceName === resource);
     }
-    console.log('', localDB.getList('entity').data);
     return localDB.getList('entity').data.find((entity) => entity.resourceName === resource);
   }
 }

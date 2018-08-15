@@ -62,6 +62,9 @@ function entityToModel(entity) {
     create: {
       title: "Create New " + entity.title,
       inputs: convertToInputs(entity.fields)
+    },
+    filters: {
+      fields: convertToInputs(entity.fields)
     }
   }
 }
