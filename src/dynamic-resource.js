@@ -64,7 +64,7 @@ function entityToModel(entity) {
       inputs: convertToInputs(entity.fields)
     },
     filters: {
-      fields: convertToInputs(entity.fields)
+      fields: convertToFilterInputs(entity.fields)
     }
   }
 }
@@ -114,6 +114,21 @@ function convertToInput(fieldData) {
   }
   return {source: fieldData.name, type: EType[fieldData.type].i, ...rest};
 }
+
+function convertToFilterInputs(fieldDataArr) {
+  if (!fieldDataArr) {
+    return [];
+  }
+  return fieldDataArr.map(convertToFilterInput);
+}
+
+function convertToFilterInput(fieldData) {
+  const rest = Object.assign({}, fieldData);
+  delete rest.name;
+  delete rest.type;
+  return {source: fieldData.name, type: EType[fieldData.type].i, ...rest};
+}
+
 
 class DynamicResources {
 
