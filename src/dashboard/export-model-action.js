@@ -15,6 +15,7 @@ const template = `
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
+  <link rel="shortcut icon" href="http://static-test.outbrain.com/raa/favicon.ico">
   <title>{{{title}}}</title>
   <link href="http://static-test.outbrain.com/raa/static/css/main.css" rel="stylesheet">
   </head>
@@ -23,6 +24,7 @@ const template = `
 <div id="root"></div>
 <script>
   window.raHide = true;
+  window.raTitle = '{{{title}}}'
   window.raModel = {{{model}}} ;
 </script>
 <script type="text/javascript" src="http://static-test.outbrain.com/raa/static/js/main.js"></script>
@@ -38,7 +40,6 @@ class ExportAppButton extends Component {
   }
 
   handleClick = () => {
-    console.log(this.props);
     this.props.showNotification('Exporting ' + this.props.resource);
     const view = {model: JSON.stringify(localDB.getList(this.props.resource), null, 2), title: 'Management App'};
     fileDownload(mustache.render(template, view), this.props.resource + '.html');

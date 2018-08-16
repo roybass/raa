@@ -21,7 +21,7 @@ function generateInput(input) {
   const params = Object.assign({}, input);
   delete params.type;
 
-  if (params.disabled) {
+  if (params.readOnly) {
     return (<DisabledInput {...params}/>);
   }
 

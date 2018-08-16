@@ -1,5 +1,4 @@
 import React from 'react';
-import dashboard from './dashboard/dashboard';
 import dynamicResources from './dynamic-resource';
 import { Admin, Resource } from 'react-admin';
 import generateResource from './generator/resource';
@@ -8,21 +7,21 @@ import entitydataprovider from './api/entity-dataprovider';
 import entityOperations from './meta/entity';
 
 
-// const dataProvider = jsonServerProvider('http://jsonplaceholder.typicode.com');
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.raHide = window.raHide;
-    this.raModel= window.raModel;
+    this.raModel = window.raModel;
+    this.raTitle = window.raTitle;
     this.dataprovider = this.raHide ? entitydataprovider : localdataprovider;
-    this.title = this.raHide ? 'Management App' : 'React Admin Admin';
+    this.title = this.raTitle ? this.raTitle : 'React Admin Admin';
+    //console.log(this.title);
   }
 
   render() {
     return (
-      <Admin dashboard={dashboard} dataProvider={this.dataprovider.processRequest.bind(this.dataprovider)}
-             title={this.title}>
+      <Admin dataProvider={this.dataprovider.processRequest.bind(this.dataprovider)} title={this.title}>
         {dynamicResources.getResources(this.raModel).map((item) => generateResource(item)) }
         {this.raHide ? (<span/>) : <Resource name='entity' label='Entity' {...entityOperations}/>}
       </Admin>
