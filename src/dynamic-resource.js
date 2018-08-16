@@ -1,5 +1,4 @@
 import { EField, EType } from './meta/consts';
-import localDB from './api/localdb';
 import { required } from 'react-admin';
 /*
  const Examples = {
@@ -28,24 +27,24 @@ import { required } from 'react-admin';
  }
  }
 
-function getType(value) {
-  if (value instanceof Date) {
-    return EType.Date;
-  }
-  if (typeof value === "string") {
-    return EType.String;
-  }
-  if (typeof value === "number") {
-    return EType.Number;
-  }
-  if (typeof value === "boolean") {
-    return EType.Boolean;
-  }
-  if (Array.isArray(value)) {
-    return EType.List;
-  }
-  throw new Error("Unknown value type for " + value);
-}
+ function getType(value) {
+ if (value instanceof Date) {
+ return EType.Date;
+ }
+ if (typeof value === "string") {
+ return EType.String;
+ }
+ if (typeof value === "number") {
+ return EType.Number;
+ }
+ if (typeof value === "boolean") {
+ return EType.Boolean;
+ }
+ if (Array.isArray(value)) {
+ return EType.List;
+ }
+ throw new Error("Unknown value type for " + value);
+ }
  */
 
 function entityToModel(entity) {
@@ -137,16 +136,12 @@ class DynamicResources {
     this.key = 0;
 
     this.assignKeys(this.resources);
-    // console.log(this.resources);
   }
 
-  getResources(externalModel) {
-    externalModel = externalModel || {};
-    const mergedModel = Object.assign(localDB.getList('entity').data, externalModel.data);
-    const model = mergedModel.map(entityToModel);
-    this.assignKeys(model);
-    // console.log('model = ', model);
-    return model;
+  getResources(model) {
+    const resources = model.data.map(entityToModel);
+    this.assignKeys(resources);
+    return resources;
   }
 
   assignKeys(obj) {

@@ -7,7 +7,7 @@
 
 import simpleRestProvider from 'ra-data-simple-rest';
 import localDataProvider from './local-dataprovider';
-import localDB from './localdb';
+import modelProvider from './modelprovider';
 import { CREATE, DELETE, DELETE_MANY, UPDATE, UPDATE_MANY } from 'react-admin';
 
 
@@ -56,10 +56,8 @@ class EntityDataProvider {
   }
 
   _getEntity(resource) {
-    if (window.raHide) {
-      return window.raModel.data.find((entity) => entity.resourceName === resource);
-    }
-    return localDB.getList('entity').data.find((entity) => entity.resourceName === resource);
+    return modelProvider.getModel().data
+      .find((entity) => entity.resourceName === resource);
   }
 }
 
