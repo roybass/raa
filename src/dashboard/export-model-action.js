@@ -24,7 +24,8 @@ const template = `
 <div id="root"></div>
 <script>
   window.raHide = true;
-  window.raTitle = '{{{title}}}'
+  window.raTitle = '{{{title}}}' // You can change this title.
+  window.raModelUrl = undefined; // Place a URL here to read the model from.
   window.raModel = {{{model}}} ;
 </script>
 <script type="text/javascript" src="http://static-test.outbrain.com/raa/static/js/main.js"></script>
