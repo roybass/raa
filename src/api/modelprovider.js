@@ -1,7 +1,7 @@
 import localDB from './localdb';
 import exampleModel from './example-model';
 
-const useExample = true;
+const useExample = false;
 
 
 class ModelProvider {
