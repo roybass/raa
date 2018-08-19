@@ -22,6 +22,11 @@ export default {
           "placeholder" : "Enter band biography here"
         },
         {
+          "name" : "active",
+          "type" : "Boolean",
+          "defaultValue" : true
+        },
+        {
           "name": "members",
           "type": "List",
           "fields": [
