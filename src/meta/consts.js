@@ -46,7 +46,7 @@ export const EType = {
   Boolean: {f: EField.BooleanField, i: EInput.BooleanInput},
   Text: {f: EField.TextField, i: EInput.LongTextInput},
   Date: {f: EField.DateField, i: EInput.DateInput},
-  Select: {f: EField.SelectField, i: EInput.SelectInput},
+  Select: {f: EField.TextField, i: EInput.SelectInput},
   Reference: {f: EField.ReferenceField, i: EInput.ReferenceInput},
   List: {f: EField.ArrayField, i: EInput.ArrayInput}
 };

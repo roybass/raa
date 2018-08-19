@@ -1,4 +1,8 @@
 import localDB from './localdb';
+import exampleModel from './example-model';
+
+const useExample = false;
+
 
 class ModelProvider {
   constructor() {
@@ -10,6 +14,9 @@ class ModelProvider {
   }
 
   resolveModel() {
+    if (useExample) {
+      return Promise.resolve(exampleModel);
+    }
     if (window.raModel) {
       console.log('Resolved model from window.raModel');
       return Promise.resolve(window.raModel);

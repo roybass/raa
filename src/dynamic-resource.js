@@ -72,7 +72,7 @@ function convertToFields(fieldDataArr) {
   if (!fieldDataArr) {
     return [];
   }
-  return fieldDataArr.map(convertToField).concat([{type: EField.EditButton}]);
+  return fieldDataArr.map(convertToField).concat([{ type: EField.EditButton }]);
 }
 
 function convertToField(fieldData) {
@@ -85,10 +85,15 @@ function convertToField(fieldData) {
   if (rest.fields) {
     rest.fields = rest.fields.map(convertToField)
   }
+  if (rest.choices) {
+    rest.choices = rest.choices.map(choice => {
+      return { id: choice, name: choice };
+    });
+  }
   if (rest.required === true) {
     rest.validate = [required()];
   }
-  return {source: fieldData.name, type: EType[fieldData.type].f, ...rest};
+  return { source: fieldData.name, type: EType[fieldData.type].f, ...rest };
 }
 
 function convertToInputs(fieldDataArr) {
@@ -108,24 +113,33 @@ function convertToInput(fieldData) {
   if (rest.fields) {
     rest.fields = rest.fields.map(convertToInput);
   }
+  if (rest.choices) {
+    rest.choices = rest.choices.map(choice => {
+      return { id: choice, name: choice };
+    });
+  }
+
   if (rest.required === true) {
     rest.validate = [required()];
   }
-  return {source: fieldData.name, type: EType[fieldData.type].i, ...rest};
+  return { source: fieldData.name, type: EType[fieldData.type].i, ...rest };
 }
 
 function convertToFilterInputs(fieldDataArr) {
   if (!fieldDataArr) {
     return [];
   }
-  return fieldDataArr.map(convertToFilterInput);
+  return fieldDataArr.filter(item => item.type !== 'List').map(convertToFilterInput);
 }
 
 function convertToFilterInput(fieldData) {
   const rest = Object.assign({}, fieldData);
   delete rest.name;
   delete rest.type;
-  return {source: fieldData.name, type: EType[fieldData.type].i, ...rest};
+  if (rest.display) {
+    rest.display = convertToInput(rest.display);
+  }
+  return { source: fieldData.name, type: EType[fieldData.type].i, ...rest };
 }
 
 
@@ -141,6 +155,7 @@ class DynamicResources {
   getResources(model) {
     const resources = model.data.map(entityToModel);
     this.assignKeys(resources);
+    console.log(resources);
     return resources;
   }
 

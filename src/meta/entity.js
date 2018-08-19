@@ -8,15 +8,15 @@ import {
   DisabledInput,
   Edit,
   EditButton,
+  Filter,
   FormTab,
   List,
   NumberField,
+  NumberInput,
   SelectInput,
   SimpleFormIterator,
   TabbedForm,
   TextField,
-  Filter,
-  NumberInput,
   TextInput
 } from 'react-admin';
 
@@ -24,7 +24,7 @@ import { EntityActions } from '../dashboard/entity-actions';
 
 function toIdAndName(someEnum) {
   return Object.keys(someEnum).map((item) => {
-    return {id: item, name: item}
+    return { id: item, name: item }
   });
 }
 const typeChoices = toIdAndName(EType);
@@ -97,4 +97,4 @@ const list = (props) => (
   </List>
 );
 
-export default {list, create, edit};
+export default { list, create, edit };
