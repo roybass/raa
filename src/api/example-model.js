@@ -29,11 +29,11 @@ export default {
               "required": true
             },
             {
-              "name" : "part",
-              "label" : "Part",
-              "type" : "Select",
-              "required" : true,
-              "choices" : ["Vocals", "Drums", "Bass", "Guitar", "Keyboard", "Violin"]
+              "name": "part",
+              "label": "Part",
+              "type": "Select",
+              "required": true,
+              "choices": ["Vocals", "Drums", "Bass", "Guitar", "Keyboard", "Violin"]
             }
           ]
         }
@@ -41,9 +41,9 @@ export default {
     },
     {
       "title": "Album",
-      "resourceName" : "album",
-      "endpoint" : "/album",
-      "fields" : [
+      "resourceName": "album",
+      "endpoint": "/album",
+      "fields": [
         {
           "name": "id",
           "label": "Id",
@@ -57,20 +57,20 @@ export default {
           "required": true
         },
         {
-          "name" : "band",
-          "label" : "Band",
-          "type" : "Reference",
+          "name": "band",
+          "label": "Band",
+          "type": "Reference",
           "reference": "band",
-          "display" : {
-            "name" : "name",
-            "type" : "Select",
+          "display": {
+            "name": "name",
+            "type": "Select",
             "optionText": "name"
           }
         },
         {
-          "name" : "publishDate",
-          "label" : "Publish Date",
-          "type" : "Date"
+          "name": "publishDate",
+          "label": "Publish Date",
+          "type": "Date"
         }
       ]
     }
