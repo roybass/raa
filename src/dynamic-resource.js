@@ -1,6 +1,12 @@
 import { EField, EType } from './meta/consts';
 import { required } from 'react-admin';
 
+function capitalize(str) {
+  if (!str) {
+    return;
+  }
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 function entityToModel(entity) {
   return {
@@ -34,6 +40,9 @@ function convertToField(fieldData) {
   const rest = Object.assign({}, fieldData);
   delete rest.name;
   delete rest.type;
+  if (!rest.label) {
+    rest.label = capitalize(rest.name);
+  }
   if (rest.display) {
     rest.display = convertToField(rest.display);
   }
@@ -63,6 +72,9 @@ function convertToInput(fieldData) {
   const rest = Object.assign({}, fieldData);
   delete rest.name;
   delete rest.type;
+  if (!rest.label) {
+    rest.label = capitalize(rest.name);
+  }
   if (rest.display) {
     rest.display = convertToInput(rest.display);
   }
@@ -93,6 +105,9 @@ function convertToFilterInput(fieldData) {
   const rest = Object.assign({}, fieldData);
   delete rest.name;
   delete rest.type;
+  if (!rest.label) {
+    rest.label = capitalize(rest.name);
+  }
   if (rest.display) {
     rest.display = convertToInput(rest.display);
   }
