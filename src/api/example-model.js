@@ -18,6 +18,12 @@ export default {
           "required": true
         },
         {
+          "name" : "bio",
+          "label" : "Bio",
+          "type" : "Text",
+          "placeholder" : "Enter band biography here"
+        },
+        {
           "name": "members",
           "label": "Members",
           "type": "List",
