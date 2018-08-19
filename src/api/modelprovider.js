@@ -1,8 +1,7 @@
 import localDB from './localdb';
-import exampleModel from './example-model';
+import { DyplomaModel } from './example-model';
 
-const useExample = false;
-
+const useExample = true;
 
 class ModelProvider {
   constructor() {
@@ -15,7 +14,7 @@ class ModelProvider {
 
   resolveModel() {
     if (useExample) {
-      return Promise.resolve(exampleModel);
+      return Promise.resolve(DyplomaModel);
     }
     if (window.raModel) {
       console.log('Resolved model from window.raModel');
@@ -23,8 +22,7 @@ class ModelProvider {
     }
     if (window.raModelUrl) {
       console.log('Resolving model from window.raModelUrl');
-      return fetch(window.raModelUrl)
-        .then((response) => response.json());
+      return fetch(window.raModelUrl).then((response) => response.json());
     }
     console.log('Resolving model from LocalStorage');
     return Promise.resolve(localDB.getList('entity'));

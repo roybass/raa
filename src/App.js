@@ -13,7 +13,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.hide = window.raHide;
-    this.dataprovider = this.raHide ? entitydataprovider : localdataprovider;
+    this.dataprovider = this.hide ? entitydataprovider : localdataprovider;
     this.title = window.raTitle ? window.raTitle : 'React Admin Admin';
 
     this.state = {

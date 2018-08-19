@@ -1,4 +1,135 @@
-export default {
+const DyplomaModel = {
+  "data": [
+    {
+      title: "Service",
+      resourceName: "service",
+      endpoint: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services",
+      customEndpoints: {
+        list: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services/find/limit/{{limit}}/offset/{{offset}}" },
+        get: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services/{{id}}", method: "GET" },
+        create: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services/", method: "POST" },
+        update: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services/", method: "PUT" },
+        getBy: {
+          name: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services/name/like/{{name}}" },
+          owner: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services/owner/{{owner}}" }
+        }
+      },
+      fields: [
+        {
+          name: "id",
+          type: "Number",
+          readOnly: true
+        },
+        {
+          name: "name",
+          type: "String",
+          required: true
+        },
+        {
+          name: "owner",
+          type: "String",
+          required: true
+        },
+        {
+          name: "serviceType",
+          type: "Select",
+          required: true,
+          choices: ["ob1k", "sage", "zemanta"]
+        },
+        {
+          name: "external",
+          type: "Boolean",
+          defaultValue: false
+        },
+        {
+          name: "antiAffinity",
+          type: "Boolean",
+          defaultValue: false
+        },
+        {
+          name: "externalPort",
+          label: "External Port",
+          type: "Number",
+          defaultValue: 0
+        },
+        {
+          name: "creationTimestamp",
+          type: "Date",
+          readOnly: true
+        },
+        {
+          label: "Deployments",
+          type: "ReferenceMany",
+          reference: "deployment",
+          target: "serviceId",
+          display: {
+            name: "name",
+            type: "Chip"
+          }
+        }
+      ]
+    },
+    {
+      title: "Deployment",
+      resourceName: "deployment",
+      endpoint: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments",
+      customEndpoints: {
+        list: {
+          url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments/find/limit/{{limit}}/offset/{{offset}}",
+          method: "GET"
+        },
+        get: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments/{{id}}", method: "GET" },
+        create: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments/", method: "POST" },
+        update: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments/", method: "PUT" },
+        getBy: {
+          serviceId: {
+            url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments/service/{{id}}",
+            method: "GET"
+          }
+        }
+      },
+      fields: [
+        {
+          name: "id",
+          type: "Number",
+          readOnly: true
+        },
+        {
+          name: "name",
+          type: "String",
+          required: true
+        },
+        {
+          name: "extraTag",
+          type: "String"
+        },
+        {
+          name: "external",
+          type: "Boolean",
+          defaultValue: false
+        },
+        {
+          name: "creationTimestamp",
+          type: "Date",
+          readOnly: true
+        },
+        {
+          name: "serviceId",
+          type: "Reference",
+          reference: "service",
+          display: {
+            name: "name",
+            type: "Select",
+            optionText: "name"
+          }
+        }
+      ]
+    }
+  ]
+};
+
+
+const BandsModel = {
   data: [
     {
       "title": "Band",
@@ -16,15 +147,15 @@ export default {
           "required": true
         },
         {
-          "name" : "bio",
-          "label" : "Biography",
-          "type" : "Text",
-          "placeholder" : "Enter band biography here"
+          "name": "bio",
+          "label": "Biography",
+          "type": "Text",
+          "placeholder": "Enter band biography here"
         },
         {
-          "name" : "active",
-          "type" : "Boolean",
-          "defaultValue" : true
+          "name": "active",
+          "type": "Boolean",
+          "defaultValue": true
         },
         {
           "name": "members",
@@ -44,11 +175,11 @@ export default {
           ]
         },
         {
-          "label" : "Albums",
+          "label": "Albums",
           "type": "ReferenceMany",
-          "reference" : "album",
-          "target" : "band",
-          "display" : {
+          "reference": "album",
+          "target": "band",
+          "display": {
             "name": "name",
             "type": "Chip"
           }
@@ -89,3 +220,6 @@ export default {
     }
   ]
 };
+
+export { BandsModel, DyplomaModel }
+

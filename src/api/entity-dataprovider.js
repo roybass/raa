@@ -5,7 +5,7 @@
  */
 
 
-import simpleRestProvider from 'ra-data-simple-rest';
+import customDataProvider from './customizable-dataprovider';
 import localDataProvider from './local-dataprovider';
 import modelProvider from './modelprovider';
 import { CREATE, DELETE, DELETE_MANY, UPDATE, UPDATE_MANY } from 'react-admin';
@@ -38,7 +38,7 @@ class EntityDataProvider {
 
   getProvider(entity) {
     if (!this.entityToDataprovider[entity.name]) {
-      this.entityToDataprovider[entity.name] = simpleRestProvider(entity.endpoint);
+      this.entityToDataprovider[entity.name] = customDataProvider.processRequest;
     }
     return this.entityToDataprovider[entity.name];
   }
@@ -47,17 +47,20 @@ class EntityDataProvider {
     if (resource === 'entity') {
       return localDataProvider.processRequest(type, resource, params);
     }
-    const entity = this._getEntity(resource);
-    const dataProvider = this.getProvider(entity);
-    if (this.operationsWithUpdate.indexOf(type) >= 0) {
-      return this.withUpdate(resource, dataProvider(type, resource, params));
-    }
-    return dataProvider(type, resource, params);
+    return this._getEntity(resource).then(entity => {
+      const dataProvider = this.getProvider(entity);
+      if (this.operationsWithUpdate.indexOf(type) >= 0) {
+        return this.withUpdate(resource, dataProvider(type, resource, params));
+      }
+      return dataProvider(type, resource, params);
+    });
   }
 
   _getEntity(resource) {
-    return modelProvider.getModel().data
-      .find((entity) => entity.resourceName === resource);
+    return modelProvider.getModel().then(model => {
+        return model.data.find((entity) => entity.resourceName === resource);
+      }
+    );
   }
 }
 
