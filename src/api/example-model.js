@@ -5,13 +5,14 @@ const DyplomaModel = {
       resourceName: "service",
       endpoint: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services",
       customEndpoints: {
-        list: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services/find/limit/{{limit}}/offset/{{offset}}" },
-        get: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services/{{id}}", method: "GET" },
-        create: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services/", method: "POST" },
-        update: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services/", method: "PUT" },
+        baseUrl : "http://dyploma.outbrain.com:8080/DyPloMa/api/v1",
+        list: { url: "/services/find/limit/{{limit}}/offset/{{offset}}" },
+        get: { url: "/services/{{id}}", method: "GET" },
+        create: { url: "/services/", method: "POST" },
+        update: { url: "/services/", method: "PUT" },
         getBy: {
-          name: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services/name/like/{{name}}" },
-          owner: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services/owner/{{owner}}" }
+          name: { url: "/services/name/like/{{name}}" },
+          owner: { url: "/services/owner/{{owner}}" }
         }
       },
       fields: [
@@ -74,18 +75,12 @@ const DyplomaModel = {
       resourceName: "deployment",
       endpoint: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments",
       customEndpoints: {
-        list: {
-          url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments/find/limit/{{limit}}/offset/{{offset}}",
-          method: "GET"
-        },
+        list: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments/find/limit/{{limit}}/offset/{{offset}}" },
         get: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments/{{id}}", method: "GET" },
         create: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments/", method: "POST" },
         update: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments/", method: "PUT" },
         getBy: {
-          serviceId: {
-            url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments/service/{{id}}",
-            method: "GET"
-          }
+          serviceId: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments/service/{{id}}" }
         }
       },
       fields: [

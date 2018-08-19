@@ -24,18 +24,18 @@ class CustomizableDataProvider {
       if (entity.customEndpoints) {
         const endpointDef = this.getCustomEndpoint(type, entity, params);
         if (endpointDef) {
-          return this.runCustomEndpoint(endpointDef, type, params);
+          return this.runCustomEndpoint(endpointDef, entity, params);
         }
       }
       return simpleRestProvider(entity.endpoint)(type, resource, params);
     });
   }
 
-  runCustomEndpoint(endpointDef, type, params) {
+  runCustomEndpoint(endpointDef, entity, params) {
 
-    const url = this.buildCustomUrl(endpointDef, params);
+    const url = this.buildCustomUrl(endpointDef, entity, params);
     const body = this.getBody(params);
-    const headers = this.getHeaders(type, params);
+    const headers = this.getHeaders(params);
     const method = endpointDef.method || "GET";
     const req = new Request(url, { method, body, headers });
 
@@ -48,29 +48,32 @@ class CustomizableDataProvider {
     return JSON.stringify(params.data);
   }
 
-  getHeaders(type, params) {
+  getHeaders(params) {
     return {
       'Content-Type': 'application/json'
     };
   }
 
-  buildCustomUrl(endpoint, params) {
+  buildCustomUrl(endpoint, entity, params) {
+
     let view = {
       limit: this._getLimit(params),
       offset: this._getOffset(params),
       id: params.id
     };
     view = Object.assign(view, endpoint.params);
-    return mustache.render(endpoint.url, view);
+    const endpointUrl = (entity.customEndpoints.baseUrl || '')  + endpoint.url;
+    return mustache.render(endpointUrl, view);
   }
 
   getCustomEndpoint(type, entity, params) {
+    const { customEndpoints }  = entity;
     switch (type) {
       case GET_LIST:
-        if (params.filter && entity.customEndpoints.getBy) {
+        if (params.filter && customEndpoints.getBy) {
           for (let filterKey in params.filter) {
-            if (params.filter.hasOwnProperty(filterKey) && entity.customEndpoints.getBy.hasOwnProperty(filterKey)) {
-              const by = entity.customEndpoints.getBy[filterKey];
+            if (params.filter.hasOwnProperty(filterKey) && customEndpoints.getBy.hasOwnProperty(filterKey)) {
+              const by = customEndpoints.getBy[filterKey];
               return {
                 url: by.url,
                 method: by.method,
@@ -82,17 +85,17 @@ class CustomizableDataProvider {
             }
           }
         }
-        return entity.customEndpoints.list;
+        return customEndpoints.list;
       case GET_ONE:
-        return entity.customEndpoints.get;
+        return customEndpoints.get;
       case UPDATE:
-        return entity.customEndpoints.update;
+        return customEndpoints.update;
       case CREATE:
-        return entity.customEndpoints.create;
+        return customEndpoints.create;
       case GET_MANY:
-        return Object.assign({ params: { offset: 0, limit: 1000 } }, entity.customEndpoints.list);
+        return Object.assign({ params: { offset: 0, limit: 1000 } }, customEndpoints.list);
       case GET_MANY_REFERENCE:
-        return entity.customEndpoints.getBy ? entity.customEndpoints.getBy[params.target] : null;
+        return customEndpoints.getBy ? customEndpoints.getBy[params.target] : null;
       default:
         console.log('Operation not supported ', type, entity);
         return;
