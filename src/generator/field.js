@@ -11,7 +11,10 @@ import {
   ImageField,
   NumberField,
   ReferenceField,
+  ReferenceManyField,
+  SingleFieldList,
   SelectField,
+  ChipField,
   TextField,
   UrlField
 } from 'react-admin';
@@ -21,6 +24,8 @@ function generateField(field) {
   switch (field.type) {
     case EField.TextField:
       return (<TextField {...field}/>);
+    case EField.ChipField:
+      return (<ChipField {...field}/>);
     case EField.EmailField:
       return (<EmailField {...field}/>);
     case EField.ReferenceField:
@@ -51,6 +56,14 @@ function generateField(field) {
             {field.fields.map(generateField)}
           </Datagrid>
         </ArrayField>);
+    case EField.ReferenceMany:
+      return (
+        <ReferenceManyField {...field}>
+          <SingleFieldList>
+            {generateField(field.display)}
+          </SingleFieldList>
+        </ReferenceManyField>
+      );
     default:
       throw new Error("Unknown field type " + field.type);
   }

@@ -36,6 +36,16 @@ export default {
               "choices": ["Vocals", "Drums", "Bass", "Guitar", "Keyboard", "Violin"]
             }
           ]
+        },
+        {
+          "label" : "Albums",
+          "type": "ReferenceMany",
+          "reference" : "album",
+          "target" : "band",
+          "display" : {
+            "name": "name",
+            "type": "Chip"
+          }
         }
       ]
     },

@@ -1,51 +1,6 @@
 import { EField, EType } from './meta/consts';
 import { required } from 'react-admin';
-/*
- const Examples = {
- Person: {
- id: 1,
- name: 'Roy',
- birthday: new Date(),
- veggie: false
- }
- };
 
-
- function exampleToEntity(name, example) {
- return {
- name: name.toLowerCase(),
- title: name,
- fields: Object.keys(example).map((key) => {
- const value = example[key];
- const field = {name: key};
- if (key.toLowerCase() === "id") {
- field.disabled = true;
- }
- field.type = getType(value);
- return field;
- })
- }
- }
-
- function getType(value) {
- if (value instanceof Date) {
- return EType.Date;
- }
- if (typeof value === "string") {
- return EType.String;
- }
- if (typeof value === "number") {
- return EType.Number;
- }
- if (typeof value === "boolean") {
- return EType.Boolean;
- }
- if (Array.isArray(value)) {
- return EType.List;
- }
- throw new Error("Unknown value type for " + value);
- }
- */
 
 function entityToModel(entity) {
   return {
@@ -96,11 +51,12 @@ function convertToField(fieldData) {
   return { source: fieldData.name, type: EType[fieldData.type].f, ...rest };
 }
 
+const noInputFields = ['ReferenceMany'];
 function convertToInputs(fieldDataArr) {
   if (!fieldDataArr) {
     return [];
   }
-  return fieldDataArr.map(convertToInput);
+  return fieldDataArr.filter(item => noInputFields.indexOf(item.type) === -1).map(convertToInput);
 }
 
 function convertToInput(fieldData) {
@@ -125,11 +81,12 @@ function convertToInput(fieldData) {
   return { source: fieldData.name, type: EType[fieldData.type].i, ...rest };
 }
 
+const noFilterFields = ['List', 'ReferenceMany'];
 function convertToFilterInputs(fieldDataArr) {
   if (!fieldDataArr) {
     return [];
   }
-  return fieldDataArr.filter(item => item.type !== 'List').map(convertToFilterInput);
+  return fieldDataArr.filter(item => noFilterFields.indexOf(item.type) === -1).map(convertToFilterInput);
 }
 
 function convertToFilterInput(fieldData) {

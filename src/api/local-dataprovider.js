@@ -61,7 +61,8 @@ class LocalDataProvider {
         const filteredList = localDB.getList(resource).data.filter((item) => params.ids.indexOf(item.id) >= 0);
         return {data: filteredList};
       case GET_MANY_REFERENCE:
-        throw new Error('Unsupported Operation ' + type);
+        const refList = localDB.getList(resource).data.filter((item) => item[params.target] === params.id);
+        return {data: refList, total: refList.length};
       default:
         throw new Error(`Unsupported Data Provider request type ${type}`);
     }

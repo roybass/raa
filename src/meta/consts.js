@@ -14,6 +14,7 @@ export const Method = {
 
 export const EField = {
   TextField: "TextField",
+  ChipField: "ChipField",
   EmailField: "EmailField",
   ReferenceField: "ReferenceField",
   EditButton: "EditButton",
@@ -23,7 +24,8 @@ export const EField = {
   SelectField: "SelectField",
   FunctionField: "FunctionField",
   UrlField: "UrlField",
-  ArrayField: "ArrayField"
+  ArrayField: "ArrayField",
+  ReferenceMany: "ReferenceMany"
 };
 
 export const EInput = {
@@ -46,7 +48,9 @@ export const EType = {
   Boolean: {f: EField.BooleanField, i: EInput.BooleanInput},
   Text: {f: EField.TextField, i: EInput.LongTextInput},
   Date: {f: EField.DateField, i: EInput.DateInput},
+  Chip: {f: EField.ChipField, i: EInput.TextInput},
   Select: {f: EField.TextField, i: EInput.SelectInput},
   Reference: {f: EField.ReferenceField, i: EInput.ReferenceInput},
-  List: {f: EField.ArrayField, i: EInput.ArrayInput}
+  List: {f: EField.ArrayField, i: EInput.ArrayInput},
+  ReferenceMany: {f: EField.ReferenceMany, i: EInput.TextInput}
 };
