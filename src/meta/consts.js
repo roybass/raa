@@ -43,14 +43,14 @@ export const EInput = {
 };
 
 export const EType = {
-  String: {f: EField.TextField, i: EInput.TextInput},
-  Number: {f: EField.NumberField, i: EInput.NumberInput},
-  Boolean: {f: EField.BooleanField, i: EInput.BooleanInput},
-  Text: {f: EField.TextField, i: EInput.LongTextInput},
-  Date: {f: EField.DateField, i: EInput.DateInput},
-  Chip: {f: EField.ChipField, i: EInput.TextInput},
-  Select: {f: EField.TextField, i: EInput.SelectInput},
-  Reference: {f: EField.ReferenceField, i: EInput.ReferenceInput},
-  List: {f: EField.ArrayField, i: EInput.ArrayInput},
-  ReferenceMany: {f: EField.ReferenceMany, i: EInput.TextInput}
+  string: {f: EField.TextField, i: EInput.TextInput},
+  number: {f: EField.NumberField, i: EInput.NumberInput},
+  boolean: {f: EField.BooleanField, i: EInput.BooleanInput},
+  text: {f: EField.TextField, i: EInput.LongTextInput},
+  date: {f: EField.DateField, i: EInput.DateInput},
+  chip: {f: EField.ChipField, i: EInput.TextInput},
+  select: {f: EField.TextField, i: EInput.SelectInput},
+  reference: {f: EField.ReferenceField, i: EInput.ReferenceInput},
+  list: {f: EField.ArrayField, i: EInput.ArrayInput},
+  referencemany: {f: EField.ReferenceMany, i: EInput.TextInput}
 };
