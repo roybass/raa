@@ -40,7 +40,7 @@ class CustomizableDataProvider {
     const req = new Request(url, { method, body, headers });
 
     return fetch(req).then(res => res.json()).then(data => {
-      return { data, total: data.length };
+      return { data, total: 1000 };
     });
   }
 
