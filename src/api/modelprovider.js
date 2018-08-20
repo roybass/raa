@@ -5,11 +5,18 @@ const useExample = false;
 
 class ModelProvider {
   constructor() {
-    this.modelP = this.resolveModel();
+    this.modelP = this.resolveModel().then(model => {
+      this.model = model;
+      return model;
+    });
   }
 
   getModel() {
     return this.modelP;
+  }
+
+  getModelSync() { // Dangerous. This could be undefined and update later.
+    return this.model;
   }
 
   resolveModel() {

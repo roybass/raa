@@ -1,5 +1,8 @@
 const DyplomaModel = {
-  "data": [
+  authentication : {
+    url: "http://dyploma.outbrain.com:8080/DyPloMa/auth"
+  },
+  data: [
     {
       title: "Service",
       resourceName: "service",

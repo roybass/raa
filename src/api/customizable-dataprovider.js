@@ -6,6 +6,7 @@
 
 
 import simpleRestProvider from 'ra-data-simple-rest';
+import authProvider from './authProvider';
 import modelProvider from './modelprovider';
 import mustache from 'mustache';
 import { CREATE, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE } from 'react-admin';
@@ -13,13 +14,12 @@ import { CREATE, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE } from 
 
 class CustomizableDataProvider {
 
-
   constructor() {
     this.processRequest = this.processRequest.bind(this);
   }
 
   processRequest(type, resource, params) {
-    console.log('Processing ', type, resource, params);
+    // console.log('Processing ', type, resource, params);
     return this._getEntity(resource).then(entity => {
       if (entity.customEndpoints) {
         const endpointDef = this.getCustomEndpoint(type, entity, params);
@@ -27,7 +27,7 @@ class CustomizableDataProvider {
           return this.runCustomEndpoint(endpointDef, entity, params);
         }
       }
-      return simpleRestProvider(entity.endpoint)(type, resource, params);
+      return simpleRestProvider(entity.endpoint, authProvider.getHttpClient())(type, resource, params);
     });
   }
 
@@ -37,10 +37,10 @@ class CustomizableDataProvider {
     const body = this.getBody(params);
     const headers = this.getHeaders(params);
     const method = endpointDef.method || "GET";
-    const req = new Request(url, { method, body, headers });
 
-    return fetch(req).then(res => res.json()).then(data => {
-      return { data, total: 1000 };
+    const client = authProvider.getHttpClient();
+    return client(url, { method, body, headers }).then(data => {
+      return { data: data.json, total: 1000 };
     });
   }
 
@@ -49,9 +49,9 @@ class CustomizableDataProvider {
   }
 
   getHeaders(params) {
-    return {
+    return new Headers({
       'Content-Type': 'application/json'
-    };
+    });
   }
 
   buildCustomUrl(endpoint, entity, params) {
@@ -114,10 +114,9 @@ class CustomizableDataProvider {
     }
   }
 
-
   _getEntity(resource) {
     return modelProvider.getModel().then(model => {
-        console.log('data', model, resource);
+        // console.log('data', model, resource);
         return model.data.find((entity) => entity.resourceName === resource);
       }
     );

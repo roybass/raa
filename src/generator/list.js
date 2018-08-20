@@ -14,12 +14,12 @@ const ArrowsPagination = ({ page, perPage, total, setPage }) => {
     nbPages > 1 &&
     <Toolbar>
       {page > 1 &&
-      <Button primary key="prev" icon={<ChevronLeft />} onClick={() => setPage(page - 1)}>
+      <Button key="prev" icon={<ChevronLeft />} onClick={() => setPage(page - 1)}>
         Prev
       </Button>
       }
       {page !== nbPages &&
-      <Button primary key="next" icon={<ChevronRight />} onClick={() => setPage(page + 1)} labelPosition="before">
+      <Button key="next" icon={<ChevronRight />} onClick={() => setPage(page + 1)}>
         Next
       </Button>
       }

@@ -6,7 +6,7 @@ import localdataprovider from './api/local-dataprovider';
 import entitydataprovider from './api/entity-dataprovider';
 import modelProvider from './api/modelprovider';
 import entityOperations from './meta/entity';
-
+import AuthProvider from './api/authProvider';
 
 class App extends React.Component {
 
@@ -40,7 +40,7 @@ class App extends React.Component {
       return (<div>Loading...</div>);
     }
     return (
-      <Admin dataProvider={this.dataprovider.processRequest.bind(this.dataprovider)} title={this.title}>
+      <Admin authProvider={AuthProvider.provide()} dataProvider={this.dataprovider.processRequest.bind(this.dataprovider)} title={this.title}>
         {dynamicResources.getResources(this.state.model).map((item) => generateResource(item)) }
         {this.hide ? (<span/>) : <Resource name='entity' label='Entity' {...entityOperations}/>}
       </Admin>
