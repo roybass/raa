@@ -54,7 +54,7 @@ function convertToField(fieldData) {
       return { id: choice, name: choice };
     });
   }
-  if (rest.required === true) {
+  if (!rest.readOnly && rest.required === true) {
     rest.validate = [required()];
   }
   return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].f, ...rest };
@@ -87,7 +87,7 @@ function convertToInput(fieldData) {
     });
   }
 
-  if (rest.required === true) {
+  if (!rest.readOnly && rest.required === true) {
     rest.validate = [required()];
   }
   return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].i, ...rest };
@@ -127,7 +127,6 @@ class DynamicResources {
   getResources(model) {
     const resources = model.data.map(entityToModel);
     this.assignKeys(resources);
-    console.log(resources);
     return resources;
   }
 
@@ -144,7 +143,6 @@ class DynamicResources {
       this.assignKeys(obj[key]);
     }
   }
-
 }
 
 export default new DynamicResources();
