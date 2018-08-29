@@ -60,7 +60,7 @@ function convertToField(fieldData) {
   return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].f, ...rest };
 }
 
-const noInputFields = ['ReferenceMany'];
+const noInputFields = [];//['ReferenceMany'];
 function convertToInputs(fieldDataArr) {
   if (!fieldDataArr) {
     return [];
@@ -69,6 +69,9 @@ function convertToInputs(fieldDataArr) {
 }
 
 function convertToInput(fieldData) {
+  if (fieldData.type.toLowerCase() === "referencemany") {
+    return convertToField(fieldData);
+  }
   const rest = Object.assign({}, fieldData);
   delete rest.name;
   delete rest.type;
@@ -127,6 +130,7 @@ class DynamicResources {
   getResources(model) {
     const resources = model.data.map(entityToModel);
     this.assignKeys(resources);
+    console.log(resources);
     return resources;
   }
 

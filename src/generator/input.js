@@ -1,5 +1,6 @@
 import React from 'react';
 import { EInput } from '../meta/consts';
+import generateField from './field';
 import {
   ArrayInput,
   AutocompleteInput,
@@ -61,6 +62,8 @@ function generateInput(input) {
           </SimpleFormIterator>
         </ArrayInput>
       );
+    case EInput.ReferenceMany:
+      return generateField(input);
     default:
       throw new Error("Unknown input type " + input.type);
   }

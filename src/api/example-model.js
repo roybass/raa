@@ -54,6 +54,7 @@ const DyplomaModel = {
           name: "externalPort",
           label: "External Port",
           type: "Number",
+          options: { useGrouping: false },
           defaultValue: 0
         },
         {

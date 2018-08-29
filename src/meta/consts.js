@@ -39,7 +39,8 @@ export const EInput = {
   AutocompleteInput: "AutocompleteInput",
   ImageInput: "ImageInput",
   ReferenceInput: "ReferenceInput",
-  ArrayInput: "ArrayInput"
+  ArrayInput: "ArrayInput",
+  ReferenceMany: "ReferenceMany"
 };
 
 export const EType = {
@@ -52,5 +53,5 @@ export const EType = {
   select: {f: EField.TextField, i: EInput.SelectInput},
   reference: {f: EField.ReferenceField, i: EInput.ReferenceInput},
   list: {f: EField.ArrayField, i: EInput.ArrayInput},
-  referencemany: {f: EField.ReferenceMany, i: EInput.TextInput}
+  referencemany: {f: EField.ReferenceMany, i: EInput.ReferenceMany}
 };
