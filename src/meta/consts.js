@@ -50,6 +50,7 @@ export const EType = {
   boolean: {f: EField.BooleanField, i: EInput.BooleanInput},
   text: {f: EField.TextField, i: EInput.LongTextInput},
   date: {f: EField.DateField, i: EInput.DateInput},
+  url: {f: EField.UrlField, i: EInput.TextInput},
   chip: {f: EField.ChipField, i: EInput.TextInput},
   select: {f: EField.TextField, i: EInput.SelectInput},
   reference: {f: EField.ReferenceField, i: EInput.ReferenceInput},
