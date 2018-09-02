@@ -104,6 +104,36 @@ const DyplomaModel = {
           required: true
         },
         {
+          label: "Environment",
+          name: "environmentId",
+          type: "enum",
+          choices: [
+            { id: 1, name: 'all' },
+            { id: 2, name: 'junit' },
+            { id: 3, name: 'prod' },
+            { id: 5, name: 'test' },
+            { id: 6, name: 'sim' },
+            { id: 8, name: 'simulator' },
+            { id: 9, name: 'dev' },
+            { id: 10, name: 'rnd' }
+          ]
+        },
+        {
+          label: "Cluster",
+          name: "kubeClusterId",
+          type: "enum",
+          choices: [
+            { id: 2, name: 'nydc1' },
+            { id: 3, name: 'sadc1c' },
+            { id: 4, name: 'chidc2c' },
+            { id: 5, name: 'stg' },
+            { id: 11, name: 'simulator' },
+            { id: 12, name: 'test' },
+            { id: 13, name: 'dev' },
+            { id: 14, name: 'rnd' }
+          ]
+        },
+        {
           name: "extraTag",
           type: "String"
         },

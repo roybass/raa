@@ -71,6 +71,9 @@ function convertToField(fieldData) {
   }
   if (rest.choices) {
     rest.choices = rest.choices.map(choice => {
+      if (choice.hasOwnProperty('id') && choice.hasOwnProperty('name')) {
+        return choice;
+      }
       return { id: choice, name: choice };
     });
   }
@@ -106,6 +109,9 @@ function convertToInput(fieldData) {
   }
   if (rest.choices) {
     rest.choices = rest.choices.map(choice => {
+      if (choice.hasOwnProperty('id') && choice.hasOwnProperty('name')) {
+        return choice;
+      }
       return { id: choice, name: choice };
     });
   }
@@ -152,7 +158,7 @@ class DynamicResources {
   getResources(model) {
     const resources = model.data.map(entityToModel);
     this.assignKeys(resources);
-    console.log(resources);
+    console.log('resources ', resources);
     return resources;
   }
 

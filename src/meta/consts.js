@@ -53,6 +53,7 @@ export const EType = {
   url: {f: EField.UrlField, i: EInput.TextInput},
   chip: {f: EField.ChipField, i: EInput.TextInput},
   select: {f: EField.TextField, i: EInput.SelectInput},
+  enum: {f: EField.SelectField, i: EInput.SelectInput},
   reference: {f: EField.ReferenceField, i: EInput.ReferenceInput},
   list: {f: EField.ArrayField, i: EInput.ArrayInput},
   referencemany: {f: EField.ReferenceMany, i: EInput.ReferenceMany}

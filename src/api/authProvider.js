@@ -18,7 +18,7 @@ class AuthProvider {
 
   authenticate = (type, params) => {
     if (type === AUTH_ERROR) {
-      console.log("Authentication Error. Redirecting to login page");
+      console.log("Authentication Error. Redirecting to login page", params);
       return Promise.reject({redirectTo: "/login"});
     }
     if (type === AUTH_LOGOUT) {
