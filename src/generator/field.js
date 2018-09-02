@@ -57,8 +57,10 @@ function generateField(field) {
           </Datagrid>
         </ArrayField>);
     case EField.ReferenceMany:
+      const rest = Object.assign({}, field);
+      delete rest.source;
       return (
-        <ReferenceManyField {...field}>
+        <ReferenceManyField {...rest}>
           <SingleFieldList>
             {generateField(field.display)}
           </SingleFieldList>

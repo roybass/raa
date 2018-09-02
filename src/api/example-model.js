@@ -63,6 +63,7 @@ const DyplomaModel = {
           readOnly: true
         },
         {
+          name: "deploymenys",
           label: "Deployments",
           type: "ReferenceMany",
           reference: "deployment",
