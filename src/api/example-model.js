@@ -93,7 +93,8 @@ const DyplomaModel = {
         {
           name: "id",
           type: "Number",
-          readOnly: true
+          readOnly: true,
+          options: { useGrouping: false }
         },
         {
           name: "name",
@@ -126,8 +127,7 @@ const DyplomaModel = {
           reference: "service",
           display: {
             name: "name",
-            type: "Select",
-            optionText: "name"
+            type: "Select"
           }
         }
       ]

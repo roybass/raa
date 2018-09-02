@@ -37,7 +37,7 @@ function generateField(field) {
     case EField.EditButton:
       return (<EditButton {...field}/>);
     case EField.ShowButton:
-      return (<ShowButton {...field} label="View"/>);
+      return (<ShowButton {...field}/>);
     case EField.BooleanField:
       return (<BooleanField {...field}/>);
     case EField.DateField:

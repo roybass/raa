@@ -14,7 +14,8 @@ function entityToModel(entity) {
       name: entity.resourceName,
       list: {
         title: entity.title,
-        fields: convertToFields(entity.fields.filter(f => f.hidden !== true)).concat([{ type: EField.ShowButton }])
+        fields: convertToFields(entity.fields.filter(f => f.hidden !== true))
+          .concat([{ type: EField.ShowButton, label: "View" }])
       },
       show: {
         title: "View " + entity.title,
