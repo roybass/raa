@@ -54,7 +54,6 @@ const DyplomaModel = {
           name: "externalPort",
           label: "External Port",
           type: "Number",
-          options: { useGrouping: false },
           defaultValue: 0
         },
         {
@@ -63,10 +62,11 @@ const DyplomaModel = {
           readOnly: true
         },
         {
-          name: "deploymenys",
+          name: "deployments",
           label: "Deployments",
           type: "ReferenceMany",
           reference: "deployment",
+          readOnly: true,
           target: "serviceId",
           display: {
             name: "name",

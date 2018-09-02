@@ -1,10 +1,10 @@
 import localDB from './localdb';
 import { DyplomaModel } from './example-model';
 
-const useExample = false;
 
 class ModelProvider {
   constructor() {
+    this.useExample = false;
     this.modelP = this.resolveModel().then(model => {
       this.model = model;
       return model;
@@ -20,7 +20,7 @@ class ModelProvider {
   }
 
   resolveModel() {
-    if (useExample) {
+    if (this.useExample) {
       return Promise.resolve(DyplomaModel);
     }
     if (window.raModel) {

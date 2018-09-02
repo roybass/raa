@@ -22,7 +22,7 @@ function generateInput(input) {
   const params = Object.assign({}, input);
   delete params.type;
 
-  if (params.readOnly) {
+  if (input.readOnly && input.type !== EInput.ReferenceMany) {
     return (<DisabledInput {...params}/>);
   }
 
