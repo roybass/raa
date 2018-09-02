@@ -14,6 +14,7 @@ import {
   ReferenceManyField,
   SingleFieldList,
   SelectField,
+  ShowButton,
   ChipField,
   TextField,
   UrlField
@@ -35,6 +36,8 @@ function generateField(field) {
         </ReferenceField>);
     case EField.EditButton:
       return (<EditButton {...field}/>);
+    case EField.ShowButton:
+      return (<ShowButton {...field} label="View"/>);
     case EField.BooleanField:
       return (<BooleanField {...field}/>);
     case EField.DateField:

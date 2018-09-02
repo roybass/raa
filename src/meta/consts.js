@@ -18,6 +18,7 @@ export const EField = {
   EmailField: "EmailField",
   ReferenceField: "ReferenceField",
   EditButton: "EditButton",
+  ShowButton: "ShowButton",
   BooleanField: "BooleanField",
   DateField: "DateField",
   NumberField: "NumberField",

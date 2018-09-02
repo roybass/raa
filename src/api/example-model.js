@@ -88,6 +88,7 @@ const DyplomaModel = {
           serviceId: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments/service/{{id}}" }
         }
       },
+      editable: false,
       fields: [
         {
           name: "id",

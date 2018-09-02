@@ -3,6 +3,7 @@ import { Resource } from 'react-admin';
 import generateList from './list';
 import generateEdit from './edit';
 import generateCreate from './create';
+import generateShow from './show';
 
 
 function generateResource(resourceDef) {
@@ -11,6 +12,7 @@ function generateResource(resourceDef) {
               name={resourceDef.name}
               list={generateList(resourceDef.list, resourceDef.filters)}
               edit={generateEdit(resourceDef.edit)}
+              show={generateShow(resourceDef.show)}
               create={generateCreate(resourceDef.create)}/>)
 }
 

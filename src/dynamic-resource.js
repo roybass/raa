@@ -9,11 +9,27 @@ function capitalize(str) {
 }
 
 function entityToModel(entity) {
+  if (entity.editable === false) {
+    return {
+      name: entity.resourceName,
+      list: {
+        title: entity.title,
+        fields: convertToFields(entity.fields.filter(f => f.hidden !== true)).concat([{ type: EField.ShowButton }])
+      },
+      show: {
+        title: "View " + entity.title,
+        fields: convertToFields(entity.fields.filter(f => f.hidden !== true))
+      },
+      filters: {
+        fields: convertToFilterInputs(entity.fields.filter(f => f.hidden !== true))
+      }
+    };
+  }
   return {
     name: entity.resourceName,
     list: {
       title: entity.title,
-      fields: convertToFields(entity.fields.filter(f => f.hidden !== true))
+      fields: convertToFields(entity.fields.filter(f => f.hidden !== true)).concat([{ type: EField.EditButton }])
     },
     edit: {
       title: "Edit " + entity.title,
@@ -33,7 +49,7 @@ function convertToFields(fieldDataArr) {
   if (!fieldDataArr) {
     return [];
   }
-  return fieldDataArr.map(convertToField).concat([{ type: EField.EditButton }]);
+  return fieldDataArr.map(convertToField);
 }
 
 function convertToField(fieldData) {
