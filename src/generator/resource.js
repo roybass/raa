@@ -4,12 +4,13 @@ import generateList from './list';
 import generateEdit from './edit';
 import generateCreate from './create';
 import generateShow from './show';
-
+import * as icons from '@material-ui/icons';
 
 function generateResource(resourceDef) {
   return (
     <Resource key={'resource-' + resourceDef.name}
               name={resourceDef.name}
+              icon={icons[resourceDef.icon]}
               list={generateList(resourceDef.list, resourceDef.filters)}
               edit={generateEdit(resourceDef.edit)}
               show={generateShow(resourceDef.show)}

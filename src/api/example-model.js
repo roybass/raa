@@ -6,6 +6,7 @@ const DyplomaModel = {
     {
       title: "Service",
       resourceName: "service",
+      icon: "BatteryCharging60",
       endpoint: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services",
       customEndpoints: {
         baseUrl : "http://dyploma.outbrain.com:8080/DyPloMa/api/v1",
@@ -78,6 +79,7 @@ const DyplomaModel = {
     {
       title: "Deployment",
       resourceName: "deployment",
+      icon: "BatteryCharging20",
       endpoint: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments",
       customEndpoints: {
         list: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/deployments/find/limit/{{limit}}/offset/{{offset}}" },

@@ -12,6 +12,7 @@ function entityToModel(entity) {
   if (entity.editable === false) {
     return {
       name: entity.resourceName,
+      icon: entity.icon,
       list: {
         bulkActions: null,
         title: entity.title,
@@ -29,6 +30,7 @@ function entityToModel(entity) {
   }
   return {
     name: entity.resourceName,
+    icon: entity.icon,
     list: {
       title: entity.title,
       fields: convertToFields(entity.fields.filter(f => f.hidden !== true)).concat([{ type: EField.EditButton }])
