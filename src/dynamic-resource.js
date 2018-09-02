@@ -13,6 +13,7 @@ function entityToModel(entity) {
     return {
       name: entity.resourceName,
       list: {
+        bulkActions: null,
         title: entity.title,
         fields: convertToFields(entity.fields.filter(f => f.hidden !== true))
           .concat([{ type: EField.ShowButton, label: "View" }])
