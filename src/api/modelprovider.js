@@ -1,5 +1,5 @@
 import localDB from './localdb';
-import { DyplomaModel } from './example-model';
+import { DyplomaModel as ExampleModel} from './example-model';
 
 
 class ModelProvider {
@@ -21,7 +21,7 @@ class ModelProvider {
 
   resolveModel() {
     if (this.useExample) {
-      return Promise.resolve(DyplomaModel);
+      return Promise.resolve(ExampleModel);
     }
     if (window.raModel) {
       console.log('Resolved model from window.raModel');
