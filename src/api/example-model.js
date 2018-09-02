@@ -114,6 +114,12 @@ const DyplomaModel = {
           readOnly: true
         },
         {
+          label: "Tags",
+          name: "serviceTags",
+          type: "String",
+          hidden: true
+        },
+        {
           name: "serviceId",
           type: "Reference",
           reference: "service",

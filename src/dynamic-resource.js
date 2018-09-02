@@ -13,7 +13,7 @@ function entityToModel(entity) {
     name: entity.resourceName,
     list: {
       title: entity.title,
-      fields: convertToFields(entity.fields)
+      fields: convertToFields(entity.fields.filter(f => f.hidden !== true))
     },
     edit: {
       title: "Edit " + entity.title,
@@ -24,7 +24,7 @@ function entityToModel(entity) {
       inputs: convertToInputs(entity.fields)
     },
     filters: {
-      fields: convertToFilterInputs(entity.fields)
+      fields: convertToFilterInputs(entity.fields.filter(f => f.hidden !== true))
     }
   }
 }
