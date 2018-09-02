@@ -96,12 +96,12 @@ function convertToInput(fieldData) {
   return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].i, ...rest };
 }
 
-const noFilterFields = ['List', 'ReferenceMany'];
+const noFilterFields = ['list', 'referencemany'];
 function convertToFilterInputs(fieldDataArr) {
   if (!fieldDataArr) {
     return [];
   }
-  return fieldDataArr.filter(item => noFilterFields.indexOf(item.type) === -1).map(convertToFilterInput);
+  return fieldDataArr.filter(item => noFilterFields.indexOf(item.type.toLowerCase()) === -1).map(convertToFilterInput);
 }
 
 function convertToFilterInput(fieldData) {
