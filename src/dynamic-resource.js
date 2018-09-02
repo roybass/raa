@@ -108,6 +108,8 @@ function convertToFilterInput(fieldData) {
   const rest = Object.assign({}, fieldData);
   delete rest.name;
   delete rest.type;
+  delete rest.readOnly;
+
   if (!rest.label) {
     rest.label = capitalize(rest.name);
   }
