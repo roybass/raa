@@ -4,7 +4,7 @@ import { DyplomaModel } from './example-model';
 
 class ModelProvider {
   constructor() {
-    this.useExample = false;
+    this.useExample = localStorage.getItem("raa.useExample") || false;
     this.modelP = this.resolveModel().then(model => {
       this.model = model;
       return model;
