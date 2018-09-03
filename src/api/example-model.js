@@ -1,5 +1,5 @@
 const DyplomaModel = {
-  authentication : {
+  authentication: {
     url: "http://dyploma.outbrain.com:8080/DyPloMa/auth"
   },
   data: [
@@ -9,7 +9,7 @@ const DyplomaModel = {
       icon: "BatteryCharging60",
       endpoint: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/services",
       customEndpoints: {
-        baseUrl : "http://dyploma.outbrain.com:8080/DyPloMa/api/v1",
+        baseUrl: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1",
         list: { url: "/services/find/limit/{{limit}}/offset/{{offset}}" },
         get: { url: "/services/{{id}}", method: "GET" },
         create: { url: "/services/", method: "POST" },
@@ -262,176 +262,168 @@ const BandsModel = {
 
 const BumperModel = {
   total: 3,
-  data:
-    [
-      {
-        id: 0,
-        resourceName: "project",
-        title: "Project",
-        endpoint: "../projects",
-        fields:
-          [
-            {
-              name: "id",
-              label: "Id",
-              type: "STRING",
-              required: true,
-              readOnly: true
-            },
-            {
-              name: "path",
-              label: "Path",
-              type: "STRING",
-              required: false,
-              readOnly: false
-            },
-            {
-              name: "modules",
-              label: "Modules",
-              type: "NUMBER",
-              required: false,
-              readOnly: false
-            },
-            {
-              name: "production",
-              label: "Production (%)",
-              type: "NUMBER",
-              required: false,
-              readOnly: false
-            },
-            {
-              name: "owner",
-              label: "Owner",
-              type: "STRING",
-              required: false,
-              readOnly: false
-            },
-            {
-              name: "dependencys",
-              label: "Dependencies",
-              type: "REFERENCEMANY",
-              required: false,
-              readOnly: false,
-              reference: "dependency",
-              target: "project",
-              display:
-                {
-                  name: "idproject",
-                  type: "Chip"
-                }
-            }
-          ]
-      },
-      {
-        id: 1,
-        resourceName: "artifact",
-        title: "Artifact",
-        endpoint: "../artifacts",
-        fields:
-          [
-            {
-              name: "id",
-              label: "Id",
-              type: "STRING",
-              required: true,
-              readOnly: true
-            },
-            {
-              name: "owner",
-              label: "Owner",
-              type: "STRING",
-              required: false,
-              readOnly: false
-            },
-            {
-              name: "groupId",
-              label: "GroupId",
-              type: "STRING",
-              required: false,
-              readOnly: false
-            },
-            {
-              name: "dependencys",
-              label: "Usages",
-              type: "REFERENCEMANY",
-              required: false,
-              readOnly: false,
-              reference: "dependency",
-              target: "artifact",
-              display:
-                {
-                  name: "idartifact",
-                  type: "Chip"
-                }
-            }
-          ]
-      },
-      {
-        id: 2,
-        resourceName: "dependency",
-        title: "Dependency",
-        endpoint: "../dependencys",
-        fields:
-          [
-            {
-              name: "id",
-              label: "Id",
-              type: "STRING",
-              required: true,
-              readOnly: true
-            },
-            {
-              name: "project",
-              label: "Project",
-              type: "REFERENCE",
-              required: true,
-              readOnly: false,
-              reference: "project",
-              display:
-                {
-                  name: "id",
-                  type: "Select",
-                  optionText: "id"
-                }
-            },
-            {
-              name: "artifact",
-              label: "Artifact",
-              type: "REFERENCE",
-              required: true,
-              readOnly: false,
-              reference: "artifact",
-              display:
-                {
-                  name: "id",
-                  type: "Select",
-                  optionText: "id"
-                }
-            },
-            {
-              name: "idproject",
-              label: "Idproject",
-              type: "STRING",
-              required: false,
-              readOnly: false
-            },
-            {
-              name: "idartifact",
-              label: "Idartifact",
-              type: "STRING",
-              required: false,
-              readOnly: false
-            },
-            {
-              name: "version",
-              label: "Version",
-              type: "STRING",
-              required: false,
-              readOnly: false
-            }
-          ]
-      }
-    ]
+  data: [
+    {
+      id: 0,
+      resourceName: "project",
+      title: "Project",
+      endpoint: "../projects",
+      fields: [
+        {
+          name: "id",
+          label: "Id",
+          type: "STRING",
+          required: true,
+          readOnly: true
+        },
+        {
+          name: "path",
+          label: "Path",
+          type: "STRING",
+          required: false,
+          readOnly: false
+        },
+        {
+          name: "modules",
+          label: "Modules",
+          type: "NUMBER",
+          required: false,
+          readOnly: false
+        },
+        {
+          name: "production",
+          label: "Production (%)",
+          type: "NUMBER",
+          required: false,
+          readOnly: false
+        },
+        {
+          name: "owner",
+          label: "Owner",
+          type: "STRING",
+          required: false,
+          readOnly: false
+        },
+        {
+          name: "dependencys",
+          label: "Dependencies",
+          type: "REFERENCEMANY",
+          required: false,
+          readOnly: false,
+          reference: "dependency",
+          target: "project",
+          display: {
+            name: "idproject",
+            type: "Chip"
+          }
+        }
+      ]
+    },
+    {
+      id: 1,
+      resourceName: "artifact",
+      title: "Artifact",
+      endpoint: "../artifacts",
+      fields: [
+        {
+          name: "id",
+          label: "Id",
+          type: "STRING",
+          required: true,
+          readOnly: true
+        },
+        {
+          name: "owner",
+          label: "Owner",
+          type: "STRING",
+          required: false,
+          readOnly: false
+        },
+        {
+          name: "groupId",
+          label: "GroupId",
+          type: "STRING",
+          required: false,
+          readOnly: false
+        },
+        {
+          name: "dependencys",
+          label: "Usages",
+          type: "REFERENCEMANY",
+          required: false,
+          readOnly: false,
+          reference: "dependency",
+          target: "artifact",
+          display: {
+            name: "idartifact",
+            type: "Chip"
+          }
+        }
+      ]
+    },
+    {
+      id: 2,
+      resourceName: "dependency",
+      title: "Dependency",
+      endpoint: "../dependencys",
+      fields: [
+        {
+          name: "id",
+          label: "Id",
+          type: "STRING",
+          required: true,
+          readOnly: true
+        },
+        {
+          name: "project",
+          label: "Project",
+          type: "REFERENCE",
+          required: true,
+          readOnly: false,
+          reference: "project",
+          display: {
+            name: "id",
+            type: "Select",
+            optionText: "id"
+          }
+        },
+        {
+          name: "artifact",
+          label: "Artifact",
+          type: "REFERENCE",
+          required: true,
+          readOnly: false,
+          reference: "artifact",
+          display: {
+            name: "id",
+            type: "Select",
+            optionText: "id"
+          }
+        },
+        {
+          name: "idproject",
+          label: "Idproject",
+          type: "STRING",
+          required: false,
+          readOnly: false
+        },
+        {
+          name: "idartifact",
+          label: "Idartifact",
+          type: "STRING",
+          required: false,
+          readOnly: false
+        },
+        {
+          name: "version",
+          label: "Version",
+          type: "STRING",
+          required: false,
+          readOnly: false
+        }
+      ]
+    }
+  ]
 };
 
 export { BandsModel, DyplomaModel, BumperModel }
