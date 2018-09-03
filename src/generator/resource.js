@@ -12,7 +12,7 @@ function generateResource(resourceDef) {
               name={resourceDef.name}
               icon={icons[resourceDef.icon]}
               list={generateList(resourceDef.list, resourceDef.filters)}
-              edit={generateEdit(resourceDef.edit)}
+              edit={resourceDef.readOnly ? generateShow(resourceDef.show) : generateEdit(resourceDef.edit)}
               show={generateShow(resourceDef.show)}
               create={generateCreate(resourceDef.create)}/>)
 }

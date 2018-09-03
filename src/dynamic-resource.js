@@ -11,6 +11,7 @@ function capitalize(str) {
 function entityToModel(entity) {
   if (entity.editable === false) {
     return {
+      readOnly: true,
       name: entity.resourceName,
       icon: entity.icon,
       list: {
