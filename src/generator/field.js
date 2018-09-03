@@ -3,6 +3,7 @@ import React from 'react';
 import {
   ArrayField,
   BooleanField,
+  ChipField,
   Datagrid,
   DateField,
   EditButton,
@@ -12,10 +13,9 @@ import {
   NumberField,
   ReferenceField,
   ReferenceManyField,
-  SingleFieldList,
   SelectField,
   ShowButton,
-  ChipField,
+  SingleFieldList,
   TextField,
   UrlField
 } from 'react-admin';

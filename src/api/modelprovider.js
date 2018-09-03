@@ -1,5 +1,5 @@
 import localDB from './localdb';
-import { DyplomaModel as ExampleModel} from './example-model';
+import { DyplomaModel as ExampleModel } from './example-model';
 
 
 class ModelProvider {

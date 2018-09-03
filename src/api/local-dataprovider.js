@@ -59,10 +59,10 @@ class LocalDataProvider {
         return this.withUpdate(resource, localDB.deleteMany(resource, params.ids));
       case GET_MANY:
         const filteredList = localDB.getList(resource).data.filter((item) => params.ids.indexOf(item.id) >= 0);
-        return {data: filteredList};
+        return { data: filteredList };
       case GET_MANY_REFERENCE:
         const refList = localDB.getList(resource).data.filter((item) => item[params.target] === params.id);
-        return {data: refList, total: refList.length};
+        return { data: refList, total: refList.length };
       default:
         throw new Error(`Unsupported Data Provider request type ${type}`);
     }

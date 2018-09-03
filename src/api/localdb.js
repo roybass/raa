@@ -20,18 +20,18 @@ class LocalDB {
 
   getList(resource) {
     if (!this.db[resource]) {
-      return {data: [], total: 0};
+      return { data: [], total: 0 };
     }
     const data = Object.values(this.db[resource]);
-    return {data, total: data.length};
+    return { data, total: data.length };
   }
 
   getOne(resource, id) {
     if (!this.db[resource]) {
-      return {data: null};
+      return { data: null };
     }
     const item = this.db[resource][id];
-    return {data: item};
+    return { data: item };
   }
 
   save(resource, obj) {
@@ -43,14 +43,14 @@ class LocalDB {
     }
     this.db[resource][obj.id] = obj;
     this.writeToStorage();
-    return {data: obj};
+    return { data: obj };
   }
 
   deleteOne(resource, id) {
     const data = this.db[resource][id];
     delete this.db[resource][id];
     this.writeToStorage();
-    return {data};
+    return { data };
   }
 
   deleteMany(resource, ids) {
@@ -58,7 +58,7 @@ class LocalDB {
       delete this.db[resource][id];
     }
     this.writeToStorage();
-    return {data: ids};
+    return { data: ids };
   }
 }
 

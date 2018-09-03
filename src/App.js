@@ -25,10 +25,10 @@ class App extends React.Component {
     const modelPromise = modelProvider.getModel();
     modelPromise.then((model) => {
       console.log('Resolved model ', model);
-      this.setState({isLoaded: true, model: model, error: null});
+      this.setState({ isLoaded: true, model: model, error: null });
     }).catch((err) => {
       console.log('Error: ', err);
-      this.setState({isLoaded: false, model: null, error: err.message})
+      this.setState({ isLoaded: false, model: null, error: err.message })
     });
   }
 
@@ -40,7 +40,8 @@ class App extends React.Component {
       return (<div>Loading...</div>);
     }
     return (
-      <Admin authProvider={AuthProvider.provide()} dataProvider={this.dataprovider.processRequest.bind(this.dataprovider)} title={this.title}>
+      <Admin authProvider={AuthProvider.provide()}
+             dataProvider={this.dataprovider.processRequest.bind(this.dataprovider)} title={this.title}>
         {dynamicResources.getResources(this.state.model).map((item) => generateResource(item)) }
         {this.hide ? (<span/>) : <Resource name='entity' label='Entity' {...entityOperations}/>}
       </Admin>

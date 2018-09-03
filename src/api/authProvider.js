@@ -1,5 +1,5 @@
 // in src/authProvider.js
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, fetchUtils } from 'react-admin';
+import { AUTH_ERROR, AUTH_LOGIN, AUTH_LOGOUT, fetchUtils } from 'react-admin';
 import modelProvider from './modelprovider';
 
 
@@ -19,7 +19,7 @@ class AuthProvider {
   authenticate = (type, params) => {
     if (type === AUTH_ERROR) {
       console.log("Authentication Error. Redirecting to login page", params);
-      return Promise.reject({redirectTo: "/login"});
+      return Promise.reject({ redirectTo: "/login" });
     }
     if (type === AUTH_LOGOUT) {
       localStorage.removeItem('token');

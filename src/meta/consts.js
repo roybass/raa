@@ -1,16 +1,3 @@
-export const Operation = {
-  List: 'List',
-  Create: 'Create',
-  Edit: 'Edit',
-  Delete: 'Delete'
-};
-
-export const Method = {
-  GET: 'GET',
-  POST: 'POST',
-  PUT: 'PUT',
-  DELETE: 'DELETE'
-};
 
 export const EField = {
   TextField: "TextField",
@@ -45,16 +32,16 @@ export const EInput = {
 };
 
 export const EType = {
-  string: {f: EField.TextField, i: EInput.TextInput},
-  number: {f: EField.NumberField, i: EInput.NumberInput},
-  boolean: {f: EField.BooleanField, i: EInput.BooleanInput},
-  text: {f: EField.TextField, i: EInput.LongTextInput},
-  date: {f: EField.DateField, i: EInput.DateInput},
-  url: {f: EField.UrlField, i: EInput.TextInput},
-  chip: {f: EField.ChipField, i: EInput.TextInput},
-  select: {f: EField.TextField, i: EInput.SelectInput},
-  enum: {f: EField.SelectField, i: EInput.SelectInput},
-  reference: {f: EField.ReferenceField, i: EInput.ReferenceInput},
-  list: {f: EField.ArrayField, i: EInput.ArrayInput},
-  referencemany: {f: EField.ReferenceMany, i: EInput.ReferenceMany}
+  string: { f: EField.TextField, i: EInput.TextInput },
+  number: { f: EField.NumberField, i: EInput.NumberInput },
+  boolean: { f: EField.BooleanField, i: EInput.BooleanInput },
+  text: { f: EField.TextField, i: EInput.LongTextInput },
+  date: { f: EField.DateField, i: EInput.DateInput },
+  url: { f: EField.UrlField, i: EInput.TextInput },
+  chip: { f: EField.ChipField, i: EInput.TextInput },
+  select: { f: EField.TextField, i: EInput.SelectInput },
+  enum: { f: EField.SelectField, i: EInput.SelectInput },
+  reference: { f: EField.ReferenceField, i: EInput.ReferenceInput },
+  list: { f: EField.ArrayField, i: EInput.ArrayInput },
+  referencemany: { f: EField.ReferenceMany, i: EInput.ReferenceMany }
 };

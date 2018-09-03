@@ -35,7 +35,7 @@ class CustomizableDataProvider {
 
     const url = this.buildCustomUrl(endpointDef, entity, params);
     const body = this.getBody(params);
-    const headers = this.getHeaders(params);
+    const headers = this.getHeaders();
     const method = endpointDef.method || "GET";
 
     const client = authProvider.getHttpClient();
@@ -48,7 +48,7 @@ class CustomizableDataProvider {
     return JSON.stringify(params.data);
   }
 
-  getHeaders(params) {
+  getHeaders() {
     return new Headers({
       'Content-Type': 'application/json'
     });
@@ -62,12 +62,12 @@ class CustomizableDataProvider {
       id: params.id
     };
     view = Object.assign(view, endpoint.params);
-    const endpointUrl = (entity.customEndpoints.baseUrl || '')  + endpoint.url;
+    const endpointUrl = (entity.customEndpoints.baseUrl || '') + endpoint.url;
     return mustache.render(endpointUrl, view);
   }
 
   getCustomEndpoint(type, entity, params) {
-    const { customEndpoints }  = entity;
+    const { customEndpoints } = entity;
     switch (type) {
       case GET_LIST:
         if (params.filter && customEndpoints.getBy) {

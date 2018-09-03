@@ -42,7 +42,7 @@ class ExportAppButton extends Component {
 
   handleClick = () => {
     this.props.showNotification('Exporting ' + this.props.resource);
-    const view = {model: JSON.stringify(localDB.getList(this.props.resource), null, 2), title: 'Management App'};
+    const view = { model: JSON.stringify(localDB.getList(this.props.resource), null, 2), title: 'Management App' };
     fileDownload(mustache.render(template, view), this.props.resource + '.html');
   };
 

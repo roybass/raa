@@ -34,7 +34,8 @@ function generateList(listDef, filtersDef) {
   }
 
   return (props) => (
-    <List key='list' title={listDef.title} bulkActions={listDef.bulkActions} {...props} filters={generateFilters(filtersDef)} pagination={<ArrowsPagination />}>
+    <List key='list' title={listDef.title} bulkActions={listDef.bulkActions} {...props}
+          filters={generateFilters(filtersDef)} pagination={<ArrowsPagination />}>
       <Datagrid>
         {listDef.fields.map((field) => generateField(field))}
       </Datagrid>
