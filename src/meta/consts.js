@@ -43,5 +43,6 @@ export const EType = {
   enum: { f: EField.SelectField, i: EInput.SelectInput },
   reference: { f: EField.ReferenceField, i: EInput.ReferenceInput },
   list: { f: EField.ArrayField, i: EInput.ArrayInput },
-  referencemany: { f: EField.ReferenceMany, i: EInput.ReferenceMany }
+  referencemany: { f: EField.ReferenceMany, i: EInput.ReferenceMany },
+  function: { f: EField.FunctionField, i: EInput.TextInput }
 };

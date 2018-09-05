@@ -66,6 +66,7 @@ const DyplomaModel = {
           name: "deployments",
           label: "Deployments",
           type: "ReferenceMany",
+          perPage: 100,
           reference: "deployment",
           readOnly: true,
           target: "serviceId",
@@ -134,6 +135,16 @@ const DyplomaModel = {
           ]
         },
         {
+          name: "artifactId",
+          type: "Reference",
+          reference: "artifact",
+          display: {
+            name: "version",
+            render: (record) => {return record.version + " - " + record.commitMessage},
+            type: "String"
+          }
+        },
+        {
           name: "extraTag",
           type: "String"
         },
@@ -160,6 +171,61 @@ const DyplomaModel = {
           display: {
             name: "name",
             type: "Select"
+          }
+        }
+      ]
+    },
+    {
+      title: "Artifact",
+      resourceName: "artifact",
+      endpoint: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/artifacts",
+      customEndpoints: {
+        list: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/artifacts/find/limit/{{limit}}/offset/{{offset}}" },
+        get: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/artifacts/{{id}}", method: "GET" },
+        getBy: {
+          serviceId: { url: "http://dyploma.outbrain.com:8080/DyPloMa/api/v1/artifacts/service/{{id}}" }
+        }
+      },
+
+      editable: false,
+      fields: [
+        {
+          name: "id",
+          type: "Number",
+          options: { useGrouping: false }
+        },
+        {
+          name: "version",
+          type: "String"
+        },
+        {
+          name: "buildNumber",
+          type: "String",
+          hidden: true
+        },
+        {
+          name: "kind",
+          type: "String"
+        },
+        {
+          name: "commitMessage",
+          type: "Text"
+        },
+        {
+          name: "creationTimestamp",
+          type: "Date"
+        },
+        {
+          name: "uri",
+          type: "Url"
+        },
+        {
+          name: "serviceId",
+          type: "Reference",
+          reference: "service",
+          display: {
+            name: "name",
+            type: "String"
           }
         }
       ]
@@ -261,167 +327,194 @@ const BandsModel = {
 };
 
 const BumperModel = {
-  total: 3,
-  data: [
+  "total": 3,
+  "data": [
     {
-      id: 0,
-      resourceName: "project",
-      title: "Project",
-      endpoint: "../projects",
-      fields: [
+      "id": 0,
+      "resourceName": "project",
+      "title": "Project",
+      "endpoint": "../projects",
+      "fields": [
         {
-          name: "id",
-          label: "Id",
-          type: "STRING",
-          required: true,
-          readOnly: true
+          "name": "id",
+          "label": "Id",
+          "type": "STRING",
+          "required": true,
+          "readOnly": true,
+          "hidden": false
         },
         {
-          name: "path",
-          label: "Path",
-          type: "STRING",
-          required: false,
-          readOnly: false
+          "name": "modules",
+          "label": "Modules",
+          "type": "NUMBER",
+          "required": false,
+          "readOnly": false,
+          "hidden": false
         },
         {
-          name: "modules",
-          label: "Modules",
-          type: "NUMBER",
-          required: false,
-          readOnly: false
+          "name": "owner",
+          "label": "Owner",
+          "type": "STRING",
+          "required": false,
+          "readOnly": false,
+          "hidden": false
         },
         {
-          name: "production",
-          label: "Production (%)",
-          type: "NUMBER",
-          required: false,
-          readOnly: false
+          "name": "path",
+          "label": "Path",
+          "type": "URL",
+          "required": false,
+          "readOnly": false,
+          "hidden": false
         },
         {
-          name: "owner",
-          label: "Owner",
-          type: "STRING",
-          required: false,
-          readOnly: false
-        },
-        {
-          name: "dependencys",
-          label: "Dependencies",
-          type: "REFERENCEMANY",
-          required: false,
-          readOnly: false,
-          reference: "dependency",
-          target: "project",
-          display: {
-            name: "idproject",
-            type: "Chip"
+          "name": "production",
+          "label": "Production",
+          "type": "NUMBER",
+          "required": false,
+          "readOnly": false,
+          "hidden": false,
+          "options": {
+            "style": "percent"
           }
+        },
+        {
+          "name": "dependencys",
+          "label": "Dependencies",
+          "type": "REFERENCEMANY",
+          "required": false,
+          "readOnly": false,
+          "reference": "dependency",
+          "target": "project",
+          "display": {
+            "name": "idproject",
+            "type": "Chip",
+            "optionText": "id"
+          },
+          "hidden": false
         }
-      ]
+      ],
+      "editable": false,
+      "icon": "Explore"
     },
     {
-      id: 1,
-      resourceName: "artifact",
-      title: "Artifact",
-      endpoint: "../artifacts",
-      fields: [
+      "id": 1,
+      "resourceName": "artifact",
+      "title": "Artifact",
+      "endpoint": "../artifacts",
+      "fields": [
         {
-          name: "id",
-          label: "Id",
-          type: "STRING",
-          required: true,
-          readOnly: true
+          "name": "id",
+          "label": "Id",
+          "type": "STRING",
+          "required": true,
+          "readOnly": true,
+          "hidden": false
         },
         {
-          name: "owner",
-          label: "Owner",
-          type: "STRING",
-          required: false,
-          readOnly: false
+          "name": "groupId",
+          "label": "GroupId",
+          "type": "STRING",
+          "required": false,
+          "readOnly": false,
+          "hidden": false
         },
         {
-          name: "groupId",
-          label: "GroupId",
-          type: "STRING",
-          required: false,
-          readOnly: false
+          "name": "owner",
+          "label": "Owner",
+          "type": "STRING",
+          "required": false,
+          "readOnly": false,
+          "hidden": false
         },
         {
-          name: "dependencys",
-          label: "Usages",
-          type: "REFERENCEMANY",
-          required: false,
-          readOnly: false,
-          reference: "dependency",
-          target: "artifact",
-          display: {
-            name: "idartifact",
-            type: "Chip"
-          }
+          "name": "dependencys",
+          "label": "Usages",
+          "type": "REFERENCEMANY",
+          "required": false,
+          "readOnly": false,
+          "reference": "dependency",
+          "target": "artifact",
+          "display": {
+            "name": "idartifact",
+            "type": "Chip",
+            "optionText": "id"
+          },
+          "hidden": false
         }
-      ]
+      ],
+      "editable": false,
+      "icon": "Stars"
     },
     {
-      id: 2,
-      resourceName: "dependency",
-      title: "Dependency",
-      endpoint: "../dependencys",
-      fields: [
+      "id": 2,
+      "resourceName": "dependency",
+      "title": "Dependency",
+      "endpoint": "../dependencys",
+      "fields": [
         {
-          name: "id",
-          label: "Id",
-          type: "STRING",
-          required: true,
-          readOnly: true
+          "name": "id",
+          "label": "Id",
+          "type": "STRING",
+          "required": true,
+          "readOnly": true,
+          "hidden": false
         },
         {
-          name: "project",
-          label: "Project",
-          type: "REFERENCE",
-          required: true,
-          readOnly: false,
-          reference: "project",
-          display: {
-            name: "id",
-            type: "Select",
-            optionText: "id"
-          }
+          "name": "artifact",
+          "label": "Artifact",
+          "type": "REFERENCE",
+          "required": true,
+          "readOnly": false,
+          "reference": "artifact",
+          "display": {
+            "name": "id",
+            "type": "Select",
+            "optionText": "id"
+          },
+          "hidden": false
         },
         {
-          name: "artifact",
-          label: "Artifact",
-          type: "REFERENCE",
-          required: true,
-          readOnly: false,
-          reference: "artifact",
-          display: {
-            name: "id",
-            type: "Select",
-            optionText: "id"
-          }
+          "name": "idartifact",
+          "label": "Idartifact",
+          "type": "STRING",
+          "required": false,
+          "readOnly": false,
+          "hidden": true
         },
         {
-          name: "idproject",
-          label: "Idproject",
-          type: "STRING",
-          required: false,
-          readOnly: false
+          "name": "idproject",
+          "label": "Idproject",
+          "type": "STRING",
+          "required": false,
+          "readOnly": false,
+          "hidden": true
         },
         {
-          name: "idartifact",
-          label: "Idartifact",
-          type: "STRING",
-          required: false,
-          readOnly: false
+          "name": "project",
+          "label": "Project",
+          "type": "REFERENCE",
+          "required": true,
+          "readOnly": false,
+          "reference": "project",
+          "display": {
+            "name": "id",
+            "type": "Select",
+            "optionText": "id"
+          },
+          "hidden": false
         },
         {
-          name: "version",
-          label: "Version",
-          type: "STRING",
-          required: false,
-          readOnly: false
+          "name": "version",
+          "label": "Version",
+          "type": "STRING",
+          "required": false,
+          "readOnly": false,
+          "hidden": false
         }
-      ]
+      ],
+      "editable": false,
+      "icon": "SwapCalls"
     }
   ]
 };
