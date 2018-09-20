@@ -10,6 +10,13 @@ function capitalize(str) {
 
 function entityToModel(entity) {
   if (entity.editable === false) {
+    const fields = entity.fields
+      .filter(f => f.hidden !== true)
+      .map(f => {
+        f.readOnly = true;
+        return f;
+      });
+
     return {
       readOnly: true,
       name: entity.resourceName,
@@ -17,15 +24,15 @@ function entityToModel(entity) {
       list: {
         bulkActions: null,
         title: entity.title,
-        fields: convertToFields(entity.fields.filter(f => f.hidden !== true))
+        fields: convertToFields(fields)
           .concat([{ type: EField.ShowButton, label: "View" }])
       },
       show: {
         title: "View " + entity.title,
-        fields: convertToFields(entity.fields.filter(f => f.hidden !== true))
+        fields: convertToFields(fields)
       },
       filters: {
-        fields: convertToFilterInputs(entity.fields.filter(f => f.hidden !== true))
+        fields: convertToFilterInputs(fields)
       }
     };
   }

@@ -22,6 +22,7 @@ import {
 
 
 function generateField(field, context) {
+  const rest = Object.assign({}, field);
   switch (field.type) {
     case EField.TextField:
       return (<TextField {...field}/>);
@@ -30,8 +31,9 @@ function generateField(field, context) {
     case EField.EmailField:
       return (<EmailField {...field}/>);
     case EField.ReferenceField:
+      rest.linkType = field.readOnly === true ? 'show' : 'edit';
       return (
-        <ReferenceField {...field}>
+        <ReferenceField {...rest}>
           {generateField(field.display)}
         </ReferenceField>);
     case EField.EditButton:
@@ -60,14 +62,16 @@ function generateField(field, context) {
           </Datagrid>
         </ArrayField>);
     case EField.ReferenceMany:
-      const rest = Object.assign({}, field);
       delete rest.source;
       delete rest.perPageList;
       delete rest.perPageEdit;
       rest.perPage = (context === 'list' ? (field.perPageList || 10) : (field.perPageEdit || 2000));
+      const linkParams = {
+        linkType : field.readOnly === true ? 'show' : 'edit'
+      };
       return (
         <ReferenceManyField {...rest}>
-          <SingleFieldList>
+          <SingleFieldList {...linkParams}>
             {generateField(field.display)}
           </SingleFieldList>
         </ReferenceManyField>
