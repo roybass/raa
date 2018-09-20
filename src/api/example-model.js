@@ -66,7 +66,6 @@ const DyplomaModel = {
           name: "deployments",
           label: "Deployments",
           type: "ReferenceMany",
-          perPage: 100,
           reference: "deployment",
           readOnly: true,
           target: "serviceId",

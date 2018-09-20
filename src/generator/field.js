@@ -21,7 +21,7 @@ import {
 } from 'react-admin';
 
 
-function generateField(field) {
+function generateField(field, context) {
   switch (field.type) {
     case EField.TextField:
       return (<TextField {...field}/>);
@@ -62,6 +62,9 @@ function generateField(field) {
     case EField.ReferenceMany:
       const rest = Object.assign({}, field);
       delete rest.source;
+      delete rest.perPageList;
+      delete rest.perPageEdit;
+      rest.perPage = (context === 'list' ? (field.perPageList || 10) : (field.perPageEdit || 2000));
       return (
         <ReferenceManyField {...rest}>
           <SingleFieldList>
