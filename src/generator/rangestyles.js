@@ -25,7 +25,7 @@ function isInRange(range, value) {
 
   if (range.hasOwnProperty('values') && range.values.length > 0) {
     for (let str of range.values) {
-      const regex = new RegExp(range.value);
+      const regex = new RegExp(str);
       if (regex.test(value)) {
         return true;
       }
