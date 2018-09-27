@@ -39,12 +39,28 @@ const DyplomaModel = {
           name: "serviceType",
           type: "Select",
           required: true,
-          choices: ["ob1k", "sage", "zemanta"]
+          choices: ["ob1k", "sage", "zemanta"],
+          rangeStyles : [
+            {
+              style: { color: 'pink'},
+              value: 'sage'
+            },
+            {
+              style: { color: 'orange'},
+              value: 'zemanta'
+            },
+          ]
         },
         {
           name: "external",
           type: "Boolean",
-          defaultValue: false
+          defaultValue: false,
+          rangeStyles : [
+            {
+              style: { color: 'LawnGreen'},
+              values: true
+            }
+          ]
         },
         {
           name: "antiAffinity",

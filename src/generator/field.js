@@ -1,5 +1,7 @@
 import { EField } from '../meta/consts';
 import React from 'react';
+import withRangeStyles from './rangestyles';
+
 import {
   ArrayField,
   BooleanField,
@@ -23,9 +25,12 @@ import {
 
 function generateField(field, context) {
   const rest = Object.assign({}, field);
+  delete rest.rangeStyles;
+
   switch (field.type) {
     case EField.TextField:
-      return (<TextField {...field}/>);
+      const ColoredTextField = withRangeStyles(field.rangeStyles)(TextField);
+      return (<ColoredTextField {...rest}/>);
     case EField.ChipField:
       return (<ChipField {...field}/>);
     case EField.EmailField:
@@ -41,15 +46,18 @@ function generateField(field, context) {
     case EField.ShowButton:
       return (<ShowButton {...field}/>);
     case EField.BooleanField:
-      return (<BooleanField {...field}/>);
+      const ColoredBooleanField = withRangeStyles(field.rangeStyles)(BooleanField);
+      return (<ColoredBooleanField {...rest}/>);
     case EField.DateField:
       return (<DateField {...field}/>);
     case EField.ImageField:
       return (<ImageField {...field}/>);
     case EField.NumberField:
-      return (<NumberField {...field}/>); // See this for options: https://marmelab.com/react-admin/Fields.html#numberfield
+      const ColoredNumberField = withRangeStyles(field.rangeStyles)(NumberField);
+      return (<ColoredNumberField {...rest}/>); // See this for options: https://marmelab.com/react-admin/Fields.html#numberfield
     case EField.SelectField:
-      return (<SelectField {...field}/>);
+      const ColoredSelectField = withRangeStyles(field.rangeStyles)(SelectField);
+      return (<ColoredSelectField {...rest}/>);
     case EField.UrlField:
       return (<UrlField {...field}/>);
     case EField.FunctionField:
@@ -67,7 +75,7 @@ function generateField(field, context) {
       delete rest.perPageEdit;
       rest.perPage = (context === 'list' ? (field.perPageList || 10) : (field.perPageEdit || 2000));
       const linkParams = {
-        linkType : field.readOnly === true ? 'show' : 'edit'
+        linkType: field.readOnly === true ? 'show' : 'edit'
       };
       return (
         <ReferenceManyField {...rest}>
