@@ -8,13 +8,16 @@ import modelProvider from './api/modelprovider';
 import entityOperations from './meta/entity';
 import AuthProvider from './api/authProvider';
 
+import { createMuiTheme } from '@material-ui/core/styles';
+
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.hide = window.raHide || modelProvider.useExample;
     this.dataprovider = this.hide ? entitydataprovider : localdataprovider;
-    this.title = window.raTitle ? window.raTitle : 'React Admin Admin';
+    this.title = window.raTitle || 'React Admin Admin';
+    this.theme = window.raTheme ? createMuiTheme(window.raTheme) : undefined;
 
     this.state = {
       error: null,
@@ -41,7 +44,10 @@ class App extends React.Component {
     }
     return (
       <Admin authProvider={AuthProvider.provide()}
-             dataProvider={this.dataprovider.processRequest.bind(this.dataprovider)} title={this.title}>
+             dataProvider={this.dataprovider.processRequest.bind(this.dataprovider)}
+             title={this.title}
+             theme={this.theme}
+      >
         {dynamicResources.getResources(this.state.model).map((item) => generateResource(item)) }
         {this.hide ? (<span/>) : <Resource name='entity' label='Entity' {...entityOperations}/>}
       </Admin>
