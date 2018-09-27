@@ -43,11 +43,7 @@ const DyplomaModel = {
           rangeStyles : [
             {
               style: { color: 'pink'},
-              value: 'sage'
-            },
-            {
-              style: { color: 'orange'},
-              value: 'zemanta'
+              values: ['sage', 'zem.*']
             },
           ]
         },
@@ -58,7 +54,7 @@ const DyplomaModel = {
           rangeStyles : [
             {
               style: { color: 'LawnGreen'},
-              values: true
+              value: true
             }
           ]
         },

@@ -19,11 +19,18 @@ function isInRange(range, value) {
   }
 
   if (range.hasOwnProperty('value')) {
-    return range.value === value;
+    const regex = new RegExp(range.value);
+    return regex.test(value);
   }
 
   if (range.hasOwnProperty('values') && range.values.length > 0) {
-    return range.values.includes(value);
+    for (let str of range.values) {
+      const regex = new RegExp(range.value);
+      if (regex.test(value)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   if (range.hasOwnProperty('range') && range.range.length === 2) {
