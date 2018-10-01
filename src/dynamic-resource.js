@@ -88,7 +88,7 @@ function convertToField(fieldData) {
   if (!rest.readOnly && rest.required === true) {
     rest.validate = [required()];
   }
-  return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].f, ...rest };
+  return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].field, ...rest };
 }
 
 function convertToInputs(fieldDataArr, context) {
@@ -126,7 +126,7 @@ function convertToInput(fieldData) {
   if (!rest.readOnly && rest.required === true) {
     rest.validate = [required()];
   }
-  return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].i, ...rest };
+  return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].input, ...rest };
 }
 
 const noFilterFields = ['list', 'referencemany'];
@@ -149,7 +149,7 @@ function convertToFilterInput(fieldData) {
   if (rest.display) {
     rest.display = convertToInput(rest.display);
   }
-  return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].i, ...rest };
+  return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].filter, ...rest };
 }
 
 

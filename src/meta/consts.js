@@ -1,4 +1,3 @@
-
 export const EField = {
   TextField: "TextField",
   ChipField: "ChipField",
@@ -32,17 +31,17 @@ export const EInput = {
 };
 
 export const EType = {
-  string: { f: EField.TextField, i: EInput.TextInput },
-  number: { f: EField.NumberField, i: EInput.NumberInput },
-  boolean: { f: EField.BooleanField, i: EInput.BooleanInput },
-  text: { f: EField.TextField, i: EInput.LongTextInput },
-  date: { f: EField.DateField, i: EInput.DateInput },
-  url: { f: EField.UrlField, i: EInput.TextInput },
-  chip: { f: EField.ChipField, i: EInput.TextInput },
-  select: { f: EField.TextField, i: EInput.SelectInput },
-  enum: { f: EField.SelectField, i: EInput.SelectInput },
-  reference: { f: EField.ReferenceField, i: EInput.ReferenceInput },
-  list: { f: EField.ArrayField, i: EInput.ArrayInput },
-  referencemany: { f: EField.ReferenceMany, i: EInput.ReferenceMany },
-  function: { f: EField.FunctionField, i: EInput.TextInput }
+  string: { field: EField.TextField, input: EInput.TextInput, filter: EInput.TextInput },
+  number: { field: EField.NumberField, input: EInput.NumberInput, filter: EInput.NumberInput },
+  boolean: { field: EField.BooleanField, input: EInput.BooleanInput, filter: EInput.BooleanInput },
+  text: { field: EField.TextField, input: EInput.LongTextInput, filter: EInput.LongTextInput },
+  date: { field: EField.DateField, input: EInput.DateInput, filter: EInput.DateInput },
+  url: { field: EField.UrlField, input: EInput.TextInput, filter: EInput.TextInput },
+  chip: { field: EField.ChipField, input: EInput.TextInput, filter: EInput.TextInput },
+  select: { field: EField.TextField, input: EInput.SelectInput, filter: EInput.SelectInput },
+  enum: { field: EField.SelectField, input: EInput.SelectInput, filter: EInput.SelectInput },
+  reference: { field: EField.ReferenceField, input: EInput.ReferenceInput, filter: EInput.TextInput },
+  list: { field: EField.ArrayField, input: EInput.ArrayInput, filter: EInput.ArrayInput },
+  referencemany: { field: EField.ReferenceMany, input: EInput.ReferenceMany, filter: EInput.TextInput },
+  function: { field: EField.FunctionField, input: EInput.TextInput, filter: EInput.TextInput }
 };
