@@ -40,9 +40,9 @@ const DyplomaModel = {
           type: "Select",
           required: true,
           choices: ["ob1k", "sage", "zemanta"],
-          rangeStyles : [
+          rangeStyles: [
             {
-              style: { color: 'pink'},
+              style: { color: 'pink' },
               values: ['sage', 'zem.*']
             },
           ]
@@ -51,9 +51,9 @@ const DyplomaModel = {
           name: "external",
           type: "Boolean",
           defaultValue: false,
-          rangeStyles : [
+          rangeStyles: [
             {
-              style: { color: 'LawnGreen'},
+              style: { color: 'LawnGreen' },
               value: true
             }
           ]
@@ -151,7 +151,9 @@ const DyplomaModel = {
           reference: "artifact",
           display: {
             name: "version",
-            render: (record) => {return record.version + " - " + record.commitMessage},
+            render: (record) => {
+              return record.version + " - " + record.commitMessage
+            },
             type: "String"
           }
         },

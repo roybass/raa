@@ -59,7 +59,8 @@ function generateField(field, context) {
       const ColoredSelectField = withRangeStyles(field.rangeStyles)(SelectField);
       return (<ColoredSelectField {...rest}/>);
     case EField.UrlField:
-      return (<UrlField {...field}/>);
+      const StyledUrlField = withRangeStyles(field.rangeStyles)(UrlField);
+      return (<StyledUrlField {...field}/>);
     case EField.FunctionField:
       return (<FunctionField {...field}/>);
     case EField.ArrayField:

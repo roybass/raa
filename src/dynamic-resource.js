@@ -91,12 +91,11 @@ function convertToField(fieldData) {
   return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].f, ...rest };
 }
 
-const noInputFields = [];//['ReferenceMany'];
-function convertToInputs(fieldDataArr) {
+function convertToInputs(fieldDataArr, context) {
   if (!fieldDataArr) {
     return [];
   }
-  return fieldDataArr.filter(item => noInputFields.indexOf(item.type) === -1).map(convertToInput);
+  return fieldDataArr.filter(item => !item.readOnly).map(convertToInput);
 }
 
 function convertToInput(fieldData) {
