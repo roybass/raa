@@ -24,47 +24,48 @@ function entityToModel(entity) {
       list: {
         bulkActions: null,
         title: entity.title,
-        fields: convertToFields(fields)
+        fields: convertToFields(fields, entity.resourceName)
           .concat([{ type: EField.ShowButton, label: "View" }])
       },
       show: {
         title: "View " + entity.title,
-        fields: convertToFields(fields)
+        fields: convertToFields(fields, entity.resourceName)
       },
       filters: {
-        fields: convertToFilterInputs(fields)
+        fields: convertToFilterInputs(fields, entity.resourceName)
       }
     };
   }
+  const fields = entity.fields.filter(f => f.hidden !== true);
   return {
     name: entity.resourceName,
     icon: entity.icon,
     list: {
       title: entity.title,
-      fields: convertToFields(entity.fields.filter(f => f.hidden !== true)).concat([{ type: EField.EditButton }])
+      fields: convertToFields(fields, entity.resourceName).concat([{ type: EField.EditButton }])
     },
     edit: {
       title: "Edit " + entity.title,
-      inputs: convertToInputs(entity.fields)
+      inputs: convertToInputs(entity.fields, entity.resourceName)
     },
     create: {
       title: "Create New " + entity.title,
-      inputs: convertToInputs(entity.fields)
+      inputs: convertToInputs(entity.fields, entity.resourceName)
     },
     filters: {
-      fields: convertToFilterInputs(entity.fields.filter(f => f.hidden !== true))
+      fields: convertToFilterInputs(fields, entity.resourceName)
     }
   }
 }
 
-function convertToFields(fieldDataArr) {
+function convertToFields(fieldDataArr, entityName) {
   if (!fieldDataArr) {
     return [];
   }
-  return fieldDataArr.map(convertToField);
+  return fieldDataArr.map(i => convertToField(i, entityName));
 }
 
-function convertToField(fieldData) {
+function convertToField(fieldData, entityName) {
   const rest = Object.assign({}, fieldData);
   delete rest.name;
   delete rest.type;
@@ -72,10 +73,10 @@ function convertToField(fieldData) {
     rest.label = capitalize(rest.name);
   }
   if (rest.display) {
-    rest.display = convertToField(rest.display);
+    rest.display = convertToField(rest.display, entityName + "_" + fieldData.name);
   }
   if (rest.fields) {
-    rest.fields = rest.fields.map(convertToField)
+    rest.fields = rest.fields.map(i => convertToField(i, entityName + "_" + fieldData.name));
   }
   if (rest.choices) {
     rest.choices = rest.choices.map(choice => {
@@ -87,20 +88,23 @@ function convertToField(fieldData) {
   }
   if (!rest.readOnly && rest.required === true) {
     rest.validate = [required()];
+  }
+  if (!rest.className && entityName !== undefined) {
+    rest.className = entityName + '_' + fieldData.name;
   }
   return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].field, ...rest };
 }
 
-function convertToInputs(fieldDataArr, context) {
+function convertToInputs(fieldDataArr, entityName) {
   if (!fieldDataArr) {
     return [];
   }
-  return fieldDataArr.filter(item => !item.readOnly).map(convertToInput);
+  return fieldDataArr.filter(item => !item.readOnly).map(i => convertToInput(i, entityName));
 }
 
-function convertToInput(fieldData) {
+function convertToInput(fieldData, entityName) {
   if (fieldData.type.toLowerCase() === "referencemany") {
-    return convertToField(fieldData);
+    return convertToField(fieldData, entityName);
   }
   const rest = Object.assign({}, fieldData);
   delete rest.name;
@@ -109,10 +113,10 @@ function convertToInput(fieldData) {
     rest.label = capitalize(rest.name);
   }
   if (rest.display) {
-    rest.display = convertToInput(rest.display);
+    rest.display = convertToInput(rest.display, entityName + "_" + fieldData.name);
   }
   if (rest.fields) {
-    rest.fields = rest.fields.map(convertToInput);
+    rest.fields = rest.fields.map(i => convertToInput(i, entityName + "_" + fieldData.name));
   }
   if (rest.choices) {
     rest.choices = rest.choices.map(choice => {
@@ -125,6 +129,9 @@ function convertToInput(fieldData) {
 
   if (!rest.readOnly && rest.required === true) {
     rest.validate = [required()];
+  }
+  if (!rest.className && entityName !== undefined) {
+    rest.className = entityName + '_' + fieldData.name;
   }
   return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].input, ...rest };
 }
