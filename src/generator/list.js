@@ -13,16 +13,20 @@ const ArrowsPagination = ({ page, perPage, total, setPage }) => {
   return (
     nbPages > 1 &&
     <Toolbar>
+      <span style={{margin: 'auto'}}>
       {page > 1 &&
-      <Button key="prev" icon={<ChevronLeft />} onClick={() => setPage(page - 1)}>
+      <Button  key="prev" onClick={() => setPage(page - 1)}>
+        <ChevronLeft />
         Prev
       </Button>
       }
       {page !== nbPages &&
-      <Button key="next" icon={<ChevronRight />} onClick={() => setPage(page + 1)}>
+      <Button key="next" onClick={() => setPage(page + 1)}>
         Next
+        <ChevronRight />
       </Button>
       }
+      </span>
     </Toolbar>
   );
 };

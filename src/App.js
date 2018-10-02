@@ -14,7 +14,7 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.hide = window.raHide || modelProvider.useExample;
+    this.hide = window.raHide || true;
     this.dataprovider = this.hide ? entitydataprovider : localdataprovider;
     this.title = window.raTitle || 'React Admin Admin';
     this.theme = window.raTheme ? createMuiTheme(window.raTheme) : undefined;
