@@ -532,5 +532,31 @@ const BumperModel = {
   ]
 };
 
-export { BandsModel, DyplomaModel, BumperModel }
+const TODOs = {
+  data: [
+    {
+      title: "ToDos",
+      resourceName: "todos",
+      endpoint : "https://jsonplaceholder.typicode.com",
+      fields: [
+        {
+          name: "id",
+          type: "number",
+          readOnly: true
+        },
+        {
+          name: "title",
+          type: "string",
+          required: true,
+        },
+        {
+          name: "completed",
+          type: "boolean",
+          required: true
+        }
+      ]
+    }
+  ]
+};
+export { BandsModel, DyplomaModel, BumperModel, TODOs }
 

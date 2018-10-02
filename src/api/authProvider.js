@@ -56,20 +56,28 @@ class AuthProvider {
       if (token) {
         options.headers.set('Authorization', `Bearer ${token}`);
       }
-      return fetchUtils.fetchJson(url, options).then((response) => {
-        console.log('Response is ', response);
-        if (response.headers.hasOwnProperty('content-range')) {
-          return response;
-        }
-        if (!Array.isArray(response.json)) {
-          console.log(typeof response.json);
-          return response;
-        }
-        const total = response.json.length;
-        response.headers['content-range'] = '1,' + total + '/' + total;
-        return response;
-      });
+      return fetchUtils.fetchJson(url, options).then(AuthProvider._handleContentRangeHeader);
     }
+  }
+
+  static _handleContentRangeHeader(response) {
+    if (response.headers.hasOwnProperty('content-range')) {
+      return response;
+    }
+    if (!Array.isArray(response.json)) {
+      console.log(typeof response.json);
+      return response;
+    }
+    const total = response.json.length;
+
+    const headers = new Headers();
+    for (let pair of response.headers.entries()) {
+      headers.append(pair[0], pair[1]);
+    }
+    headers.set('content-range', '1,' + total + '/' + total);
+    response.headers = headers;
+    return response;
+
   }
 }
 
