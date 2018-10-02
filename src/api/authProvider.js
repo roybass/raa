@@ -56,7 +56,19 @@ class AuthProvider {
       if (token) {
         options.headers.set('Authorization', `Bearer ${token}`);
       }
-      return fetchUtils.fetchJson(url, options);
+      return fetchUtils.fetchJson(url, options).then((response) => {
+        console.log('Response is ', response);
+        if (response.headers.hasOwnProperty('content-range')) {
+          return response;
+        }
+        if (!Array.isArray(response.json)) {
+          console.log(typeof response.json);
+          return response;
+        }
+        const total = response.json.length;
+        response.headers['content-range'] = '1,' + total + '/' + total;
+        return response;
+      });
     }
   }
 }
