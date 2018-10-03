@@ -61,7 +61,7 @@ class AuthProvider {
   }
 
   static _handleContentRangeHeader(response) {
-    if (response.headers.hasOwnProperty('content-range')) {
+    if (response.headers.has('content-range')) {
       return response;
     }
     if (!Array.isArray(response.json)) {
