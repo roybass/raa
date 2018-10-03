@@ -90,7 +90,7 @@ function convertToField(fieldData, entityName) {
     rest.validate = [required()];
   }
   if (!rest.className && entityName !== undefined) {
-    rest.className = entityName + '_' + fieldData.name;
+    //rest.className = entityName + '_' + fieldData.name;
   }
   return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].field, ...rest };
 }
@@ -131,7 +131,7 @@ function convertToInput(fieldData, entityName) {
     rest.validate = [required()];
   }
   if (!rest.className && entityName !== undefined) {
-    rest.className = entityName + '_' + fieldData.name;
+    //rest.className = entityName + '_' + fieldData.name;
   }
   return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].input, ...rest };
 }
