@@ -20,8 +20,6 @@ import {
   TextInput
 } from 'react-admin';
 
-import { EntityActions } from '../dashboard/entity-actions';
-
 function toIdAndName(someEnum) {
   return Object.keys(someEnum).map((item) => {
     return { id: item, name: item }
@@ -86,7 +84,7 @@ const ListFilters = (props) => (
 );
 
 const list = (props) => (
-  <List {...props} actions={<EntityActions/>} filters={<ListFilters />}>
+  <List {...props} filters={<ListFilters />}>
     <Datagrid>
       <TextField source="resourceName" label="Name"/>
       <TextField source="title" label="Title"/>

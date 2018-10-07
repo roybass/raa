@@ -2,6 +2,7 @@ import React from 'react';
 import { Datagrid, List } from 'react-admin';
 import generateField from './field';
 import generateFilters from './filters';
+import generateActionButton from './action-button';
 
 import Button from '@material-ui/core/Button';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -42,6 +43,7 @@ function generateList(listDef, filtersDef) {
           filters={generateFilters(filtersDef)} pagination={<ArrowsPagination />}>
       <Datagrid>
         {listDef.fields.map((field) => generateField(field, 'list'))}
+        {listDef.actions.map(generateActionButton)}
       </Datagrid>
     </List>
   )

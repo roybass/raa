@@ -24,6 +24,7 @@ function entityToModel(entity) {
       list: {
         bulkActions: null,
         title: entity.title,
+        actions: entity.actions || [],
         fields: convertToFields(fields, entity.resourceName)
           .concat([{ type: EField.ShowButton, label: "View" }])
       },
@@ -42,7 +43,8 @@ function entityToModel(entity) {
     icon: entity.icon,
     list: {
       title: entity.title,
-      fields: convertToFields(fields, entity.resourceName).concat([{ type: EField.EditButton }])
+      fields: convertToFields(fields, entity.resourceName).concat([{ type: EField.EditButton }]),
+      actions: entity.actions
     },
     edit: {
       title: "Edit " + entity.title,

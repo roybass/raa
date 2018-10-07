@@ -21,6 +21,7 @@ import {
 function generateInput(input) {
   const params = Object.assign({}, input);
   delete params.type;
+  delete params.rangeStyles;
 
   if (input.readOnly && input.type !== EInput.ReferenceMany) {
     return (<DisabledInput {...params}/>);

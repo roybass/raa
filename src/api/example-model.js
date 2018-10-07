@@ -19,6 +19,18 @@ const DyplomaModel = {
           owner: { url: "/services/owner/{{owner}}" }
         }
       },
+      actions: [
+        {
+          title : "Reboot",
+          icon: "BatteryCharging80",
+          endpoint: {
+            url: "http://localhost:3000/#/service/{{id}}/show",
+            headers: {
+              CUSTOM: '{{name}}'
+            }
+          }
+        }
+      ],
       fields: [
         {
           name: "id",
