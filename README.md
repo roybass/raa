@@ -1,3 +1,10 @@
+# React Admin Admin
+This is an attempt to bring React Admin to engineers who are not FE developers.
+It creates a React Admin app based on a JSON model.
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
