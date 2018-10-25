@@ -138,12 +138,11 @@ function convertToInput(fieldData, entityName) {
   return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].input, ...rest };
 }
 
-const noFilterFields = ['list', 'referencemany'];
 function convertToFilterInputs(fieldDataArr) {
   if (!fieldDataArr) {
     return [];
   }
-  return fieldDataArr.filter(item => noFilterFields.indexOf(item.type.toLowerCase()) === -1).map(convertToFilterInput);
+  return fieldDataArr.filter(item => EType[item.type.toLowerCase()].filter !== null).map(convertToFilterInput);
 }
 
 function convertToFilterInput(fieldData) {

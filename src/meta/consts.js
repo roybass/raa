@@ -11,6 +11,7 @@ export const EField = {
   SelectField: "SelectField",
   FunctionField: "FunctionField",
   UrlField: "UrlField",
+  ImageField: "ImageField",
   ArrayField: "ArrayField",
   ReferenceMany: "ReferenceMany"
 };
@@ -40,8 +41,9 @@ export const EType = {
   chip: { field: EField.ChipField, input: EInput.TextInput, filter: EInput.TextInput },
   select: { field: EField.TextField, input: EInput.SelectInput, filter: EInput.SelectInput },
   enum: { field: EField.SelectField, input: EInput.SelectInput, filter: EInput.SelectInput },
+  image: { field: EField.ImageField, Input: EInput.ImageInput, filter: null },
   reference: { field: EField.ReferenceField, input: EInput.ReferenceInput, filter: EInput.TextInput },
-  list: { field: EField.ArrayField, input: EInput.ArrayInput, filter: EInput.ArrayInput },
-  referencemany: { field: EField.ReferenceMany, input: EInput.ReferenceMany, filter: EInput.TextInput },
+  list: { field: EField.ArrayField, input: EInput.ArrayInput, filter: null },
+  referencemany: { field: EField.ReferenceMany, input: EInput.ReferenceMany, filter: null },
   function: { field: EField.FunctionField, input: EInput.TextInput, filter: EInput.TextInput }
 };
