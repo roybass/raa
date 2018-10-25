@@ -21,12 +21,13 @@ const DyplomaModel = {
       },
       actions: [
         {
-          title : "Reboot",
+          title : "Restart",
           icon: "BatteryCharging80",
+          confirm : "Are you should you want to restart {{ids.length}} services?",
           endpoint: {
-            url: "http://localhost:3000/#/service/{{id}}/show",
+            url: "http://localhost:3000/service/show/ids={{ids}}",
             headers: {
-              CUSTOM: '{{name}}'
+              CUSTOM: 'HELLO'
             }
           }
         }
