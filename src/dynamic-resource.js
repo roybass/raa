@@ -44,7 +44,7 @@ function entityToModel(entity) {
     list: {
       title: entity.title,
       fields: convertToFields(fields, entity.resourceName).concat([{ type: EField.EditButton }]),
-      actions: entity.actions
+      actions: entity.actions || []
     },
     edit: {
       title: "Edit " + entity.title,
