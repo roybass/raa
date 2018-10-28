@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { BulkDeleteButton } from 'react-admin';
-import ActionButton from './action-button';
+import ActionButton from '../component/action-button';
 
 class BulkActionButtons extends Component {
 
