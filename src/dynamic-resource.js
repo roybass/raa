@@ -9,6 +9,18 @@ function capitalize(str) {
 }
 
 function entityToModel(entity) {
+
+  if (entity.actions) {
+    entity.actions.forEach(action => {
+        if (!action.inputs) {
+          action.inputs = [];
+          return;
+        }
+        action.inputs = action.inputs.map(input => convertToInput(input, entity.resourceName));
+      }
+    )
+  }
+
   if (entity.editable === false) {
     const fields = entity.fields
       .filter(f => f.hidden !== true)
@@ -38,6 +50,7 @@ function entityToModel(entity) {
     };
   }
   const fields = entity.fields.filter(f => f.hidden !== true);
+
   return {
     name: entity.resourceName,
     icon: entity.icon,

@@ -1,31 +1,48 @@
 import React, { Component, Fragment } from 'react';
-import { Button, Confirm, showNotification } from 'react-admin';
-import * as icons from '@material-ui/icons';
-import mustache from 'mustache';
-import endpointRunner from '../api/endpoint-runner';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { isSubmitting, submit } from 'redux-form';
+import { Button, fetchEnd, fetchStart, showNotification, SimpleForm } from 'react-admin';
+import { Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
+import IconCancel from '@material-ui/icons/Cancel';
+import * as icons from '@material-ui/icons';
+import endpointRunner from '../api/endpoint-runner';
+import generateInput from '../generator/input';
+import mustache from 'mustache';
+
+const FORM_NAME = 'action-form';
 
 class ActionButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false,
+      error: false,
+      showDialog: false
     };
   }
 
   handleClick = () => {
-    if (this.props.action.confirm) {
-      this.setState({ isOpen: true });
+    if (this.props.action.confirm || this.props.action.inputs) {
+      this.setState({ showDialog: true });
     } else {
       this.runAction();
     }
   };
 
-  handleDialogClose = () => {
-    this.setState({ isOpen: false });
+  handleClick = () => {
+    this.setState({ showDialog: true });
   };
 
+  handleCloseClick = () => {
+    this.setState({ showDialog: false });
+  };
+
+  handleSaveClick = () => {
+    const { submit } = this.props;
+
+    // Trigger a submit of our custom quick create form
+    // This is needed because our modal action buttons are oustide the form
+    submit(FORM_NAME);
+  };
 
   runAction = () => {
     const { showNotification } = this.props;
@@ -41,30 +58,89 @@ class ActionButton extends Component {
     this.setState({ isOpen: false });
   };
 
+
+  handleSubmit = values => {
+    const { fetchStart, fetchEnd, showNotification, action } = this.props;
+
+    // Dispatch an action letting react-admin know a API call is ongoing
+    fetchStart();
+
+    if (action.endpoint) {
+      endpointRunner.run(action.endpoint, { ids: this.props.ids, body: JSON.stringify(values) })
+        .then((response) => {
+          response.text().then(text => {
+            showNotification(response.status + ' ' + response.statusText + ' - ' + text);
+          });
+        })
+        .catch(error => {
+          showNotification(error.message, 'error');
+        })
+        .finally(() => {
+          // Dispatch an action letting react-admin know a API call has ended
+          this.setState({ showDialog: false });
+          fetchEnd();
+        });
+    }
+  };
+
+
   render() {
-    const { title, icon, confirm } = this.props.action;
+    const { showDialog } = this.state;
+    const { action } = this.props;
+
+
     return (
       <Fragment>
 
-        <Button label={title} onClick={this.handleClick}>
-          {React.createElement(icons[icon])}
+        <Button label={action.title} onClick={this.handleClick}>
+          {React.createElement(icons[action.icon])}
         </Button>
 
-        <Confirm
-          isOpen={this.state.isOpen}
-          title={"Confirm " + title}
-          content={mustache.render(confirm, this.props)}
-          onConfirm={this.runAction}
-          onClose={this.handleDialogClose}
-        />
-      </Fragment>
+        <Dialog
+          fullWidth
+          open={showDialog}
+          onClose={this.handleCloseClick}
+          aria-label={"Confirm " + action.title}
+        >
+          <DialogTitle>{"Confirm " + action.title}</DialogTitle>
+          <DialogContent>
+            {mustache.render(action.confirm || '', this.props)}
+            <SimpleForm
+              // We override the redux-form name to avoid collision with the react-admin main form
+              form={FORM_NAME}
+              // We override the redux-form onSubmit prop to handle the submission ourselves
+              onSubmit={this.handleSubmit}
+              // We want no toolbar at all as we have our modal actions
+              toolbar={null}>
 
+              {action.inputs ? action.inputs.map(generateInput) : null}
+            </SimpleForm>
+          </DialogContent>
+          <DialogActions>
+            <Button label="Confirm" onClick={this.handleSaveClick}>
+              {React.createElement(icons[action.icon])}
+            </Button>
+            <Button label="ra.action.cancel" onClick={this.handleCloseClick}>
+              <IconCancel />
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Fragment>
     );
   }
 }
 
-ActionButton.propTypes = {
-  showNotification: PropTypes.func
+const mapStateToProps = state => ({
+  isSubmitting: isSubmitting(FORM_NAME)(state)
+});
+
+const mapDispatchToProps = {
+  fetchEnd,
+  fetchStart,
+  showNotification,
+  submit
 };
 
-export default connect(null, { showNotification })(ActionButton);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  ActionButton
+);

@@ -13,7 +13,7 @@ class EndpointRunner {
     const url = this.buildUrl(endpoint, params);
     const body = this.buildBody(endpoint, params);
     const headers = this.getHeaders(endpoint, params);
-    const method = endpoint.method || "GET";
+    const method = this.getMethod(endpoint);
 
     const request = new Request(url, {
       method,
@@ -32,10 +32,16 @@ class EndpointRunner {
   }
 
   buildBody(endpoint, params) {
-    if (!endpoint.body) {
+    const method = this.getMethod(endpoint);
+    if (method === 'GET' || method === 'HEAD') {
       return;
     }
-    return mustache.render(endpoint.body, params);
+    const body = endpoint.body || '{{{body}}}';
+    return mustache.render(body, params);
+  }
+
+  getMethod(endpoint) {
+    return endpoint.method || 'GET';
   }
 
   getHeaders(endpoint, params) {

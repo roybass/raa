@@ -21,15 +21,24 @@ const DyplomaModel = {
       },
       actions: [
         {
-          title : "Restart",
+          title: "Restart",
           icon: "BatteryCharging80",
-          confirm : "Are you should you want to restart {{ids.length}} services?",
+          confirm: "Are you should you want to restart {{ids.length}} services?",
           endpoint: {
             url: "http://localhost:3000/service/show/ids={{ids}}",
+            method: 'POST',
             headers: {
               CUSTOM: 'HELLO'
             }
-          }
+          },
+          inputs : [
+            {
+              name: "comment",
+              label: "Comment",
+              required: true,
+              type: "string"
+            }
+          ]
         }
       ],
       fields: [
@@ -550,7 +559,7 @@ const TODOs = {
     {
       title: "ToDos",
       resourceName: "todos",
-      endpoint : "https://jsonplaceholder.typicode.com",
+      endpoint: "https://jsonplaceholder.typicode.com",
       fields: [
         {
           name: "id",
