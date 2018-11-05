@@ -20,7 +20,13 @@ class ModelProvider {
   }
 
   resolveModel() {
+    const queryParamModel = this.getQueryVariable('model');
+    if (queryParamModel) {
+      console.log('Resolving model from query parameter');
+      return fetch(queryParamModel).then((response) => response.json());
+    }
     if (this.useExample) {
+      console.log('Resolving example model');
       return Promise.resolve(ExampleModel);
     }
     if (window.raModel) {
@@ -33,6 +39,19 @@ class ModelProvider {
     }
     console.log('Resolving model from LocalStorage');
     return Promise.resolve(localDB.getList('entity'));
+  }
+
+
+  getQueryVariable(paramName) {
+    const query = window.location.search.substring(1);
+    console.log("query = ", query);
+    const vars = query.split('&');
+    for (let param of vars) {
+      const pair = param.split('=');
+      if (decodeURIComponent(pair[0]) === paramName) {
+        return decodeURIComponent(pair[1]);
+      }
+    }
   }
 }
 
