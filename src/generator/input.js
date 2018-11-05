@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { EInput } from '../meta/consts';
 import generateField from './field';
 import {
@@ -45,11 +46,7 @@ function generateInput(input) {
     case EInput.AutocompleteInput:
       return (<AutocompleteInput {...params}/>);
     case EInput.ImageInput:
-      return (
-        <ImageInput {...params}>
-          <ImageField {...params.preview} />
-        </ImageInput>
-      );
+      return (<LongTextInput {...params}/>);
     case EInput.ReferenceInput:
       return (
         <ReferenceInput {...params}>
