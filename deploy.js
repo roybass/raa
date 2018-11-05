@@ -19,7 +19,7 @@ const config = {
   localRoot: __dirname + '/build',
   remoteRoot: url.path,
   include: ['*', '**/*'],
-  exclude: ['**/*.map'],
+  exclude: [],
   deleteRemote: false
 };
 
