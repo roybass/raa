@@ -31,6 +31,14 @@ export const EInput = {
   ReferenceMany: "ReferenceMany"
 };
 
+export const EVisibility = {
+  list: 'list',
+  edit: 'edit',
+  create: 'create',
+  show: 'show',
+  filter: 'filter'
+};
+
 export const EType = {
   string: { field: EField.TextField, input: EInput.TextInput, filter: EInput.TextInput },
   number: { field: EField.NumberField, input: EInput.NumberInput, filter: EInput.NumberInput },

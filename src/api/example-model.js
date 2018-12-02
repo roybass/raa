@@ -2,6 +2,29 @@ const DyplomaModel = {
   authentication: {
     url: "http://dyploma.outbrain.com:8080/DyPloMa/auth"
   },
+  actions: [
+    {
+      title: "Restart",
+      resource: 'service',
+      icon: "BatteryCharging80",
+      confirm: "Are you should you want to restart {{ids.length}} services?",
+      endpoint: {
+        url: "http://localhost:3000/service/show/ids={{ids}}",
+        method: 'POST',
+        headers: {
+          CUSTOM: 'HELLO'
+        }
+      },
+      inputs: [
+        {
+          name: "comment",
+          label: "Comment",
+          required: true,
+          type: "string"
+        }
+      ]
+    }
+  ],
   data: [
     {
       title: "Service",
@@ -19,28 +42,6 @@ const DyplomaModel = {
           owner: { url: "/services/owner/{{owner}}" }
         }
       },
-      actions: [
-        {
-          title: "Restart",
-          icon: "BatteryCharging80",
-          confirm: "Are you should you want to restart {{ids.length}} services?",
-          endpoint: {
-            url: "http://localhost:3000/service/show/ids={{ids}}",
-            method: 'POST',
-            headers: {
-              CUSTOM: 'HELLO'
-            }
-          },
-          inputs : [
-            {
-              name: "comment",
-              label: "Comment",
-              required: true,
-              type: "string"
-            }
-          ]
-        }
-      ],
       fields: [
         {
           name: "id",

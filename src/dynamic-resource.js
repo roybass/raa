@@ -1,4 +1,4 @@
-import { EField, EType } from './meta/consts';
+import { EField, EType, EVisibility } from './meta/consts';
 import { required } from 'react-admin';
 
 function capitalize(str) {
@@ -37,12 +37,12 @@ function entityToModel(entity) {
         bulkActions: null,
         title: entity.title,
         actions: entity.actions || [],
-        fields: convertToFields(fields, entity.resourceName)
+        fields: convertToFields(fields, entity.resourceName,  EVisibility.list)
           .concat([{ type: EField.ShowButton, label: "View" }])
       },
       show: {
         title: "View " + entity.title,
-        fields: convertToFields(fields, entity.resourceName)
+        fields: convertToFields(fields, entity.resourceName,  EVisibility.show)
       },
       filters: {
         fields: convertToFilterInputs(fields, entity.resourceName)
@@ -56,28 +56,30 @@ function entityToModel(entity) {
     icon: entity.icon,
     list: {
       title: entity.title,
-      fields: convertToFields(fields, entity.resourceName).concat([{ type: EField.EditButton }]),
+      fields: convertToFields(fields, entity.resourceName, EVisibility.list).concat([{ type: EField.EditButton }]),
       actions: entity.actions || []
     },
     edit: {
       title: "Edit " + entity.title,
-      inputs: convertToInputs(entity.fields, entity.resourceName)
+      inputs: convertToInputs(entity.fields, entity.resourceName,  EVisibility.edit)
     },
     create: {
       title: "Create New " + entity.title,
-      inputs: convertToInputs(entity.fields, entity.resourceName)
+      inputs: convertToInputs(entity.fields, entity.resourceName,  EVisibility.create)
     },
     filters: {
-      fields: convertToFilterInputs(fields, entity.resourceName)
+      fields: convertToFilterInputs(fields, entity.resourceName,  EVisibility.filter)
     }
   }
 }
 
-function convertToFields(fieldDataArr, entityName) {
+function convertToFields(fieldDataArr, entityName, visibility) {
   if (!fieldDataArr) {
     return [];
   }
-  return fieldDataArr.map(i => convertToField(i, entityName));
+  return fieldDataArr
+    .filter(item => !item.visibility || item.visibility.indexOf(visibility) !== -1)
+    .map(i => convertToField(i, entityName));
 }
 
 function convertToField(fieldData, entityName) {
@@ -110,11 +112,14 @@ function convertToField(fieldData, entityName) {
   return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].field, ...rest };
 }
 
-function convertToInputs(fieldDataArr, entityName) {
+function convertToInputs(fieldDataArr, entityName, visibility) {
   if (!fieldDataArr) {
     return [];
   }
-  return fieldDataArr.filter(item => !item.readOnly).map(i => convertToInput(i, entityName));
+  return fieldDataArr
+    .filter(item => !item.readOnly)
+    .filter(item => !item.visibility || item.visibility.indexOf(visibility) !== -1)
+    .map(i => convertToInput(i, entityName));
 }
 
 function convertToInput(fieldData, entityName) {
@@ -151,11 +156,14 @@ function convertToInput(fieldData, entityName) {
   return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].input, ...rest };
 }
 
-function convertToFilterInputs(fieldDataArr) {
+function convertToFilterInputs(fieldDataArr, visibility) {
   if (!fieldDataArr) {
     return [];
   }
-  return fieldDataArr.filter(item => EType[item.type.toLowerCase()].filter !== null).map(convertToFilterInput);
+  return fieldDataArr
+    .filter(item => EType[item.type.toLowerCase()].filter !== null)
+    .filter(item => !item.visibility || item.visibility.indexOf(visibility) !== -1)
+    .map(convertToFilterInput);
 }
 
 function convertToFilterInput(fieldData) {
@@ -184,6 +192,18 @@ class DynamicResources {
   }
 
   getResources(model) {
+
+    // Place the actions inside entities, for simpler processing
+    if (model.actions) {
+      model.actions.forEach(action => {
+        const entityName = action.resource;
+        const entity = model.data.find(e => e.resourceName === entityName);
+        if (!entity.actions) {
+          entity.actions = [];
+        }
+        entity.actions.push(action);
+      })
+    }
     const resources = model.data.map(entityToModel);
     this.assignKeys(resources);
     console.log('resources ', resources);

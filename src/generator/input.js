@@ -8,8 +8,6 @@ import {
   BooleanInput,
   DateInput,
   DisabledInput,
-  ImageField,
-  ImageInput,
   LongTextInput,
   NumberInput,
   ReferenceInput,
