@@ -120,7 +120,6 @@ function convertToInputs(fieldDataArr, entityName, visibility) {
     return [];
   }
   return fieldDataArr
-    .filter(item => !item.readOnly)
     .filter(item => !item.visibility || item.visibility.indexOf(visibility) !== -1)
     .map(i => convertToInput(i, entityName));
 }
