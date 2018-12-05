@@ -14,7 +14,8 @@ function convertChoices(choices) {
       return choice;
     }
     return { id: choice, name: choice };
-  });}
+  });
+}
 
 function entityToModel(entity) {
 
@@ -29,6 +30,8 @@ function entityToModel(entity) {
     )
   }
 
+  const operations = new Set(entity.operations || ['edit', 'create', 'list']);
+
   if (entity.editable === false) {
     const fields = entity.fields
       .filter(f => f.hidden !== true)
@@ -41,16 +44,15 @@ function entityToModel(entity) {
       readOnly: true,
       name: entity.resourceName,
       icon: entity.icon,
-      list: {
-        bulkActions: null,
+      list: !operations.has('list') ? null : {
         title: entity.title,
         actions: entity.actions || [],
-        fields: convertToFields(fields, entity.resourceName,  EVisibility.list)
+        fields: convertToFields(fields, entity.resourceName, EVisibility.list)
           .concat([{ type: EField.ShowButton, label: "View" }])
       },
       show: {
         title: "View " + entity.title,
-        fields: convertToFields(fields, entity.resourceName,  EVisibility.show)
+        fields: convertToFields(fields, entity.resourceName, EVisibility.show)
       },
       filters: {
         fields: convertToFilterInputs(fields, entity.resourceName)
@@ -59,24 +61,35 @@ function entityToModel(entity) {
   }
   const fields = entity.fields.filter(f => f.hidden !== true);
 
+  let convertedFields = convertToFields(fields, entity.resourceName, EVisibility.list);
+
+  if (operations.has('edit')) {
+    convertedFields = convertedFields.concat([{ type: EField.EditButton }]);
+    console.log(entity.resourceName + " is editable");
+  }
+
   return {
     name: entity.resourceName,
     icon: entity.icon,
-    list: {
+    list: !operations.has('list') ? null : {
       title: entity.title,
-      fields: convertToFields(fields, entity.resourceName, EVisibility.list).concat([{ type: EField.EditButton }]),
+      fields: convertedFields,
       actions: entity.actions || []
     },
-    edit: {
-      title: "Edit " + entity.title,
-      inputs: convertToInputs(entity.fields, entity.resourceName,  EVisibility.edit)
-    },
-    create: {
-      title: "Create New " + entity.title,
-      inputs: convertToInputs(entity.fields, entity.resourceName,  EVisibility.create)
-    },
     filters: {
-      fields: convertToFilterInputs(fields, entity.resourceName,  EVisibility.filter)
+      fields: convertToFilterInputs(fields, entity.resourceName, EVisibility.filter)
+    },
+    edit: !operations.has('edit') ? null : {
+      title: "Edit " + entity.title,
+      inputs: convertToInputs(entity.fields, entity.resourceName, EVisibility.edit)
+    },
+    create: !operations.has('create') ? null : {
+      title: "Create New " + entity.title,
+      inputs: convertToInputs(entity.fields, entity.resourceName, EVisibility.create)
+    },
+    show: {
+      title: "View " + entity.title,
+      fields: convertToFields(fields, entity.resourceName, EVisibility.show)
     }
   }
 }

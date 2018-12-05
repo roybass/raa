@@ -42,6 +42,7 @@ const DyplomaModel = {
           owner: { url: "/services/owner/{{owner}}" }
         }
       },
+      operations: ['edit', 'create', 'list'],
       fields: [
         {
           name: "id",
