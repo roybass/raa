@@ -8,6 +8,14 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+function convertChoices(choices) {
+  return choices.map(choice => {
+    if (choice.hasOwnProperty('id') && choice.hasOwnProperty('name')) {
+      return choice;
+    }
+    return { id: choice, name: choice };
+  });}
+
 function entityToModel(entity) {
 
   if (entity.actions) {
@@ -96,12 +104,7 @@ function convertToField(fieldData, entityName) {
     rest.fields = rest.fields.map(i => convertToField(i, entityName + "_" + fieldData.name));
   }
   if (rest.choices) {
-    rest.choices = rest.choices.map(choice => {
-      if (choice.hasOwnProperty('id') && choice.hasOwnProperty('name')) {
-        return choice;
-      }
-      return { id: choice, name: choice };
-    });
+    rest.choices = convertChoices(rest.choices);
   }
   if (!rest.readOnly && rest.required === true) {
     rest.validate = [required()];
@@ -139,12 +142,7 @@ function convertToInput(fieldData, entityName) {
     rest.fields = rest.fields.map(i => convertToInput(i, entityName + "_" + fieldData.name));
   }
   if (rest.choices) {
-    rest.choices = rest.choices.map(choice => {
-      if (choice.hasOwnProperty('id') && choice.hasOwnProperty('name')) {
-        return choice;
-      }
-      return { id: choice, name: choice };
-    });
+    rest.choices = convertChoices(rest.choices);
   }
 
   if (!rest.readOnly && rest.required === true) {
@@ -177,6 +175,9 @@ function convertToFilterInput(fieldData) {
   }
   if (rest.display) {
     rest.display = convertToInput(rest.display);
+  }
+  if (rest.choices) {
+    rest.choices = convertChoices(rest.choices);
   }
   return { source: fieldData.name, type: EType[fieldData.type.toLowerCase()].filter, ...rest };
 }
@@ -214,7 +215,7 @@ class DynamicResources {
     if (!obj) {
       return;
     }
-    if (typeof obj !== 'object') {
+    if (typeof obj !== 'object' || Array.isArray(obj)) {
       return;
     }
     obj.key = this.key++;
