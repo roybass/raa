@@ -44,7 +44,6 @@ const DyplomaModel = {
       },
       fields: [
         {
-          tab: "Main",
           name: "id",
           type: "Number",
           readOnly: true

@@ -15,10 +15,11 @@ export default function breakToTabs(inputs) {
   const tabs = {};
   for (let input of inputs) {
     const tabName = input.tab || 'Main';
+    console.debug(input.name + " is in tab " + tabName);
     let tab = tabs[tabName];
     if (!tab) {
       tab = { label: tabName, inputs: [] };
-      tabs[input.tab] = tab;
+      tabs[tabName] = tab;
     }
     tab.inputs.push(input);
   }
