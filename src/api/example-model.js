@@ -44,21 +44,25 @@ const DyplomaModel = {
       },
       fields: [
         {
+          tab: "Main",
           name: "id",
           type: "Number",
           readOnly: true
         },
         {
+          tab: "Main",
           name: "name",
           type: "String",
           required: true
         },
         {
+          tab: "Main",
           name: "owner",
           type: "String",
           required: true
         },
         {
+          tab: "Main",
           name: "serviceType",
           type: "Select",
           required: true,
@@ -71,6 +75,7 @@ const DyplomaModel = {
           ]
         },
         {
+          tab: "Advanced",
           name: "external",
           type: "Boolean",
           defaultValue: false,
@@ -82,22 +87,26 @@ const DyplomaModel = {
           ]
         },
         {
+          tab: "Advanced",
           name: "antiAffinity",
           type: "Boolean",
           defaultValue: false
         },
         {
+          tab: "Advanced",
           name: "externalPort",
           label: "External Port",
           type: "Number",
           defaultValue: 0
         },
         {
+          tab: "Advanced",
           name: "creationTimestamp",
           type: "Date",
           readOnly: true
         },
         {
+          tab: "Advanced",
           name: "deployments",
           label: "Deployments",
           type: "ReferenceMany",
