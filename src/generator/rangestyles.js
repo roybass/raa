@@ -64,7 +64,7 @@ function withRangeStyles(ranges) {
     const styles = createStylesFromRanges(ranges);
     const wrapper = withStyles(styles)(
       ({ classes, ...props }) => (
-        <WrappedComponent
+        <WrappedComponent translateChoice={false}
           className={classnames(generateClassSelector(classes, ranges, props.record[props.source]))}
           {...props}
         />

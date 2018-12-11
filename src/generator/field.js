@@ -1,5 +1,6 @@
 import { EField } from '../meta/consts';
 import React from 'react';
+import * as icons from '@material-ui/icons';
 import withRangeStyles from './rangestyles';
 
 import {
@@ -52,6 +53,8 @@ function generateField(field, context) {
       return (<DateField {...field}/>);
     case EField.ImageField:
       return (<ImageField {...field}/>);
+    case EField.IconField:
+      return (<FunctionField {...rest} render={record => record[rest.source] ? React.createElement(icons[record[rest.source]], {key: rest.key}) : ''} />);
     case EField.NumberField:
       const ColoredNumberField = withRangeStyles(field.rangeStyles)(NumberField);
       return (<ColoredNumberField {...rest}/>); // See this for options: https://marmelab.com/react-admin/Fields.html#numberfield

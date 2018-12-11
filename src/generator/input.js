@@ -2,6 +2,7 @@ import React from 'react';
 
 import { EInput } from '../meta/consts';
 import generateField from './field';
+import IconSelect from '../component/icon-select';
 import {
   ArrayInput,
   AutocompleteInput,
@@ -43,6 +44,8 @@ function generateInput(input) {
       return (<DateInput {...params}/>);
     case EInput.AutocompleteInput:
       return (<AutocompleteInput {...params}/>);
+    case EInput.IconInput:
+      return (<IconSelect {...params}/>);
     case EInput.ImageInput:
       return (<LongTextInput {...params}/>);
     case EInput.ReferenceInput:

@@ -8,6 +8,7 @@ export const EField = {
   BooleanField: "BooleanField",
   DateField: "DateField",
   NumberField: "NumberField",
+  IconField: "IconField",
   SelectField: "SelectField",
   FunctionField: "FunctionField",
   UrlField: "UrlField",
@@ -26,6 +27,7 @@ export const EInput = {
   DateInput: "DateInput",
   AutocompleteInput: "AutocompleteInput",
   ImageInput: "ImageInput",
+  IconInput: "IconInput",
   ReferenceInput: "ReferenceInput",
   ArrayInput: "ArrayInput",
   ReferenceMany: "ReferenceMany"
@@ -50,6 +52,7 @@ export const EType = {
   select: { field: EField.TextField, input: EInput.SelectInput, filter: EInput.SelectInput },
   enum: { field: EField.SelectField, input: EInput.SelectInput, filter: EInput.SelectInput },
   image: { field: EField.ImageField, input: EInput.ImageInput, filter: null },
+  icon: { field: EField.IconField, input: EInput.IconInput, filter: EInput.IconInput },
   reference: { field: EField.ReferenceField, input: EInput.ReferenceInput, filter: EInput.TextInput },
   list: { field: EField.ArrayField, input: EInput.ArrayInput, filter: null },
   referencemany: { field: EField.ReferenceMany, input: EInput.ReferenceMany, filter: null },

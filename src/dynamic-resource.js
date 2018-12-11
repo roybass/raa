@@ -228,10 +228,12 @@ class DynamicResources {
     if (!obj) {
       return;
     }
-    if (typeof obj !== 'object' || Array.isArray(obj)) {
+    if (typeof obj !== 'object') {
       return;
     }
-    obj.key = this.key++;
+    if (!Array.isArray(obj)) {
+      obj.key = this.key++;
+    }
     const keys = Object.keys(obj);
     for (let key of keys) {
       this.assignKeys(obj[key]);
