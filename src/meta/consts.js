@@ -14,6 +14,7 @@ export const EField = {
   UrlField: "UrlField",
   ImageField: "ImageField",
   ArrayField: "ArrayField",
+  ActionField: "ActionField",
   ReferenceMany: "ReferenceMany"
 };
 
@@ -30,6 +31,7 @@ export const EInput = {
   IconInput: "IconInput",
   ReferenceInput: "ReferenceInput",
   ArrayInput: "ArrayInput",
+  ActionField: "ActionField",
   ReferenceMany: "ReferenceMany"
 };
 
@@ -56,5 +58,6 @@ export const EType = {
   reference: { field: EField.ReferenceField, input: EInput.ReferenceInput, filter: EInput.TextInput },
   list: { field: EField.ArrayField, input: EInput.ArrayInput, filter: null },
   referencemany: { field: EField.ReferenceMany, input: EInput.ReferenceMany, filter: null },
+  action: { field: EField.ActionField, input: EInput.ActionField, filter: null },
   function: { field: EField.FunctionField, input: EInput.TextInput, filter: EInput.TextInput }
 };

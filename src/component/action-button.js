@@ -28,10 +28,6 @@ class ActionButton extends Component {
     }
   };
 
-  handleClick = () => {
-    this.setState({ showDialog: true });
-  };
-
   handleCloseClick = () => {
     this.setState({ showDialog: false });
   };
@@ -48,7 +44,8 @@ class ActionButton extends Component {
     const { showNotification } = this.props;
     const { endpoint } = this.props.action;
     if (endpoint) {
-      endpointRunner.run(endpoint, { ids: this.props.ids })
+      const ids = this.props.ids || [this.props.record.id];
+      endpointRunner.run(endpoint, { ids })
         .then((response) => {
           response.text().then(text => {
             showNotification(response.status + ' ' + response.statusText + ' - ' + text);
@@ -66,7 +63,8 @@ class ActionButton extends Component {
     fetchStart();
 
     if (action.endpoint) {
-      endpointRunner.run(action.endpoint, { ids: this.props.ids, body: JSON.stringify(values) })
+      const ids = this.props.ids || [this.props.record.id];
+      endpointRunner.run(action.endpoint, { ids, body: JSON.stringify(values) })
         .then((response) => {
           response.text().then(text => {
             showNotification(response.status + ' ' + response.statusText + ' - ' + text);

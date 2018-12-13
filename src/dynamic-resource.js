@@ -132,6 +132,7 @@ function convertToInputs(fieldDataArr, entityName, visibility) {
     return [];
   }
   return fieldDataArr
+    .filter(item => EType[item.type.toLowerCase()].input !== null)
     .filter(item => visibility === EVisibility.edit || !item.readOnly)
     .filter(item => !item.visibility || item.visibility.indexOf(visibility) !== -1)
     .map(i => convertToInput(i, entityName));
@@ -215,6 +216,12 @@ class DynamicResources {
           entity.actions = [];
         }
         entity.actions.push(action);
+        entity.fields.forEach(field => {
+          if (field.type === "action" && field.action === action.id) {
+            field.action = action;
+            field.visibility = field.visibility || ['list'];
+          }
+        })
       })
     }
     const resources = model.data.map(entityToModel);

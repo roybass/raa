@@ -3,6 +3,8 @@ import React from 'react';
 import generateIcon from './icon';
 import withRangeStyles from './rangestyles';
 import optionRenderer from '../component/option-renderer';
+import ActionButton from '../component/action-button';
+
 import {
   ArrayField,
   BooleanField,
@@ -88,6 +90,9 @@ function generateField(field, context) {
           </SingleFieldList>
         </ReferenceManyField>
       );
+    case EField.ActionField:
+      return (<ActionButton {...rest}/>);
+
     default:
       throw new Error("Unknown field type " + field.type);
   }

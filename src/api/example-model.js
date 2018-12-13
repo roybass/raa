@@ -4,6 +4,7 @@ const DyplomaModel = {
   },
   actions: [
     {
+      id: "restart",
       title: "Restart",
       resource: 'service',
       icon: "BatteryCharging80",
@@ -104,6 +105,11 @@ const DyplomaModel = {
           name: "creationTimestamp",
           type: "Date",
           readOnly: true
+        },
+        {
+          name: "restart",
+          type: "action",
+          action: "restart"
         },
         {
           tab: "Advanced",

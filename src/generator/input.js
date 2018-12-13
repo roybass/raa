@@ -4,6 +4,8 @@ import { EInput } from '../meta/consts';
 import generateField from './field';
 import IconSelect from '../component/icon-select';
 import optionRenderer from '../component/option-renderer';
+import ActionButton from '../component/action-button';
+
 import {
   ArrayInput,
   AutocompleteInput,
@@ -64,6 +66,8 @@ function generateInput(input) {
       );
     case EInput.ReferenceMany:
       return generateField(input);
+    case EInput.ActionField:
+      return (<ActionButton {...params}/>);
     default:
       throw new Error("Unknown input type " + input.type);
   }
