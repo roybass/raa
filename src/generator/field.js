@@ -1,8 +1,8 @@
 import { EField } from '../meta/consts';
 import React from 'react';
-import * as icons from '@material-ui/icons';
+import generateIcon from './icon';
 import withRangeStyles from './rangestyles';
-
+import optionRenderer from '../component/option-renderer';
 import {
   ArrayField,
   BooleanField,
@@ -16,8 +16,8 @@ import {
   NumberField,
   ReferenceField,
   ReferenceManyField,
-  SelectField,
   ShowButton,
+  SelectField,
   SingleFieldList,
   TextField,
   UrlField
@@ -54,13 +54,13 @@ function generateField(field, context) {
     case EField.ImageField:
       return (<ImageField {...field}/>);
     case EField.IconField:
-      return (<FunctionField {...rest} render={record => record[rest.source] ? React.createElement(icons[record[rest.source]], {key: rest.key}) : ''} />);
+      return (<FunctionField {...rest} render={record => generateIcon(record[rest.source], { key: rest.key })}/>);
     case EField.NumberField:
       const ColoredNumberField = withRangeStyles(field.rangeStyles)(NumberField);
       return (<ColoredNumberField {...rest}/>); // See this for options: https://marmelab.com/react-admin/Fields.html#numberfield
     case EField.SelectField:
       const ColoredSelectField = withRangeStyles(field.rangeStyles)(SelectField);
-      return (<ColoredSelectField {...rest}/>);
+      return (<ColoredSelectField optionText={optionRenderer} translateChoice={false} {...rest}/>);
     case EField.UrlField:
       const StyledUrlField = withRangeStyles(field.rangeStyles)(UrlField);
       return (<StyledUrlField {...field}/>);

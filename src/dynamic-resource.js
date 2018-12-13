@@ -10,7 +10,7 @@ function capitalize(str) {
 
 function convertChoices(choices) {
   return choices.map(choice => {
-    if (choice.hasOwnProperty('id') && choice.hasOwnProperty('name')) {
+    if (choice.hasOwnProperty('id')) {
       return choice;
     }
     return { id: choice, name: choice };
@@ -65,7 +65,6 @@ function entityToModel(entity) {
 
   if (operations.has('edit')) {
     convertedFields = convertedFields.concat([{ type: EField.EditButton }]);
-    console.log(entity.resourceName + " is editable");
   }
 
   return {

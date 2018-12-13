@@ -307,6 +307,16 @@ const BandsModel = {
           type: "icon"
         },
         {
+          name: "Level",
+          type: "enum",
+          choices: [
+            {id: 1, name: "Level 1", icon: "LooksOne"},
+            {id: 2, name: "Level 2", icon: "LooksTwo"},
+            {id: 3, icon: "Looks3"}
+
+          ]
+        },
+        {
           name: "active",
           type: "Boolean",
           defaultValue: true

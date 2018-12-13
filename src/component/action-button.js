@@ -4,7 +4,7 @@ import { isSubmitting, submit } from 'redux-form';
 import { Button, fetchEnd, fetchStart, showNotification, SimpleForm } from 'react-admin';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import IconCancel from '@material-ui/icons/Cancel';
-import * as icons from '@material-ui/icons';
+import generateIcon from '../generator/icon';
 import endpointRunner from '../api/endpoint-runner';
 import generateInput from '../generator/input';
 import mustache from 'mustache';
@@ -93,7 +93,7 @@ class ActionButton extends Component {
       <Fragment>
 
         <Button label={action.title} onClick={this.handleClick}>
-          {React.createElement(icons[action.icon])}
+          {generateIcon(action.icon)}
         </Button>
 
         <Dialog
@@ -118,7 +118,7 @@ class ActionButton extends Component {
           </DialogContent>
           <DialogActions>
             <Button label="Confirm" onClick={this.handleSaveClick}>
-              {React.createElement(icons[action.icon])}
+              {generateIcon(action.icon)}
             </Button>
             <Button label="ra.action.cancel" onClick={this.handleCloseClick}>
               <IconCancel />

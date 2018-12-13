@@ -44,7 +44,6 @@ class ModelProvider {
 
   getQueryVariable(paramName) {
     const query = window.location.search.substring(1);
-    console.log("query = ", query);
     const vars = query.split('&');
     for (let param of vars) {
       const pair = param.split('=');

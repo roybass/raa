@@ -3,6 +3,7 @@ import React from 'react';
 import { EInput } from '../meta/consts';
 import generateField from './field';
 import IconSelect from '../component/icon-select';
+import optionRenderer from '../component/option-renderer';
 import {
   ArrayInput,
   AutocompleteInput,
@@ -39,7 +40,7 @@ function generateInput(input) {
     case EInput.LongTextInput:
       return (<LongTextInput {...params}/>);
     case EInput.SelectInput:
-      return (<SelectInput {...params}/>);
+      return (<SelectInput {...params} optionText={optionRenderer} translateChoice={false}/>);
     case EInput.DateInput:
       return (<DateInput {...params}/>);
     case EInput.AutocompleteInput:
