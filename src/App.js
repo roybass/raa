@@ -15,7 +15,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.hide = window.raHide || false;
-    this.userLocalDB = window.localStorage.getItem("raa.useLocalDb") || false;
+    this.userLocalDB = window.useLocalDB || (window.localStorage.getItem("raa.useLocalDb") === 'true') || false;
     this.dataprovider = this.userLocalDB ? localdataprovider : entitydataprovider;
     this.title = window.raTitle || 'React Admin Admin';
     this.theme = window.raTheme ? createMuiTheme(window.raTheme) : undefined;

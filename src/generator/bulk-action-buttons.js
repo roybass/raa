@@ -13,14 +13,14 @@ class BulkActionButtons extends Component {
           ids: this.props.selectedIds,
           key: "_action_" + actionDef.title
         }))}
-        <BulkDeleteButton {...this.props} />
+        {this.props.readOnly ? <span/> : <BulkDeleteButton {...this.props} />}
       </Fragment>
     );
   }
 }
 
 function generateBulkActionButtons(listDef) {
-  return React.createElement(BulkActionButtons, { actions: listDef.actions });
+  return React.createElement(BulkActionButtons, { actions: listDef.actions , readOnly: listDef.readOnly});
 }
 
 export default generateBulkActionButtons;

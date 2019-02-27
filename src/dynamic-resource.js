@@ -45,6 +45,7 @@ function entityToModel(entity) {
       name: entity.resourceName,
       icon: entity.icon,
       list: !operations.has('list') ? null : {
+        readOnly: true,
         title: entity.title,
         actions: entity.actions || [],
         fields: convertToFields(fields, entity.resourceName, EVisibility.list)
@@ -71,6 +72,7 @@ function entityToModel(entity) {
     name: entity.resourceName,
     icon: entity.icon,
     list: !operations.has('list') ? null : {
+      readOnly: false,
       title: entity.title,
       fields: convertedFields,
       actions: entity.actions || []

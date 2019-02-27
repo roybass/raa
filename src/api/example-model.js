@@ -316,9 +316,9 @@ const BandsModel = {
           name: "Level",
           type: "enum",
           choices: [
-            {id: 1, name: "Level 1", icon: "LooksOne"},
-            {id: 2, name: "Level 2", icon: "LooksTwo"},
-            {id: 3, icon: "Looks3"}
+            { id: 1, name: "Level 1", icon: "LooksOne" },
+            { id: 2, name: "Level 2", icon: "LooksTwo" },
+            { id: 3, icon: "Looks3" }
 
           ]
         },
@@ -392,196 +392,337 @@ const BandsModel = {
 };
 
 const BumperModel = {
-  "total": 3,
-  "data": [
-    {
-      "id": 0,
-      "resourceName": "project",
-      "title": "Project",
-      "endpoint": "../projects",
-      "fields": [
-        {
-          "name": "id",
-          "label": "Id",
-          "type": "STRING",
-          "required": true,
-          "readOnly": true,
-          "hidden": false
-        },
-        {
-          "name": "modules",
-          "label": "Modules",
-          "type": "NUMBER",
-          "required": false,
-          "readOnly": false,
-          "hidden": false
-        },
-        {
-          "name": "owner",
-          "label": "Owner",
-          "type": "STRING",
-          "required": false,
-          "readOnly": false,
-          "hidden": false
-        },
-        {
-          "name": "path",
-          "label": "Path",
-          "type": "URL",
-          "required": false,
-          "readOnly": false,
-          "hidden": false
-        },
-        {
-          "name": "production",
-          "label": "Production",
-          "type": "NUMBER",
-          "required": false,
-          "readOnly": false,
-          "hidden": false,
-          "options": {
-            "style": "percent"
-          }
-        },
-        {
-          "name": "dependencys",
-          "label": "Dependencies",
-          "type": "REFERENCEMANY",
-          "required": false,
-          "readOnly": false,
-          "reference": "dependency",
-          "target": "project",
-          "display": {
-            "name": "idproject",
-            "type": "Chip",
-            "optionText": "id"
-          },
-          "hidden": false
-        }
-      ],
-      "editable": false,
-      "icon": "Explore"
-    },
-    {
-      "id": 1,
-      "resourceName": "artifact",
-      "title": "Artifact",
-      "endpoint": "../artifacts",
-      "fields": [
-        {
-          "name": "id",
-          "label": "Id",
-          "type": "STRING",
-          "required": true,
-          "readOnly": true,
-          "hidden": false
-        },
-        {
-          "name": "groupId",
-          "label": "GroupId",
-          "type": "STRING",
-          "required": false,
-          "readOnly": false,
-          "hidden": false
-        },
-        {
-          "name": "owner",
-          "label": "Owner",
-          "type": "STRING",
-          "required": false,
-          "readOnly": false,
-          "hidden": false
-        },
-        {
-          "name": "dependencys",
-          "label": "Usages",
-          "type": "REFERENCEMANY",
-          "required": false,
-          "readOnly": false,
-          "reference": "dependency",
-          "target": "artifact",
-          "display": {
-            "name": "idartifact",
-            "type": "Chip",
-            "optionText": "id"
-          },
-          "hidden": false
-        }
-      ],
-      "editable": false,
-      "icon": "Stars"
-    },
-    {
-      "id": 2,
-      "resourceName": "dependency",
-      "title": "Dependency",
-      "endpoint": "../dependencys",
-      "fields": [
-        {
-          "name": "id",
-          "label": "Id",
-          "type": "STRING",
-          "required": true,
-          "readOnly": true,
-          "hidden": false
-        },
-        {
-          "name": "artifact",
-          "label": "Artifact",
-          "type": "REFERENCE",
-          "required": true,
-          "readOnly": false,
-          "reference": "artifact",
-          "display": {
-            "name": "id",
-            "type": "Select",
-            "optionText": "id"
-          },
-          "hidden": false
-        },
-        {
-          "name": "idartifact",
-          "label": "Idartifact",
-          "type": "STRING",
-          "required": false,
-          "readOnly": false,
-          "hidden": true
-        },
-        {
-          "name": "idproject",
-          "label": "Idproject",
-          "type": "STRING",
-          "required": false,
-          "readOnly": false,
-          "hidden": true
-        },
-        {
-          "name": "project",
-          "label": "Project",
-          "type": "REFERENCE",
-          "required": true,
-          "readOnly": false,
-          "reference": "project",
-          "display": {
-            "name": "id",
-            "type": "Select",
-            "optionText": "id"
-          },
-          "hidden": false
-        },
-        {
-          "name": "version",
-          "label": "Version",
-          "type": "STRING",
-          "required": false,
-          "readOnly": false,
-          "hidden": false
-        }
-      ],
-      "editable": false,
-      "icon": "SwapCalls"
-    }
-  ]
+  "total": 4,
+  "data": [{
+    "id": 0,
+    "resourceName": "pom",
+    "title": "Pom",
+    "endpoint": "http://dev.bumper.service.nydc1.consul:8080/Bumper/crud",
+    "fields": [{
+      "name": "id",
+      "label": "Id",
+      "type": "NUMBER",
+      "required": true,
+      "readOnly": true,
+      "hidden": false,
+      "options": { "useGrouping": false }
+    }, {
+      "name": "name",
+      "label": "Name",
+      "type": "STRING",
+      "required": false,
+      "readOnly": false,
+      "hidden": false
+    }, {
+      "name": "type",
+      "label": "Type",
+      "type": "STRING",
+      "required": false,
+      "readOnly": false,
+      "hidden": false
+    }, {
+      "name": "path",
+      "label": "Path",
+      "type": "URL",
+      "required": false,
+      "readOnly": false,
+      "hidden": false,
+      "className": "projectPath"
+    }, {
+      "name": "owner",
+      "label": "Owner",
+      "type": "STRING",
+      "required": false,
+      "readOnly": false,
+      "hidden": false
+    }, {
+      "name": "slug_key",
+      "label": "Slug_key",
+      "type": "STRING",
+      "required": false,
+      "readOnly": false,
+      "hidden": true
+    }, {
+      "name": "project_key",
+      "label": "Project_key",
+      "type": "STRING",
+      "required": false,
+      "readOnly": false,
+      "hidden": true
+    }, {
+      "name": "timestamp",
+      "label": "Timestamp",
+      "type": "DATE",
+      "required": true,
+      "readOnly": false,
+      "hidden": true
+    }, {
+      "name": "dependencys",
+      "label": "Dependencies",
+      "type": "REFERENCEMANY",
+      "required": false,
+      "readOnly": false,
+      "reference": "dependency",
+      "target": "pom",
+      "display": { "name": "name", "type": "Chip", "optionText": "name" },
+      "hidden": false
+    }],
+    "editable": false
+  }, {
+    "id": 1,
+    "resourceName": "property",
+    "title": "Property",
+    "endpoint": "http://dev.bumper.service.nydc1.consul:8080/Bumper/crud",
+    "fields": [{
+      "name": "id",
+      "label": "Id",
+      "type": "NUMBER",
+      "required": true,
+      "readOnly": true,
+      "hidden": false,
+      "options": { "useGrouping": false }
+    }, {
+      "name": "name",
+      "label": "Name",
+      "type": "STRING",
+      "required": false,
+      "readOnly": false,
+      "hidden": false
+    }, {
+      "name": "groupId",
+      "label": "GroupId",
+      "type": "STRING",
+      "required": false,
+      "readOnly": false,
+      "hidden": false
+    }, {
+      "name": "owner",
+      "label": "Owner",
+      "type": "STRING",
+      "required": false,
+      "readOnly": false,
+      "hidden": true
+    }, {
+      "name": "timestamp",
+      "label": "Timestamp",
+      "type": "DATE",
+      "required": true,
+      "readOnly": false,
+      "hidden": true
+    }, {
+      "name": "dependencys",
+      "label": "Dependencies",
+      "type": "REFERENCEMANY",
+      "required": false,
+      "readOnly": false,
+      "reference": "dependency",
+      "target": "property",
+      "display": { "name": "name", "type": "Chip", "optionText": "name" },
+      "hidden": false
+    }],
+    "editable": false
+  }, {
+    "id": 2,
+    "resourceName": "dependency",
+    "title": "Dependency",
+    "endpoint": "http://dev.bumper.service.nydc1.consul:8080/Bumper/crud",
+    "fields": [{
+      "name": "id",
+      "label": "Id",
+      "type": "NUMBER",
+      "required": true,
+      "readOnly": true,
+      "hidden": false,
+      "options": { "useGrouping": false }
+    }, {
+      "name": "name",
+      "label": "Name",
+      "type": "STRING",
+      "required": false,
+      "readOnly": false,
+      "hidden": false
+    }, {
+      "name": "version",
+      "label": "Version",
+      "type": "STRING",
+      "required": false,
+      "readOnly": false,
+      "hidden": false
+    }, {
+      "name": "property",
+      "label": "Property",
+      "type": "REFERENCE",
+      "required": true,
+      "readOnly": false,
+      "reference": "property",
+      "display": { "name": "name", "type": "Select", "optionText": "name" },
+      "hidden": false
+    }, {
+      "name": "pom",
+      "label": "Pom",
+      "type": "REFERENCE",
+      "required": true,
+      "readOnly": false,
+      "reference": "pom",
+      "display": { "name": "name", "type": "Select", "optionText": "name" },
+      "hidden": false
+    }, {
+      "name": "timestamp",
+      "label": "Timestamp",
+      "type": "DATE",
+      "required": true,
+      "readOnly": false,
+      "hidden": false
+    }, {
+      "name": "bumps",
+      "label": "Bumps",
+      "type": "REFERENCEMANY",
+      "required": false,
+      "readOnly": false,
+      "reference": "bump",
+      "target": "dependency",
+      "display": { "name": "id", "type": "Chip", "optionText": "id" },
+      "hidden": false
+    }, {
+      "name": "requests",
+      "label": "Requests",
+      "type": "REFERENCEMANY",
+      "required": false,
+      "readOnly": false,
+      "reference": "request",
+      "target": "dependency",
+      "display": { "name": "name", "type": "Chip", "optionText": "name" },
+      "hidden": true
+    }],
+    "editable": false
+  }, {
+    "id": 3,
+    "resourceName": "bump",
+    "title": "Bump",
+    "endpoint": "http://dev.bumper.service.nydc1.consul:8080/Bumper/crud",
+    "fields": [{
+      "name": "id",
+      "label": "Id",
+      "type": "NUMBER",
+      "required": true,
+      "readOnly": true,
+      "hidden": false,
+      "options": { "useGrouping": false }
+    }, {
+      "name": "property_name",
+      "label": "Property Name",
+      "type": "STRING",
+      "required": false,
+      "readOnly": false,
+      "hidden": false
+    }, {
+      "name": "version",
+      "label": "Version",
+      "type": "STRING",
+      "required": false,
+      "readOnly": false,
+      "hidden": false
+    }, {
+      "name": "dependency",
+      "label": "Dependency",
+      "type": "REFERENCE",
+      "required": true,
+      "readOnly": false,
+      "reference": "dependency",
+      "display": { "name": "name", "type": "Select", "optionText": "name" },
+      "hidden": false
+    }, {
+      "name": "timestamp",
+      "label": "Timestamp",
+      "type": "DATE",
+      "required": true,
+      "readOnly": false,
+      "hidden": false
+    }, {
+      "name": "requests",
+      "label": "Pull Requests",
+      "type": "LIST",
+      "required": false,
+      "readOnly": false,
+      "reference": "request",
+      "target": "bump",
+      "display": { "name": "name", "type": "Chip", "optionText": "name" },
+      "hidden": false,
+      "fields": [{
+        "name": "id",
+        "label": "Id",
+        "type": "NUMBER",
+        "required": true,
+        "readOnly": true,
+        "hidden": false,
+        "options": { "useGrouping": false }
+      }, {
+        "name": "name",
+        "label": "Name",
+        "type": "STRING",
+        "required": false,
+        "readOnly": false,
+        "hidden": false
+      }, {
+        "name": "status",
+        "label": "Status",
+        "type": "STRING",
+        "required": false,
+        "readOnly": false,
+        "hidden": false
+      }, {
+        "name": "pull_request_url",
+        "label": "Pull Request Url",
+        "type": "URL",
+        "required": false,
+        "readOnly": false,
+        "hidden": false,
+        "className": "projectPath"
+      }, {
+        "name": "dependency",
+        "label": "Dependency",
+        "type": "REFERENCE",
+        "required": true,
+        "readOnly": false,
+        "reference": "dependency",
+        "display": { "name": "name", "type": "Select", "optionText": "name" },
+        "hidden": false
+      }, {
+        "name": "timestamp",
+        "label": "Timestamp",
+        "type": "DATE",
+        "required": true,
+        "readOnly": false,
+        "hidden": false
+      }, {
+        "name": "pull_request_id",
+        "label": "Pull_request_id",
+        "type": "NUMBER",
+        "required": false,
+        "readOnly": false,
+        "hidden": true
+      }]
+    }],
+    "editable": false
+  }],
+  "actions": [{
+    "resource": "dependency",
+    "actionName": "Bump",
+    "title": "Bump",
+    "icon": "BatteryCharging80",
+    "endpoint": { "url": "http://dev.bumper.service.nydc1.consul:8080/Bumper/crud/dependency/action/Bump?ids={{ids}}", "method": "Post" },
+    "inputs": [{ "name": "versionToApprove", "label": "VersionToApprove", "type": "TEXT", "required": true }],
+    "editable": true
+  }, {
+    "resource": "property",
+    "actionName": "Bump",
+    "title": "Bump",
+    "icon": "BatteryCharging80",
+    "endpoint": { "url": "http://dev.bumper.service.nydc1.consul:8080/Bumper/crud/property/action/Bump?ids={{ids}}", "method": "Post" },
+    "inputs": [{ "name": "versionToApprove", "label": "VersionToApprove", "type": "TEXT", "required": true }],
+    "editable": true
+  }],
+  "authentication": { "url": "http://dev.bumper.service.nydc1.consul:8080/Bumper/auth" }
 };
 
 const TODOs = {
@@ -614,5 +755,235 @@ const TODOs = {
     }
   ]
 };
-export { BandsModel, DyplomaModel, BumperModel, TODOs }
+
+const lowercaseWithNoSpace = () =>
+  (value) => {
+    const onlyLetters = /^[a-z]+$/.test(value);
+    return onlyLetters ? undefined : 'Lowercase letters only';
+  };
+
+
+const MetaModel = {
+  data: [
+    {
+      title: "Models",
+      resourceName: "model",
+      endpoint: "localstorage",
+      fields: [
+        {
+          name: "Entities",
+          type: "list",
+          validate: [lowercaseWithNoSpace()],
+          fields: [
+            {
+              name: "title",
+              type: "string",
+              placeholder: "Display name of the entity",
+              required: true
+            },
+            {
+              name: "resourceName",
+              type: "string",
+              placeholder: "Entity name (used to refer to this entity)",
+              validate: [lowercaseWithNoSpace()],
+              required: true
+            },
+            {
+              name: "fields",
+              type: "list",
+              fields: [
+                {
+                  name: "name",
+                  type: "string"
+                },
+                {
+                  name: "type",
+                  type: "select",
+                  choices: ["string", "number", "boolean", "text", "date", "select"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+const RulesModel = {
+  actions: [
+    {
+      id: "checkRule",
+      title: "Check now",
+      resource: 'rule',
+      icon: "BatteryCharging80",
+      confirm: "Select source and widget for checking {{ids.length}} rule(s)",
+      endpoint: {
+        url: "http://localhost:3000/check/rules/ids={{ids}}",
+        method: 'POST'
+      },
+      inputs: [
+        {
+          name: "sourceId",
+          label: "Source Id",
+          required: true,
+          type: "number"
+        },
+        {
+          name: "widgetId",
+          label: "Widget Id",
+          required: true,
+          type: "number"
+        }
+      ]
+    },
+    {
+      id: "checkGroup",
+      title: "Check now",
+      resource: 'group',
+      icon: "BatteryCharging80",
+      confirm: "Select source and widget for checking {{ids.length}} rule(s)",
+      endpoint: {
+        url: "http://localhost:3000/check/group/ids={{ids}}",
+        method: 'POST'
+      },
+      inputs: [
+        {
+          name: "sourceId",
+          label: "Source Id",
+          required: true,
+          type: "number"
+        },
+        {
+          name: "widgetId",
+          label: "Widget Id",
+          required: true,
+          type: "number"
+        }
+      ]
+    }
+
+  ],
+  data: [
+    {
+      title: "Rules Group",
+      resourceName: "group",
+      endpoint: "localstorage",
+      fields: [
+        {
+          name: "id",
+          type: "number",
+          readOnly: true
+        },
+        {
+          name: "name",
+          type: "string",
+          required: true,
+        },
+        {
+          name: "rules",
+          label: "Rules",
+          type: "ReferenceMany",
+          reference: "rule",
+          target: "list",
+          display: {
+            name: "name",
+            type: "Chip"
+          }
+        },
+        {
+          name: "check",
+          label: "check now",
+          type: "action",
+          action: "checkGroup"
+        }
+      ]
+    },
+    {
+      title: "Rule",
+      resourceName: "rule",
+      endpoint: "localstorage",
+      fields: [
+        {
+          name: "id",
+          type: "number",
+          readOnly: true
+        },
+        {
+          name: "parentId",
+          type: "number"
+        },
+        {
+          name: "name",
+          type: "string",
+          required: true,
+        },
+        {
+          name: "list",
+          type: "Reference",
+          reference: "group",
+          display: {
+            name: "name",
+            type: "Select",
+            optionText: "name"
+          }
+        },
+        {
+          tab: "Validations",
+          label: "Combine Operator",
+          name: "combine",
+          type: "select",
+          choices: ["And", "Or"],
+          defaultValue: "And"
+        },
+        {
+          tab: "Validations",
+          name: "validations",
+          type: "List",
+          fields: [
+            {
+              name: "settingId",
+              title: "Setting Id",
+              type: "number",
+              required: true
+            },
+            {
+              name: "operator",
+              type: "select",
+              choices: ["=", ">=", "<=", ">", "<", "is null", "contains", "starts with", "ends with"],
+              required: true
+            },
+            {
+              name: "value",
+              type: "string"
+            }
+          ]
+        },
+        {
+          tab: "Actions",
+          label: "Action if true",
+          name: "trueAction",
+          type: "select",
+          choices: ["Alert", "Stop", "Run next rule"]
+        },
+        {
+          tab: "Actions",
+          label: "Action If false",
+          name: "falseAction",
+          type: "select",
+          choices: ["Alert", "Stop", "Move to next rule"]
+        },
+        {
+          label: "Check Now",
+          name: "check",
+          type: "action",
+          action: "checkRule"
+        },
+
+      ]
+    },
+  ]
+};
+
+export { BandsModel, DyplomaModel, BumperModel, TODOs, MetaModel, RulesModel }
 
