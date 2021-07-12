@@ -1,5 +1,5 @@
 import localDB from './localdb';
-import { BumperModel as ExampleModel } from './example-model';
+import { BandsModel as ExampleModel } from './example-model';
 
 
 class ModelProvider {

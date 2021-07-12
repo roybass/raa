@@ -313,6 +313,10 @@ const BandsModel = {
           type: "icon"
         },
         {
+          name: "comData",
+          type: "json"
+        },
+        {
           name: "Level",
           type: "enum",
           choices: [

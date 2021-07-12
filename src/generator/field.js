@@ -4,6 +4,7 @@ import generateIcon from './icon';
 import withRangeStyles from './rangestyles';
 import optionRenderer from '../component/option-renderer';
 import ActionButton from '../component/action-button';
+import {JsonView} from "../component/jsonView";
 
 import {
   ArrayField,
@@ -36,6 +37,8 @@ function generateField(field, context) {
       return (<ColoredTextField {...rest}/>);
     case EField.ChipField:
       return (<ChipField {...field}/>);
+    case EField.JsonField:
+      return (<JsonView {...field}/>);
     case EField.EmailField:
       return (<EmailField {...field}/>);
     case EField.ReferenceField:

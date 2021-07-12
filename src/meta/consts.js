@@ -1,6 +1,7 @@
 export const EField = {
   TextField: "TextField",
   ChipField: "ChipField",
+  JsonField: "JsonField",
   EmailField: "EmailField",
   ReferenceField: "ReferenceField",
   EditButton: "EditButton",
@@ -32,7 +33,8 @@ export const EInput = {
   ReferenceInput: "ReferenceInput",
   ArrayInput: "ArrayInput",
   ActionField: "ActionField",
-  ReferenceMany: "ReferenceMany"
+  ReferenceMany: "ReferenceMany",
+  JsonInput: "JsonInput"
 };
 
 export const EVisibility = {
@@ -59,5 +61,6 @@ export const EType = {
   list: { field: EField.ArrayField, input: EInput.ArrayInput, filter: null },
   referencemany: { field: EField.ReferenceMany, input: EInput.ReferenceMany, filter: null },
   action: { field: EField.ActionField, input: EInput.ActionField, filter: null },
-  function: { field: EField.FunctionField, input: EInput.TextInput, filter: EInput.TextInput }
+  function: { field: EField.FunctionField, input: EInput.TextInput, filter: EInput.TextInput },
+  json: { field: EField.JsonField, input: EInput.JsonInput, filter: EInput.TextInput }
 };

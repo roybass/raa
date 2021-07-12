@@ -5,6 +5,8 @@ import generateField from './field';
 import IconSelect from '../component/icon-select';
 import optionRenderer from '../component/option-renderer';
 import ActionButton from '../component/action-button';
+import { JsonInput } from '../component/jsonView'
+
 
 import {
   ArrayInput,
@@ -29,7 +31,6 @@ function generateInput(input) {
   if (input.readOnly && input.type !== EInput.ReferenceMany) {
     return (<DisabledInput {...params}/>);
   }
-
   switch (input.type) {
     case EInput.DisabledInput:
       return (<DisabledInput {...params}/>);
@@ -39,6 +40,8 @@ function generateInput(input) {
       return (<TextInput {...params}/>);
     case EInput.NumberInput:
       return (<NumberInput {...params}/>);
+    case EInput.JsonInput:
+      return (<JsonInput {...params}/>);
     case EInput.LongTextInput:
       return (<LongTextInput {...params}/>);
     case EInput.SelectInput:

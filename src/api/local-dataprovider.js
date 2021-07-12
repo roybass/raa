@@ -41,7 +41,7 @@ class LocalDataProvider {
   }
 
   processRequest(type, resource, params) {
-    // console.log(type, ' ', resource, ' ', params);
+    console.log(type, ' ', resource, ' ', params);
     switch (type) {
       case GET_LIST:
         return localDB.getList(resource);
