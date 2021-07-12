@@ -1,4 +1,4 @@
-import JSONInput from "react-json-editor-ajrm";
+import JSONInput from "react-json-editor-ajrm/index";
 import {addField} from "react-admin";
 import get from 'lodash/get';
 import React from "react";
