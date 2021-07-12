@@ -317,6 +317,11 @@ const BandsModel = {
           type: "json"
         },
         {
+          name: "Avatar",
+          type: "avatar",
+          label: "Avatar"
+        },
+        {
           name: "Level",
           type: "enum",
           choices: [

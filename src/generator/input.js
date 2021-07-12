@@ -6,6 +6,7 @@ import IconSelect from '../component/icon-select';
 import optionRenderer from '../component/option-renderer';
 import ActionButton from '../component/action-button';
 import { JsonInput } from '../component/jsonView'
+import { AvatarInput } from '../component/avatar'
 
 
 import {
@@ -71,6 +72,8 @@ function generateInput(input) {
       return generateField(input);
     case EInput.ActionField:
       return (<ActionButton {...params}/>);
+    case EInput.AvatarInput:
+      return (<AvatarInput {...params}/>);
     default:
       throw new Error("Unknown input type " + input.type);
   }

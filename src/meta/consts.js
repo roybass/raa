@@ -16,7 +16,8 @@ export const EField = {
   ImageField: "ImageField",
   ArrayField: "ArrayField",
   ActionField: "ActionField",
-  ReferenceMany: "ReferenceMany"
+  ReferenceMany: "ReferenceMany",
+  AvatarField: "AvatarField"
 };
 
 export const EInput = {
@@ -34,7 +35,8 @@ export const EInput = {
   ArrayInput: "ArrayInput",
   ActionField: "ActionField",
   ReferenceMany: "ReferenceMany",
-  JsonInput: "JsonInput"
+  JsonInput: "JsonInput",
+  AvatarInput: "AvatarInput"
 };
 
 export const EVisibility = {
@@ -62,5 +64,6 @@ export const EType = {
   referencemany: { field: EField.ReferenceMany, input: EInput.ReferenceMany, filter: null },
   action: { field: EField.ActionField, input: EInput.ActionField, filter: null },
   function: { field: EField.FunctionField, input: EInput.TextInput, filter: EInput.TextInput },
-  json: { field: EField.JsonField, input: EInput.JsonInput, filter: EInput.TextInput }
+  json: { field: EField.JsonField, input: EInput.JsonInput, filter: EInput.TextInput },
+  avatar: { field: EField.AvatarField, input: EInput.AvatarInput, filter: null }
 };

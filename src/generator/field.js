@@ -5,6 +5,7 @@ import withRangeStyles from './rangestyles';
 import optionRenderer from '../component/option-renderer';
 import ActionButton from '../component/action-button';
 import {JsonView} from "../component/jsonView";
+import {AvatarField} from "../component/avatar";
 
 import {
   ArrayField,
@@ -95,6 +96,8 @@ function generateField(field, context) {
       );
     case EField.ActionField:
       return (<ActionButton {...rest}/>);
+    case EField.AvatarField:
+      return (<AvatarField {...rest}/>);
 
     default:
       throw new Error("Unknown field type " + field.type);
