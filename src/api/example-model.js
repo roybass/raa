@@ -369,11 +369,16 @@ const BandsModel = {
       title: "Album",
       resourceName: "album",
       endpoint: "/album",
+      listType: "cards",
       fields: [
         {
           name: "id",
           type: "Number",
           readOnly: true
+        },
+        {
+          name: "poster",
+          type: "image"
         },
         {
           name: "name",

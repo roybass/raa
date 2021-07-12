@@ -44,6 +44,7 @@ function entityToModel(entity) {
       readOnly: true,
       name: entity.resourceName,
       icon: entity.icon,
+      listType: entity.listType || 'list',
       list: !operations.has('list') ? null : {
         readOnly: true,
         title: entity.title,
@@ -71,6 +72,7 @@ function entityToModel(entity) {
   return {
     name: entity.resourceName,
     icon: entity.icon,
+    listType: entity.listType || 'list',
     list: !operations.has('list') ? null : {
       readOnly: false,
       title: entity.title,
