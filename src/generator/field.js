@@ -98,7 +98,8 @@ function generateField(field, context) {
       return (<ActionButton {...rest}/>);
     case EField.AvatarField:
       return (<AvatarField {...rest}/>);
-
+    case EField.BackgroundField:
+      return (<ImageField {...rest}/>);
     default:
       throw new Error("Unknown field type " + field.type);
   }
