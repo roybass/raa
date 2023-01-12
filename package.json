@@ -8,7 +8,7 @@
     "ra-data-json-server": "^2.2.0",
     "ra-data-simple-rest": "^2.2.0",
     "react": "^16.6.0",
-    "react-admin": "^2.4.0",
+    "react-admin": "^4.7.0",
     "react-dom": "^16.6.0",
     "react-file-download": "^0.3.5",
     "react-json-editor-ajrm": "^2.5.13",
